@@ -1,0 +1,3459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard – MedDoc Hub</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --accent: #f59e0b;
+            --accent-dk: #d97706;
+            --accent-lt: #fef3c7;
+            --success: #10b981;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            --purple: #8b5cf6;
+            --bg: #f8fafc;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --text-mid: #334155;
+            --text-lt: #64748b;
+            --sidebar-collapsed: 62px;
+            --sidebar-expanded: 250px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* ══ AUTH GATE ══════════════════════════════════════════════ */
+        #auth-gate {
+            display: none;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #78350f 0%, #d97706 60%, #fbbf24 100%);
+        }
+
+        .gate-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .25);
+            width: 90%;
+            max-width: 860px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @media(max-width:640px) {
+            .gate-card {
+                grid-template-columns: 1fr;
+            }
+
+            .gate-left {
+                display: none;
+            }
+        }
+
+        .gate-left {
+            background: linear-gradient(145deg, #92400e, #f59e0b);
+            color: white;
+            padding: 50px 38px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 18px;
+        }
+
+        .gate-left .g-icon {
+            font-size: 3.5rem;
+        }
+
+        .gate-left h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.7rem;
+            line-height: 1.25;
+        }
+
+        .gate-left p {
+            font-size: .93rem;
+            opacity: .88;
+            line-height: 1.7;
+        }
+
+        .badge-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, .18);
+            border: 1px solid rgba(255, 255, 255, .25);
+            border-radius: 8px;
+            padding: 9px 14px;
+            font-size: .88rem;
+            font-weight: 600;
+        }
+
+        .gate-right {
+            padding: 46px 42px;
+        }
+
+        .alert-banner {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 13px 16px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            font-size: .9rem;
+            color: #856404;
+        }
+
+        .auth-tabs {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 22px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 9px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #64748b;
+            border-radius: 6px;
+            font-size: .92rem;
+            transition: all .2s;
+            font-family: inherit;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--accent-dk);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 14px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #334155;
+            font-size: .88rem;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 10px 13px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 7px;
+            font-family: inherit;
+            font-size: .94rem;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, .12);
+        }
+
+        .pass-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .pass-row input {
+            flex: 1;
+        }
+
+        .btn-ghost {
+            background: none;
+            border: 1.5px solid #e2e8f0;
+            padding: 9px 12px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: .82rem;
+            color: #64748b;
+            font-weight: 600;
+            font-family: inherit;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            font-size: .87rem;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            color: #475569;
+        }
+
+        .btn-block {
+            width: 100%;
+            padding: 11px;
+            font-size: .97rem;
+        }
+
+        .small {
+            font-size: .82rem;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        .small a {
+            color: var(--accent-dk);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ══ BUTTONS ═════════════════════════════════════════════════ */
+        .btn {
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: .87rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all .2s;
+            font-family: inherit;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #f97316);
+            color: white;
+            box-shadow: 0 3px 10px rgba(245, 158, 11, .3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(245, 158, 11, .4);
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--text-mid);
+            border: 1.5px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg);
+        }
+
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: .8rem;
+        }
+
+        /* ══ LAYOUT ══════════════════════════════════════════════════ */
+        #dash {
+            display: none;
+            min-height: 100vh;
+        }
+
+        /* ── Sidebar ── */
+        /* ── Hover-expand sidebar ── */
+        .sidebar {
+            width: var(--sidebar-collapsed);
+            background: #0f172a;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: width .28s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .sidebar:hover {
+            width: var(--sidebar-expanded);
+        }
+
+        /* Logo area */
+        .sb-logo {
+            padding: 18px 14px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, .07);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: var(--sidebar-expanded);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sb-logo-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #fbbf24, #fb923c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .sb-logo-text {
+            overflow: hidden;
+        }
+
+        .sb-logo-text a {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fbbf24, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            white-space: nowrap;
+            display: block;
+        }
+
+        .sb-logo-text span {
+            display: block;
+            font-size: .68rem;
+            color: #475569;
+            margin-top: 2px;
+            white-space: nowrap;
+        }
+
+        /* Nav */
+        .sb-nav {
+            padding: 12px 8px;
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            min-width: var(--sidebar-expanded);
+        }
+
+        .sb-section {
+            font-size: .62rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: #334155;
+            padding: 0 10px;
+            margin: 14px 0 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity .2s .05s;
+        }
+
+        .sidebar:hover .sb-section {
+            opacity: 1;
+        }
+
+        .sb-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 11px;
+            border-radius: 8px;
+            color: #94a3b8;
+            font-size: .875rem;
+            font-weight: 500;
+            margin-bottom: 2px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: background .15s, color .15s;
+            min-width: var(--sidebar-expanded);
+        }
+
+        .sb-link:hover {
+            background: rgba(255, 255, 255, .06);
+            color: white;
+        }
+
+        .sb-link.active {
+            background: rgba(245, 158, 11, .18);
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .sb-icon {
+            width: 22px;
+            min-width: 22px;
+            text-align: center;
+            font-size: 1.05rem;
+            flex-shrink: 0;
+        }
+
+        .sb-label {
+            opacity: 0;
+            transition: opacity .18s .04s;
+            white-space: nowrap;
+        }
+
+        .sidebar:hover .sb-label {
+            opacity: 1;
+        }
+
+        /* Footer */
+        .sb-footer {
+            padding: 12px 8px;
+            border-top: 1px solid rgba(255, 255, 255, .07);
+            min-width: var(--sidebar-expanded);
+            overflow: hidden;
+        }
+
+        .sb-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sb-avatar {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: .9rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .sb-user-text {
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity .18s .04s;
+            white-space: nowrap;
+        }
+
+        .sidebar:hover .sb-user-text {
+            opacity: 1;
+        }
+
+        .sb-name {
+            font-size: .875rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .sb-role {
+            font-size: .68rem;
+            color: #64748b;
+        }
+
+        .sb-logout {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: #475569;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color .2s;
+            padding: 4px;
+            flex-shrink: 0;
+            opacity: 0;
+            transition: opacity .18s, color .2s;
+        }
+
+        .sidebar:hover .sb-logout {
+            opacity: 1;
+        }
+
+        .sb-logout:hover {
+            color: var(--danger);
+        }
+
+        /* Collapsed tooltip on icons */
+        .sb-link {
+            position: relative;
+        }
+
+        .sb-link .sb-tooltip {
+            position: absolute;
+            left: calc(var(--sidebar-collapsed) + 8px);
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1e293b;
+            color: white;
+            font-size: .78rem;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 7px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity .15s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+            z-index: 300;
+        }
+
+        .sb-link .sb-tooltip::before {
+            content: '';
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-right-color: #1e293b;
+        }
+
+        .sidebar:not(:hover) .sb-link:hover .sb-tooltip {
+            opacity: 1;
+        }
+
+        /* Main shifts by collapsed width; sidebar hover pushes nothing (overlay style) */
+        .main {
+            margin-left: var(--sidebar-collapsed);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            transition: margin-left .28s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .topbar {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 0 26px;
+            height: 62px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tb-left h1 {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .tb-left p {
+            font-size: .75rem;
+            color: var(--text-lt);
+        }
+
+        .tb-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tb-time {
+            font-size: .8rem;
+            color: var(--text-lt);
+            background: var(--bg);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        /* ── Sections ── */
+        .section {
+            display: none;
+            padding: 24px 26px;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeUp .25s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(6px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* ══ WELCOME BANNER ══════════════════════════════════════════ */
+        .welcome {
+            background: linear-gradient(135deg, #92400e, #d97706 50%, #f59e0b);
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome::after {
+            content: '🎓';
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 6rem;
+            opacity: .1;
+            pointer-events: none;
+        }
+
+        .welcome h2 {
+            font-family: 'Sora', sans-serif;
+            color: white;
+            font-size: 1.25rem;
+            margin-bottom: 4px;
+        }
+
+        .welcome p {
+            color: rgba(255, 255, 255, .85);
+            font-size: .88rem;
+        }
+
+        .welcome-btn {
+            background: white;
+            color: #92400e;
+            font-weight: 700;
+            border: none;
+            border-radius: 9px;
+            padding: 9px 18px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: .88rem;
+            white-space: nowrap;
+            transition: all .2s;
+        }
+
+        .welcome-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+        }
+
+        /* ══ STAT CARDS ══════════════════════════════════════════════ */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .stat {
+            background: white;
+            border-radius: 14px;
+            padding: 18px 20px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .stat:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+        }
+
+        .stat::after {
+            content: attr(data-ico);
+            position: absolute;
+            right: 14px;
+            top: 14px;
+            font-size: 1.8rem;
+            opacity: .09;
+            pointer-events: none;
+        }
+
+        .stat-lbl {
+            font-size: .7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--text-lt);
+            margin-bottom: 6px;
+        }
+
+        .stat-val {
+            font-family: 'Sora', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 3px;
+        }
+
+        .stat-hint {
+            font-size: .74rem;
+            color: var(--text-lt);
+        }
+
+        .c-amber .stat-val {
+            color: var(--accent-dk);
+        }
+
+        .c-green .stat-val {
+            color: var(--success);
+        }
+
+        .c-blue .stat-val {
+            color: #3b82f6;
+        }
+
+        .c-red .stat-val {
+            color: var(--danger);
+        }
+
+        .c-teal .stat-val {
+            color: var(--info);
+        }
+
+        /* ══ CARD ════════════════════════════════════════════════════ */
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 18px;
+            border: 1px solid var(--border);
+        }
+
+        .card-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .card-title {
+            font-size: .97rem;
+            font-weight: 700;
+        }
+
+        .card-sub {
+            font-size: .77rem;
+            color: var(--text-lt);
+            margin-top: 2px;
+        }
+
+        /* ══ CHARTS ROW ══════════════════════════════════════════════ */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        @media(max-width:900px) {
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-wrap {
+            position: relative;
+            height: 230px;
+        }
+
+        /* ══ PAPER ROWS ══════════════════════════════════════════════ */
+        .papers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .paper-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #fafafa;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            transition: all .2s;
+        }
+
+        .paper-row:hover {
+            background: white;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .07);
+            border-color: #cbd5e1;
+        }
+
+        .pr-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--accent-lt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        .pr-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .pr-title {
+            font-size: .9rem;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 3px;
+        }
+
+        .pr-meta {
+            font-size: .76rem;
+            color: var(--text-lt);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pr-status {
+            flex-shrink: 0;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: .74rem;
+            font-weight: 700;
+        }
+
+        .p-pending {
+            background: #fffbeb;
+            color: #b45309;
+            border: 1px solid #fde68a;
+        }
+
+        .p-approved {
+            background: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .p-rejected {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .p-revision {
+            background: #fff7ed;
+            color: #c2410c;
+            border: 1px solid #fed7aa;
+        }
+
+        /* ══ UPLOAD MODAL ════════════════════════════════════════════ */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .5);
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .overlay.open {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 92vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .28);
+            animation: slideUp .25s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .modal-hd {
+            padding: 24px 28px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-hd h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: #f1f5f9;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            transition: all .2s;
+        }
+
+        .close-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .modal-bd {
+            padding: 0 28px 28px;
+        }
+
+        .fg {
+            margin-bottom: 16px;
+        }
+
+        .fg label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--text-mid);
+            font-size: .86rem;
+        }
+
+        .fg input,
+        .fg textarea,
+        .fg select {
+            width: 100%;
+            padding: 10px 13px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: .92rem;
+            outline: none;
+            transition: border-color .2s;
+            color: var(--text);
+            background: white;
+        }
+
+        .fg input:focus,
+        .fg textarea:focus,
+        .fg select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, .1);
+        }
+
+        .fg textarea {
+            resize: vertical;
+            min-height: 88px;
+        }
+
+        .fg-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .file-drop {
+            border: 2px dashed #e2e8f0;
+            border-radius: 10px;
+            padding: 22px;
+            text-align: center;
+            cursor: pointer;
+            transition: all .2s;
+            position: relative;
+        }
+
+        .file-drop:hover,
+        .file-drop.drag {
+            border-color: var(--accent);
+            background: #fffbeb;
+        }
+
+        .file-drop input[type=file] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .drop-ico {
+            font-size: 1.8rem;
+            margin-bottom: 6px;
+        }
+
+        .drop-txt {
+            font-size: .85rem;
+            color: var(--text-lt);
+        }
+
+        .drop-txt strong {
+            color: var(--accent-dk);
+        }
+
+        #fname {
+            font-size: .82rem;
+            color: var(--success);
+            font-weight: 600;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .modal-submit {
+            width: 100%;
+            padding: 13px;
+            font-size: .95rem;
+            justify-content: center;
+            margin-top: 4px;
+            border-radius: 10px;
+        }
+
+        .progress-steps {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .step {
+            flex: 1;
+            height: 3px;
+            border-radius: 99px;
+            background: #e2e8f0;
+            transition: background .3s;
+        }
+
+        .step.done {
+            background: var(--accent);
+        }
+
+        /* ══ TOAST ═══════════════════════════════════════════════════ */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            background: #0f172a;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: .88rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all .35s cubic-bezier(.34, 1.56, .64, 1);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ══ EMPTY STATE ══════════════════════════════════════════════ */
+        .empty {
+            text-align: center;
+            padding: 38px 20px;
+            color: var(--text-lt);
+        }
+
+        .empty-ico {
+            font-size: 2.8rem;
+            margin-bottom: 8px;
+        }
+
+        .empty p {
+            font-size: .9rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .empty span {
+            font-size: .8rem;
+        }
+
+        /* ══ FILTER BAR ══════════════════════════════════════════════ */
+        .filter-bar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-bar select {
+            padding: 7px 11px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: .83rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .filter-bar select:focus {
+            border-color: var(--accent);
+        }
+
+        /* ══ ANALYTICS SECTION ═══════════════════════════════════════ */
+        .rate-display {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 16px 0;
+        }
+
+        .rate-num {
+            font-family: 'Sora', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--success);
+        }
+
+        .rate-info h3 {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .rate-info p {
+            font-size: .82rem;
+            color: var(--text-lt);
+            margin-top: 2px;
+        }
+
+        .rate-bar {
+            height: 10px;
+            border-radius: 99px;
+            background: #e2e8f0;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .rate-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), #34d399);
+            border-radius: 99px;
+            transition: width .8s ease;
+        }
+
+        /* ══ INSIGHT CARDS ══════════════════════════════════════════ */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .insight-card {
+            background: white;
+            border-radius: 14px;
+            padding: 18px 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
+        }
+
+        .insight-ico {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .insight-ico.amber {
+            background: #fef3c7;
+        }
+
+        .insight-ico.green {
+            background: #d1fae5;
+        }
+
+        .insight-ico.blue {
+            background: #dbeafe;
+        }
+
+        .insight-ico.purple {
+            background: #ede9fe;
+        }
+
+        .insight-body h4 {
+            font-size: .9rem;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .insight-body p {
+            font-size: .78rem;
+            color: var(--text-lt);
+            line-height: 1.5;
+        }
+
+        /* ══ NOTIFICATIONS ═══════════════════════════════════════════ */
+        .notif-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .notif-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 18px;
+            transition: all .2s;
+        }
+
+        .notif-item.unread {
+            border-left: 3px solid var(--accent);
+            background: #fffbeb;
+        }
+
+        .notif-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .06);
+        }
+
+        .notif-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .notif-dot.read {
+            background: #e2e8f0;
+        }
+
+        .notif-body {
+            flex: 1;
+        }
+
+        .notif-body strong {
+            font-size: .88rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .notif-body p {
+            font-size: .8rem;
+            color: var(--text-lt);
+            line-height: 1.5;
+        }
+
+        .notif-time {
+            font-size: .72rem;
+            color: #94a3b8;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .notif-badge {
+            background: var(--accent);
+            color: white;
+            border-radius: 20px;
+            font-size: .68rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            flex-shrink: 0;
+            align-self: flex-start;
+        }
+
+        /* ══ RESOURCES ═══════════════════════════════════════════════ */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .res-card {
+            background: white;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all .2s;
+            cursor: pointer;
+        }
+
+        .res-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
+        }
+
+        .res-banner {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .res-body {
+            padding: 16px 18px;
+        }
+
+        .res-body h4 {
+            font-size: .92rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .res-body p {
+            font-size: .78rem;
+            color: var(--text-lt);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .res-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 3px 10px;
+            font-size: .72rem;
+            font-weight: 600;
+            color: var(--text-lt);
+        }
+
+        /* ══ PROFILE ═════════════════════════════════════════════════ */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 18px;
+        }
+
+        @media(max-width:860px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .profile-avatar-card {
+            background: white;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        .big-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 2rem;
+            color: white;
+            margin: 0 auto 14px;
+        }
+
+        .profile-avatar-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .profile-avatar-card p {
+            font-size: .8rem;
+            color: var(--text-lt);
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+        }
+
+        .ps-item {
+            text-align: center;
+        }
+
+        .ps-item strong {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--accent-dk);
+        }
+
+        .ps-item span {
+            font-size: .72rem;
+            color: var(--text-lt);
+        }
+
+        .profile-form .fg {
+            margin-bottom: 14px;
+        }
+
+        .profile-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text-mid);
+            font-size: .86rem;
+        }
+
+        .profile-form input,
+        .profile-form textarea {
+            width: 100%;
+            padding: 10px 13px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: .92rem;
+            outline: none;
+            transition: border-color .2s;
+            color: var(--text);
+            background: white;
+        }
+
+        .profile-form input:focus,
+        .profile-form textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, .1);
+        }
+
+        .profile-form textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* ══ SETTINGS ════════════════════════════════════════════════ */
+        .settings-group {
+            margin-bottom: 22px;
+        }
+
+        .settings-group h3 {
+            font-size: .9rem;
+            font-weight: 700;
+            color: var(--text-mid);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info strong {
+            display: block;
+            font-size: .88rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .setting-info span {
+            font-size: .78rem;
+            color: var(--text-lt);
+        }
+
+        .toggle {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: #e2e8f0;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: .3s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+        }
+
+        .toggle input:checked+.toggle-slider {
+            background: var(--accent);
+        }
+
+        .toggle input:checked+.toggle-slider::before {
+            transform: translateX(20px);
+        }
+
+        /* ══ LOGOUT CONFIRMATION MODAL ══════════════════════════════ */
+        .logout-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .55);
+            z-index: 900;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .logout-overlay.open {
+            display: flex;
+            animation: fadeIn .2s ease;
+        }
+
+        .logout-modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            padding: 36px 32px;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .3);
+            animation: slideUp .25s ease;
+        }
+
+        .logout-icon {
+            font-size: 3rem;
+            margin-bottom: 14px;
+        }
+
+        .logout-modal h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .logout-modal p {
+            font-size: .9rem;
+            color: #64748b;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .logout-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .logout-cancel {
+            flex: 1;
+            padding: 11px;
+            border-radius: 10px;
+            border: 1.5px solid #e2e8f0;
+            background: white;
+            color: #334155;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: .9rem;
+            transition: all .2s;
+        }
+
+        .logout-cancel:hover {
+            background: #f1f5f9;
+        }
+
+        .logout-confirm {
+            flex: 1;
+            padding: 11px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: .9rem;
+            box-shadow: 0 3px 10px rgba(239, 68, 68, .3);
+            transition: all .2s;
+        }
+
+        .logout-confirm:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(239, 68, 68, .4);
+        }
+
+        /* Logged-out notice on gate */
+        .logged-out-notice {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-left: 4px solid #ef4444;
+            border-radius: 8px;
+            padding: 13px 16px;
+            margin-bottom: 20px;
+            display: none;
+            gap: 10px;
+            align-items: flex-start;
+            font-size: .9rem;
+            color: #b91c1c;
+        }
+
+        .logged-out-notice.show {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ══ AUTH GATE ═════════════════════════════════════════════════ -->
+    <section id="auth-gate">
+        <div class="gate-card">
+            <div class="gate-left">
+                <div class="g-icon">🎓</div>
+                <h2>Student Portal</h2>
+                <p>Submit and track your research papers. View real-time status updates and publication history all in
+                    one place.</p>
+                <div class="badge-row">
+                    <div class="badge">📚 Submit Papers</div>
+                    <div class="badge">📊 Live Status Tracking</div>
+                    <div class="badge">📈 Analytics Dashboard</div>
+                </div>
+            </div>
+            <div class="gate-right">
+                <div class="logged-out-notice" id="logged-out-notice">
+                    <span>🔒</span>
+                    <span><strong>You've been logged out.</strong> Please sign in again to access your dashboard.</span>
+                </div>
+                <div class="alert-banner">
+                    <span>⚠️</span>
+                    <span><strong>Sign in required.</strong> Please log in or create an account to access your
+                        dashboard.</span>
+                </div>
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-target="login-form">Login</button>
+                    <button class="tab-btn" data-target="signup-form">Sign Up</button>
+                </div>
+                <form id="login-form" class="auth-form active" autocomplete="on">
+                    <div class="input-group"><label>Email</label><input id="login-email" type="email"
+                            placeholder="you@university.edu" required></div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <div class="pass-row"><input id="login-password" type="password" placeholder="••••••••"
+                                required><button type="button" class="btn-ghost" id="login-toggle">Show</button></div>
+                    </div>
+                    <div class="form-row"><label class="checkbox"><input type="checkbox"> Remember me</label></div>
+                    <button class="btn btn-primary btn-block" type="submit">Sign In →</button>
+                </form>
+                <form id="signup-form" class="auth-form" autocomplete="on">
+                    <div class="input-group"><label>Full Name</label><input id="signup-name" type="text"
+                            placeholder="Jane Doe" required></div>
+                    <div class="input-group"><label>Email</label><input id="signup-email" type="email"
+                            placeholder="you@university.edu" required></div>
+                    <div class="input-group">
+                        <label>Create Password</label>
+                        <div class="pass-row"><input id="signup-password" type="password"
+                                placeholder="Minimum 8 characters" minlength="8" required><button type="button"
+                                class="btn-ghost" id="signup-toggle">Show</button></div>
+                    </div>
+                    <div class="input-group">
+                        <label>I am a…</label>
+                        <select id="signup-role" required>
+                            <option value="">Select your role</option>
+                            <option value="student" selected>Student</option>
+                            <option value="researcher">Researcher / Professor</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-block" type="submit">Create Account →</button>
+                    <p class="small">By signing up you agree to our <a href="#">Terms</a> and <a href="#">Privacy</a>.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ DASHBOARD ════════════════════════════════════════════════ -->
+    <div id="dash">
+        <!-- Sidebar (collapsed by default, expands on hover) -->
+        <aside class="sidebar">
+            <div class="sb-logo">
+                <div class="sb-logo-icon">🎓</div>
+                <div class="sb-logo-text">
+                    <a href="index.html">MedDoc Hub</a>
+                    <span>Student Portal</span>
+                </div>
+            </div>
+            <nav class="sb-nav">
+                <div class="sb-section">Main</div>
+                <button class="sb-link active" data-sec="overview">
+                    <span class="sb-icon">🏠</span><span class="sb-label">Overview</span>
+                    <span class="sb-tooltip">Overview</span>
+                </button>
+                <button class="sb-link" data-sec="papers">
+                    <span class="sb-icon">📄</span><span class="sb-label">My Papers</span>
+                    <span class="sb-tooltip">My Papers</span>
+                </button>
+                <button class="sb-link" data-sec="analytics">
+                    <span class="sb-icon">📊</span><span class="sb-label">Analytics</span>
+                    <span class="sb-tooltip">Analytics</span>
+                </button>
+                <div class="sb-section">Student</div>
+                <button class="sb-link" data-sec="notifications">
+                    <span class="sb-icon">🔔</span><span class="sb-label">Notifications</span>
+                    <span class="sb-tooltip">Notifications</span>
+                </button>
+                <button class="sb-link" data-sec="resources">
+                    <span class="sb-icon">📚</span><span class="sb-label">Resources</span>
+                    <span class="sb-tooltip">Resources</span>
+                </button>
+                <button class="sb-link" data-sec="profile">
+                    <span class="sb-icon">👤</span><span class="sb-label">My Profile</span>
+                    <span class="sb-tooltip">My Profile</span>
+                </button>
+                <button class="sb-link" data-sec="settings">
+                    <span class="sb-icon">⚙️</span><span class="sb-label">Settings</span>
+                    <span class="sb-tooltip">Settings</span>
+                </button>
+                <div class="sb-section">Quick Actions</div>
+                <button class="sb-link" id="sb-upload" onclick="openSubmitModal()">
+                    <span class="sb-icon">➕</span><span class="sb-label">Submit New Paper</span>
+                    <span class="sb-tooltip">Submit Paper</span>
+                </button>
+                <a class="sb-link" href="research.html">
+                    <span class="sb-icon">🔍</span><span class="sb-label">Browse Research</span>
+                    <span class="sb-tooltip">Browse Research</span>
+                </a>
+                <a class="sb-link" href="index.html">
+                    <span class="sb-icon">🏡</span><span class="sb-label">Back to Home</span>
+                    <span class="sb-tooltip">Home</span>
+                </a>
+            </nav>
+            <div class="sb-footer">
+                <div class="sb-user">
+                    <div class="sb-avatar" id="sb-avatar">S</div>
+                    <div class="sb-user-text">
+                        <div class="sb-name" id="sb-name">Student</div>
+                        <div class="sb-role">🎓 Student</div>
+                    </div>
+                    <button class="sb-logout" id="logout-btn" title="Logout">⏻</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <div class="main">
+            <div class="topbar">
+                <div class="tb-left">
+                    <h1 id="tb-title">Overview</h1>
+                    <p id="tb-sub">Your activity at a glance</p>
+                </div>
+                <div class="tb-right">
+                    <div class="tb-time" id="tb-time"></div>
+                    <button class="btn btn-primary btn-sm" id="tb-upload" onclick="openSubmitModal()">＋ Submit
+                        Paper</button>
+                </div>
+            </div>
+
+            <!-- ── OVERVIEW ── -->
+            <div class="section active" id="sec-overview">
+                <div class="welcome">
+                    <div>
+                        <h2>Welcome back, <span id="welcome-name">Student</span>! 👋</h2>
+                        <p>Here's a snapshot of your research activity on MedDoc Hub.</p>
+                    </div>
+                    <button class="welcome-btn" id="banner-upload" onclick="openSubmitModal()">＋ Submit New
+                        Paper</button>
+                </div>
+
+                <div class="stats">
+                    <div class="stat c-amber" data-ico="📄">
+                        <div class="stat-lbl">Total Submitted</div>
+                        <div class="stat-val" id="s-total">0</div>
+                        <div class="stat-hint">All time</div>
+                    </div>
+                    <div class="stat c-green" data-ico="✅">
+                        <div class="stat-lbl">Approved</div>
+                        <div class="stat-val" id="s-approved">0</div>
+                        <div class="stat-hint">Published papers</div>
+                    </div>
+                    <div class="stat c-blue" data-ico="⏳">
+                        <div class="stat-lbl">Pending Review</div>
+                        <div class="stat-val" id="s-pending">0</div>
+                        <div class="stat-hint">Awaiting decision</div>
+                    </div>
+                    <div class="stat c-red" data-ico="✏️">
+                        <div class="stat-lbl">Needs Revision</div>
+                        <div class="stat-val" id="s-revision">0</div>
+                        <div class="stat-hint">Rejected or revision</div>
+                    </div>
+                    <div class="stat c-teal" data-ico="🗂️">
+                        <div class="stat-lbl">Categories</div>
+                        <div class="stat-val" id="s-cats">0</div>
+                        <div class="stat-hint">Research areas covered</div>
+                    </div>
+                </div>
+
+                <div class="charts-row">
+                    <div class="card" style="margin-bottom:0">
+                        <div class="card-head">
+                            <div>
+                                <div class="card-title">Submission Timeline</div>
+                                <div class="card-sub">Papers submitted per month</div>
+                            </div>
+                        </div>
+                        <div class="chart-wrap"><canvas id="timelineChart"></canvas></div>
+                    </div>
+                    <div class="card" style="margin-bottom:0">
+                        <div class="card-head">
+                            <div>
+                                <div class="card-title">Status Breakdown</div>
+                                <div class="card-sub">Current state of all papers</div>
+                            </div>
+                        </div>
+                        <div class="chart-wrap"><canvas id="statusChart"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top:18px">
+                    <div class="card-head">
+                        <div>
+                            <div class="card-title">Recent Submissions</div>
+                            <div class="card-sub">Your latest 3 papers</div>
+                        </div>
+                        <button class="btn btn-outline btn-sm" onclick="switchSec('papers')">View All →</button>
+                    </div>
+                    <div class="papers-list" id="recent-list"></div>
+                </div>
+            </div>
+
+            <!-- ── MY PAPERS ── -->
+            <div class="section" id="sec-papers">
+                <div class="card">
+                    <div class="card-head">
+                        <div>
+                            <div class="card-title">All My Submissions</div>
+                            <div class="card-sub" id="papers-sub">0 papers total</div>
+                        </div>
+                        <div class="filter-bar">
+                            <select id="filter-status">
+                                <option value="all">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                                <option value="rejected">Rejected</option>
+                                <option value="revision">Revision</option>
+                            </select>
+                            <select id="filter-cat">
+                                <option value="all">All Categories</option>
+                            </select>
+                            <button class="btn btn-primary btn-sm" id="papers-upload" onclick="openSubmitModal()">＋ New
+                                Paper</button>
+                        </div>
+                    </div>
+                    <div class="papers-list" id="all-list"></div>
+                </div>
+            </div>
+
+            <!-- ── ANALYTICS ── -->
+            <div class="section" id="sec-analytics">
+                <div class="insights-grid" id="analytics-insights">
+                    <div class="insight-card">
+                        <div class="insight-ico amber">📈</div>
+                        <div class="insight-body">
+                            <h4>Submission Rate</h4>
+                            <p id="ins-rate">Submit consistently to improve visibility with reviewers.</p>
+                        </div>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-ico green">✅</div>
+                        <div class="insight-body">
+                            <h4>Approval Rate</h4>
+                            <p id="ins-approval">No decisions yet. Keep submitting quality papers.</p>
+                        </div>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-ico blue">🗂️</div>
+                        <div class="insight-body">
+                            <h4>Top Category</h4>
+                            <p id="ins-category">Submit papers to see your most active research area.</p>
+                        </div>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-ico purple">⏱️</div>
+                        <div class="insight-body">
+                            <h4>Avg. Review Time</h4>
+                            <p>Papers are typically reviewed within <strong>3–7 days</strong> of submission.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="charts-row" style="margin-bottom:18px">
+                    <div class="card" style="margin-bottom:0">
+                        <div class="card-head">
+                            <div class="card-title">Monthly Submissions</div>
+                            <div class="card-sub">Papers submitted each month this year</div>
+                        </div>
+                        <div class="chart-wrap"><canvas id="monthlyChart"></canvas></div>
+                    </div>
+                    <div class="card" style="margin-bottom:0">
+                        <div class="card-head">
+                            <div class="card-title">By Category</div>
+                            <div class="card-sub">Research area distribution</div>
+                        </div>
+                        <div class="chart-wrap"><canvas id="categoryChart"></canvas></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-head">
+                        <div class="card-title">Approval Rate</div>
+                        <div class="card-sub">Based on papers that have received a decision</div>
+                    </div>
+                    <div class="rate-display">
+                        <div class="rate-num" id="rate-pct">0%</div>
+                        <div class="rate-info">
+                            <h3>of decided papers approved</h3>
+                            <p id="rate-detail">No decisions made yet</p>
+                        </div>
+                    </div>
+                    <div class="rate-bar">
+                        <div class="rate-fill" id="rate-fill" style="width:0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── NOTIFICATIONS ── -->
+            <div class="section" id="sec-notifications">
+                <div class="card">
+                    <div class="card-head">
+                        <div>
+                            <div class="card-title">🔔 Notifications</div>
+                            <div class="card-sub">Updates on your paper reviews and system alerts</div>
+                        </div>
+                        <button class="btn btn-outline btn-sm" onclick="markAllRead()">Mark all read</button>
+                    </div>
+                    <div class="notif-list" id="notif-list"></div>
+                </div>
+            </div>
+
+            <!-- ── RESOURCES ── -->
+            <div class="section" id="sec-resources">
+                <div class="card" style="margin-bottom:18px">
+                    <div class="card-head">
+                        <div class="card-title">📚 Learning Resources</div>
+                        <div class="card-sub">Guides, tools and tips to improve your research papers</div>
+                    </div>
+                    <div class="resources-grid">
+                        <div class="res-card" onclick="window.open('https://scholar.google.com','_blank')">
+                            <div class="res-banner" style="background:#e0f2fe">🔍</div>
+                            <div class="res-body">
+                                <h4>Google Scholar</h4>
+                                <p>Search millions of scholarly articles, theses, and conference papers.</p><span
+                                    class="res-tag">🔗 External</span>
+                            </div>
+                        </div>
+                        <div class="res-card" onclick="window.open('https://www.ncbi.nlm.nih.gov/pmc/','_blank')">
+                            <div class="res-banner" style="background:#d1fae5">🏥</div>
+                            <div class="res-body">
+                                <h4>PubMed Central</h4>
+                                <p>Free full-text archive of biomedical and life sciences literature.</p><span
+                                    class="res-tag">🔗 External</span>
+                            </div>
+                        </div>
+                        <div class="res-card" onclick="window.open('https://arxiv.org','_blank')">
+                            <div class="res-banner" style="background:#ede9fe">⚛️</div>
+                            <div class="res-body">
+                                <h4>arXiv</h4>
+                                <p>Open-access preprints in physics, math, CS, and related fields.</p><span
+                                    class="res-tag">🔗 External</span>
+                            </div>
+                        </div>
+                        <div class="res-card" onclick="window.open('https://www.zotero.org','_blank')">
+                            <div class="res-banner" style="background:#fef3c7">📎</div>
+                            <div class="res-body">
+                                <h4>Zotero</h4>
+                                <p>Free reference manager to collect, organize, and cite your research.</p><span
+                                    class="res-tag">🛠️ Tool</span>
+                            </div>
+                        </div>
+                        <div class="res-card" onclick="window.open('https://www.grammarly.com','_blank')">
+                            <div class="res-banner" style="background:#fce7f3">✍️</div>
+                            <div class="res-body">
+                                <h4>Grammarly</h4>
+                                <p>AI writing assistant for grammar, clarity, and academic tone.</p><span
+                                    class="res-tag">🛠️ Tool</span>
+                            </div>
+                        </div>
+                        <div class="res-card" onclick="window.open('https://www.turnitin.com','_blank')">
+                            <div class="res-banner" style="background:#ffedd5">🔒</div>
+                            <div class="res-body">
+                                <h4>Turnitin</h4>
+                                <p>Plagiarism detection and academic integrity checker for students.</p><span
+                                    class="res-tag">🛠️ Tool</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-head">
+                        <div class="card-title">💡 Writing Tips</div>
+                        <div class="card-sub">Quick best practices for successful paper submissions</div>
+                    </div>
+                    <div class="insights-grid">
+                        <div class="insight-card">
+                            <div class="insight-ico amber">📝</div>
+                            <div class="insight-body">
+                                <h4>Clear Abstract</h4>
+                                <p>Summarise your objective, method, results and conclusion in under 250 words.</p>
+                            </div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-ico green">🔖</div>
+                            <div class="insight-body">
+                                <h4>Use Keywords</h4>
+                                <p>Pick 4-6 specific keywords that reviewers will search for in your field.</p>
+                            </div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-ico blue">📊</div>
+                            <div class="insight-body">
+                                <h4>Data First</h4>
+                                <p>Support every claim with data, charts, or references to peer-reviewed sources.</p>
+                            </div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-ico purple">🔄</div>
+                            <div class="insight-body">
+                                <h4>Revise Often</h4>
+                                <p>Papers that are revised after feedback have a 60% higher approval rate.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── PROFILE ── -->
+            <div class="section" id="sec-profile">
+                <div class="profile-grid">
+                    <div class="profile-avatar-card">
+                        <div class="big-avatar" id="profile-big-avatar">S</div>
+                        <h3 id="profile-display-name">Student</h3>
+                        <p id="profile-display-email">student@meddoc.com</p>
+                        <div class="profile-stats">
+                            <div class="ps-item"><strong id="ps-total">0</strong><span>Papers</span></div>
+                            <div class="ps-item"><strong id="ps-approved">0</strong><span>Approved</span></div>
+                            <div class="ps-item"><strong id="ps-pending">0</strong><span>Pending</span></div>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-bottom:0">
+                        <div class="card-head">
+                            <div class="card-title">Edit Profile</div>
+                            <div class="card-sub">Update your personal information</div>
+                        </div>
+                        <form class="profile-form" id="profile-form" onsubmit="saveProfile(event)">
+                            <div class="fg-2" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                                <div class="fg"><label>Full Name</label><input type="text" id="pf-name"
+                                        placeholder="Your full name"></div>
+                                <div class="fg"><label>University / Institution</label><input type="text" id="pf-uni"
+                                        placeholder="e.g. MIT, Stanford"></div>
+                            </div>
+                            <div class="fg"><label>Email Address</label><input type="email" id="pf-email"
+                                    placeholder="your@email.com" readonly style="background:#f8fafc;color:#94a3b8">
+                            </div>
+                            <div class="fg"><label>Research Interests</label><textarea id="pf-interests"
+                                    placeholder="e.g. Machine Learning, Cardiology, Genomics…"></textarea></div>
+                            <div class="fg"><label>LinkedIn / Website</label><input type="url" id="pf-link"
+                                    placeholder="https://linkedin.com/in/yourname"></div>
+                            <button type="submit" class="btn btn-primary">💾 Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── SETTINGS ── -->
+            <div class="section" id="sec-settings">
+                <div class="card">
+                    <div class="card-head">
+                        <div class="card-title">⚙️ Settings</div>
+                        <div class="card-sub">Manage your preferences and account options</div>
+                    </div>
+                    <div class="settings-group">
+                        <h3>Notifications</h3>
+                        <div class="setting-row">
+                            <div class="setting-info"><strong>Paper status updates</strong><span>Get notified when your
+                                    paper is approved, rejected, or needs revision</span></div><label
+                                class="toggle"><input type="checkbox" id="set-status" checked><span
+                                    class="toggle-slider"></span></label>
+                        </div>
+                        <div class="setting-row">
+                            <div class="setting-info"><strong>Review reminders</strong><span>Daily reminders for papers
+                                    awaiting your attention</span></div><label class="toggle"><input type="checkbox"
+                                    id="set-remind"><span class="toggle-slider"></span></label>
+                        </div>
+                        <div class="setting-row">
+                            <div class="setting-info"><strong>New resources</strong><span>Alerts when new learning
+                                    resources are added</span></div><label class="toggle"><input type="checkbox"
+                                    id="set-res" checked><span class="toggle-slider"></span></label>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <h3>Display</h3>
+                        <div class="setting-row">
+                            <div class="setting-info"><strong>Show submission date</strong><span>Display dates on all
+                                    paper entries</span></div><label class="toggle"><input type="checkbox" id="set-date"
+                                    checked><span class="toggle-slider"></span></label>
+                        </div>
+                        <div class="setting-row">
+                            <div class="setting-info"><strong>Compact paper view</strong><span>Show smaller paper rows
+                                    in My Papers</span></div><label class="toggle"><input type="checkbox"
+                                    id="set-compact"><span class="toggle-slider"></span></label>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <h3>Account</h3>
+                        <div class="setting-row">
+                            <div class="setting-info"><strong>Change Password</strong><span>Update your account
+                                    password</span></div><button class="btn btn-outline btn-sm"
+                                onclick="openChangePassword()">Change</button>
+                        </div>
+                        <div class="setting-row">
+                            <div class="setting-info"><strong>Export My Data</strong><span>Download all your submissions
+                                    as JSON</span></div><button class="btn btn-outline btn-sm"
+                                onclick="exportData()">Export</button>
+                        </div>
+                        <div class="setting-row">
+                            <div class="setting-info"><strong>Delete Account</strong><span
+                                    style="color:var(--danger)">Permanently remove your account and all data</span>
+                            </div><button class="btn btn-sm"
+                                style="background:#fef2f2;color:var(--danger);border:1px solid #fecaca"
+                                onclick="showToast('⚠️ Please contact admin to delete account.')">Delete</button>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveSettings()">💾 Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ UPLOAD MODAL ══════════════════════════════════════════════ -->
+    <div class="overlay" id="upload-modal">
+        <div class="modal">
+            <div class="modal-hd">
+                <h2>📝 Submit Research Paper</h2>
+                <button class="close-btn" id="modal-close">✕</button>
+            </div>
+            <div class="modal-bd">
+                <div class="progress-steps">
+                    <div class="step done" id="step1"></div>
+                    <div class="step" id="step2"></div>
+                    <div class="step" id="step3"></div>
+                </div>
+                <form id="upload-form">
+                    <div class="fg">
+                        <label>Paper Title *</label>
+                        <input type="text" id="p-title" placeholder="Enter your full paper title" required>
+                    </div>
+                    <div class="fg-2">
+                        <div class="fg">
+                            <label>Research Category *</label>
+                            <select id="p-cat" required>
+                                <option value="">Select category</option>
+                                <option>Computer Science</option>
+                                <option>Biology</option>
+                                <option>Physics</option>
+                                <option>Chemistry</option>
+                                <option>Medicine</option>
+                                <option>Cardiology</option>
+                                <option>Neuroscience</option>
+                                <option>Genetics</option>
+                                <option>Pharmacology</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="fg">
+                            <label>Keywords *</label>
+                            <input type="text" id="p-keywords" placeholder="AI, diagnosis, imaging" required>
+                        </div>
+                    </div>
+                    <div class="fg">
+                        <label>Abstract *</label>
+                        <textarea id="p-abstract" placeholder="Brief summary of your research paper…"
+                            required></textarea>
+                    </div>
+                    <div class="fg">
+                        <label>Upload PDF (optional)</label>
+                        <div class="file-drop" id="file-drop">
+                            <input type="file" id="p-file" accept=".pdf">
+                            <div class="drop-ico">📎</div>
+                            <div class="drop-txt"><strong>Click to upload</strong> or drag &amp; drop</div>
+                            <div class="drop-txt">PDF only · Max 10MB</div>
+                            <div id="fname"></div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary modal-submit">🚀 Submit for Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ PAPER DETAIL MODAL ══════════════════════════════════════ -->
+    <div class="overlay" id="paper-detail-modal">
+        <div class="modal" style="max-width:640px">
+            <div class="modal-hd">
+                <h2>📄 Paper Details</h2>
+                <button class="close-btn" id="pd-close">✕</button>
+            </div>
+            <div class="modal-bd">
+                <div
+                    style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap;">
+                    <h3 id="pd-title" style="font-size:1rem;font-weight:700;color:#0f172a;flex:1;line-height:1.4;"></h3>
+                    <div id="pd-status"></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+                    <div style="background:#f8fafc;border-radius:10px;padding:12px 14px;">
+                        <div
+                            style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:4px;">
+                            Category</div>
+                        <div id="pd-category" style="font-size:.9rem;font-weight:600;color:#0f172a;"></div>
+                    </div>
+                    <div style="background:#f8fafc;border-radius:10px;padding:12px 14px;">
+                        <div
+                            style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:4px;">
+                            Submitted</div>
+                        <div id="pd-date" style="font-size:.9rem;font-weight:600;color:#0f172a;"></div>
+                    </div>
+                </div>
+                <div
+                    style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 14px;margin-bottom:16px;">
+                    <div
+                        style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#92400e;margin-bottom:4px;">
+                        🔖 Keywords</div>
+                    <div id="pd-keywords" style="font-size:.88rem;color:#78350f;"></div>
+                </div>
+                <div style="background:#f8fafc;border-radius:10px;padding:14px 16px;margin-bottom:16px;">
+                    <div
+                        style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:8px;">
+                        Abstract</div>
+                    <div id="pd-abstract" style="font-size:.88rem;color:#334155;line-height:1.7;"></div>
+                </div>
+                <div id="pd-feedback-wrap"
+                    style="display:none;background:#fff7ed;border:1px solid #fed7aa;border-left:3px solid #f97316;border-radius:10px;padding:14px 16px;margin-bottom:16px;">
+                    <div
+                        style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#c2410c;margin-bottom:6px;">
+                        💬 Reviewer Feedback</div>
+                    <div id="pd-feedback" style="font-size:.88rem;color:#9a3412;line-height:1.7;"></div>
+                </div>
+                <div style="display:flex;gap:10px;justify-content:flex-end;padding-top:6px;">
+                    <button id="pd-delete-btn" class="btn"
+                        style="background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;display:none;">🗑️ Delete
+                        Paper</button>
+                    <button class="btn btn-outline" onclick="closePaperDetail()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ DELETE CONFIRM MODAL ══════════════════════════════════ -->
+    <div class="overlay" id="delete-confirm-modal">
+        <div class="modal" style="max-width:400px;text-align:center;padding:36px 32px;">
+            <div style="font-size:2.8rem;margin-bottom:14px;">🗑️</div>
+            <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:8px;">Delete Paper?</h3>
+            <p style="font-size:.88rem;color:#64748b;margin-bottom:24px;line-height:1.6;">This will permanently remove
+                your pending submission. This action cannot be undone.</p>
+            <input type="hidden" id="delete-confirm-id">
+            <div style="display:flex;gap:10px;justify-content:center;">
+                <button id="delete-cancel-btn" class="btn btn-outline"
+                    style="flex:1;justify-content:center;">Cancel</button>
+                <button id="delete-confirm-btn" class="btn"
+                    style="flex:1;justify-content:center;background:linear-gradient(135deg,#ef4444,#dc2626);color:white;border:none;">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ TOAST ══════════════════════════════════════════════════════ -->
+    <div class="toast" id="toast"><span id="toast-msg">✅ Paper submitted!</span></div>
+
+    <!-- ══ LOGOUT CONFIRMATION MODAL ══════════════════════════════ -->
+    <div class="logout-overlay" id="logout-overlay">
+        <div class="logout-modal">
+            <div class="logout-icon">🔒</div>
+            <h3>Log Out?</h3>
+            <p>You'll need to sign in again to access this portal. Any unsaved work will remain intact.</p>
+            <div class="logout-btns">
+                <button class="logout-cancel" id="logout-cancel">Cancel</button>
+                <button class="logout-confirm" id="logout-confirm">Yes, Log Out</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // ── auth.js inlined ──
+        /* ═══════════════════════════════════════════════════════════════
+           auth.js  —  MedDoc Hub Shared Authentication
+           ─────────────────────────────────────────────────────────────
+           Handles:
+           • User registration (signup) with email + password + role
+           • Login with email + password validation (must be registered)
+           • Role-based portal redirects
+           • Nav bar auth state (logged in / logged out)
+           • Portal dropdown
+           • Inline gate forms on dashboards
+           ═══════════════════════════════════════════════════════════════ */
+
+        // ── Storage helpers ───────────────────────────────────────────
+        function getUsers() { return JSON.parse(localStorage.getItem('mdh_users') || '[]'); }
+        function saveUsers(users) { localStorage.setItem('mdh_users', JSON.stringify(users)); }
+        function getSession() { return { isLoggedIn: localStorage.getItem('isLoggedIn') === 'true', userName: localStorage.getItem('userName') || '', userRole: localStorage.getItem('userRole') || '' }; }
+
+        // ── Register a new user ───────────────────────────────────────
+        function mdhRegister(name, email, password, role) {
+            const users = getUsers();
+            // Check if email already registered
+            if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+                return { ok: false, error: 'This email is already registered. Please log in instead.' };
+            }
+            const user = {
+                id: Date.now().toString(),
+                name,
+                email: email.toLowerCase(),
+                password, // plain text for frontend-only (swap with hash when backend added)
+                role,
+                joined: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+            };
+            users.push(user);
+            saveUsers(users);
+            return { ok: true, user };
+        }
+
+        // ── Log in an existing user ───────────────────────────────────
+        function mdhLogin(email, password) {
+            const users = getUsers();
+            const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+            if (!user) {
+                return { ok: false, error: 'No account found with this email. Please sign up first.' };
+            }
+            if (user.password !== password) {
+                return { ok: false, error: 'Incorrect password. Please try again.' };
+            }
+            return { ok: true, user };
+        }
+
+        // ── Start session ─────────────────────────────────────────────
+        function mdhStartSession(user) {
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userName', user.name);
+            localStorage.setItem('userEmail', user.email);
+            localStorage.setItem('userRole', user.role);
+        }
+
+        // ── End session ───────────────────────────────────────────────
+        function mdhLogout() {
+            // Clear localStorage session
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userRole');
+            // CRITICAL: also clear sessionStorage backup so persistSession()
+            // cannot silently restore the session after an explicit logout
+            sessionStorage.removeItem('mdh_bak');
+            // Mark that the user deliberately logged out
+            sessionStorage.setItem('mdh_logged_out', 'true');
+        }
+
+        // ── Portal map ────────────────────────────────────────────────
+        const PORTAL_MAP = {
+            student: { url: 'student-dashboard.html', icon: '🎓', label: 'Student Dashboard' },
+            researcher: { url: 'professor-dashboard.html', icon: '🔬', label: 'Researcher Dashboard' },
+            admin: { url: 'admin.html', icon: '🛡️', label: 'Admin Dashboard' }
+        };
+
+        // ── Show inline error message ─────────────────────────────────
+        function showAuthError(containerId, message) {
+            let el = document.getElementById(containerId);
+            if (!el) {
+                el = document.createElement('div');
+                el.id = containerId;
+                el.style.cssText = `
+            background:#fef2f2;border:1px solid #fecaca;border-left:4px solid #ef4444;
+            border-radius:7px;padding:11px 14px;margin-bottom:14px;
+            font-size:.88rem;color:#b91c1c;font-weight:500;display:flex;gap:8px;align-items:flex-start;
+        `;
+            }
+            el.innerHTML = `<span>⚠️</span><span>${message}</span>`;
+            el.style.display = 'flex';
+            return el;
+        }
+
+        function clearAuthError(containerId) {
+            const el = document.getElementById(containerId);
+            if (el) el.style.display = 'none';
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        //  NAV BAR AUTH STATE  (used on index, about, research, upload)
+        //  Updated to target floating pill dock elements
+        // ═══════════════════════════════════════════════════════════════
+        function initNavAuth() {
+            const navAuthBtn = document.getElementById('nav-auth-btn');      // dock login button
+            const navUserInfo = document.getElementById('dock-user-info');    // dock user info wrapper
+            const navUsername = document.getElementById('dock-username');     // dock username chip
+            const navLogoutBtn = document.getElementById('dock-logout-btn');   // dock logout btn
+            const dockDashBtn = document.getElementById('dock-dash-btn');     // dock dashboard link
+
+            if (!navAuthBtn) return;
+
+            function refreshNav() {
+                const { isLoggedIn, userName, userRole } = getSession();
+                if (isLoggedIn) {
+                    navAuthBtn.style.display = 'none';
+                    if (navUserInfo) navUserInfo.style.display = 'flex';
+                    if (navUsername) navUsername.textContent = '👤 ' + userName;
+                    if (dockDashBtn) {
+                        const map = { student: 'student-dashboard.html', researcher: 'professor-dashboard.html', admin: 'admin.html' };
+                        const labels = { student: '🎓 My Dashboard', researcher: '🔬 My Dashboard', admin: '🛡️ Admin Panel' };
+                        dockDashBtn.href = map[userRole] || 'index.html';
+                        dockDashBtn.textContent = labels[userRole] || 'My Dashboard';
+                        dockDashBtn.style.display = '';
+                    }
+                } else {
+                    navAuthBtn.style.display = '';
+                    if (navUserInfo) navUserInfo.style.display = 'none';
+                    if (dockDashBtn) dockDashBtn.style.display = 'none';
+                }
+            }
+
+            navLogoutBtn && navLogoutBtn.addEventListener('click', () => {
+                mdhLogout();
+                refreshNav();
+                // Hide portal section and welcome banner on logout
+                const portalSection = document.getElementById('portal-section');
+                const heroWelcome = document.getElementById('hero-welcome');
+                const heroActions = document.querySelector('.hero-actions');
+                const heroBadge = document.querySelector('.hero-badge');
+                if (portalSection) portalSection.classList.remove('visible');
+                if (heroWelcome) heroWelcome.classList.remove('visible');
+                if (heroActions) heroActions.style.display = '';
+                if (heroBadge) heroBadge.style.display = '';
+            });
+            refreshNav();
+            return refreshNav;
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        //  PORTAL DROPDOWN  (shared across pages)
+        // ═══════════════════════════════════════════════════════════════
+        function initPortalDropdown() {
+            const portalBtn = document.getElementById('portal-btn');
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            if (!portalBtn || !dropdownMenu) return;
+
+            const arrow = portalBtn.querySelector('.arrow');
+
+            portalBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isActive = dropdownMenu.classList.toggle('active');
+                if (arrow) arrow.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+                portalBtn.setAttribute('aria-expanded', isActive);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.portal-dropdown')) {
+                    dropdownMenu.classList.remove('active');
+                    if (arrow) arrow.style.transform = 'rotate(0deg)';
+                    portalBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            dropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    dropdownMenu.classList.remove('active');
+                    if (arrow) arrow.style.transform = 'rotate(0deg)';
+                    portalBtn.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        //  AUTH MODAL  (index.html / about.html / research.html)
+        //  The modal has Login + Signup tabs.
+        // ═══════════════════════════════════════════════════════════════
+        function initAuthModal(onLoginSuccess) {
+            const modal = document.getElementById('auth-modal');
+            const closeBtn = document.getElementById('auth-close');
+            const navAuthBtn = document.getElementById('nav-auth-btn');
+            if (!modal) return;
+
+            const tabBtns = Array.from(modal.querySelectorAll('.tab-btn'));
+            const forms = Array.from(modal.querySelectorAll('.auth-form'));
+
+            function openModal(defaultTab) {
+                modal.setAttribute('aria-hidden', 'false');
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                // Switch to requested tab
+                if (defaultTab) {
+                    tabBtns.forEach(b => b.classList.toggle('active', b.dataset.target === defaultTab));
+                    forms.forEach(f => f.classList.toggle('active', f.id === defaultTab));
+                }
+                const firstInput = modal.querySelector('.auth-form.active input');
+                if (firstInput) firstInput.focus();
+            }
+
+            function closeModal() {
+                modal.setAttribute('aria-hidden', 'true');
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+                clearAuthError('modal-login-error');
+                clearAuthError('modal-signup-error');
+            }
+
+            // Only bind nav button if the role-picker modal is NOT present (index.html uses initRoleAuthModal instead)
+            const hasRolePicker = !!document.getElementById('modal-step-role');
+            navAuthBtn && !hasRolePicker && navAuthBtn.addEventListener('click', () => openModal());
+            closeBtn && closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+            // Tab switching
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    forms.forEach(f => f.classList.remove('active'));
+                    const target = document.getElementById(btn.dataset.target);
+                    if (target) target.classList.add('active');
+                });
+            });
+
+            // Password toggles
+            ['login', 'signup'].forEach(prefix => {
+                const toggle = document.getElementById(prefix + '-toggle');
+                const input = document.getElementById(prefix + '-password');
+                if (toggle && input) {
+                    toggle.addEventListener('click', () => {
+                        const isText = input.type === 'text';
+                        input.type = isText ? 'password' : 'text';
+                        toggle.textContent = isText ? 'Show' : 'Hide';
+                    });
+                }
+            });
+
+            // ── LOGIN form ────────────────────────────────────────────
+            const loginForm = document.getElementById('login');
+            loginForm && loginForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                clearAuthError('modal-login-error');
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value;
+                const result = mdhLogin(email, password);
+
+                if (!result.ok) {
+                    const errEl = showAuthError('modal-login-error', result.error);
+                    // Insert error before the submit button
+                    const submitBtn = this.querySelector('button[type=submit]');
+                    this.insertBefore(errEl, submitBtn);
+                    return;
+                }
+
+                mdhStartSession(result.user);
+                this.reset();
+                closeModal();
+                if (onLoginSuccess) onLoginSuccess(result.user);
+            });
+
+            // ── SIGNUP form ───────────────────────────────────────────
+            const signupForm = document.getElementById('signup');
+            signupForm && signupForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                clearAuthError('modal-signup-error');
+                const name = document.getElementById('signup-name').value.trim();
+                const email = document.getElementById('signup-email').value.trim();
+                const password = document.getElementById('signup-password').value;
+                const role = document.getElementById('signup-role').value;
+
+                const result = mdhRegister(name, email, password, role);
+                if (!result.ok) {
+                    const errEl = showAuthError('modal-signup-error', result.error);
+                    const submitBtn = this.querySelector('button[type=submit]');
+                    this.insertBefore(errEl, submitBtn);
+                    return;
+                }
+
+                mdhStartSession(result.user);
+                this.reset();
+                closeModal();
+                if (onLoginSuccess) onLoginSuccess(result.user);
+
+                // Hide portal dropdown immediately after signup
+                const portalWrap = document.querySelector('.portal-dropdown');
+                if (portalWrap) portalWrap.style.display = 'none';
+
+                // Redirect to correct portal
+                const portal = PORTAL_MAP[role];
+                if (portal) setTimeout(() => { window.location.href = portal.url; }, 300);
+            });
+
+            // Expose openModal so other code can open it with a specific tab
+            return { openModal, closeModal };
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        //  INLINE GATE FORMS  (student-dashboard, professor-dashboard,
+        //                       admin, upload)
+        //  These forms live directly on the page (not in a modal).
+        // ═══════════════════════════════════════════════════════════════
+        function initGateForms(options) {
+            /*
+              options = {
+                requiredRole:   'student' | 'researcher' | 'admin' | null (any),
+                onGrantAccess:  function(user) — called when auth succeeds,
+                onDenyAccess:   function()     — called on logout / not logged in
+              }
+            */
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            if (!loginForm && !signupForm) return;
+
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+                    const target = document.getElementById(btn.dataset.target);
+                    if (target) target.classList.add('active');
+                });
+            });
+
+            // Password toggles
+            ['login', 'signup'].forEach(prefix => {
+                const toggle = document.getElementById(prefix + '-toggle');
+                const input = document.getElementById(prefix + '-password');
+                if (toggle && input) {
+                    toggle.addEventListener('click', () => {
+                        const isText = input.type === 'text';
+                        input.type = isText ? 'password' : 'text';
+                        toggle.textContent = isText ? 'Show' : 'Hide';
+                    });
+                }
+            });
+
+            // ── LOGIN ─────────────────────────────────────────────────
+            loginForm && loginForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                clearAuthError('gate-login-error');
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value;
+                const result = mdhLogin(email, password);
+
+                if (!result.ok) {
+                    const errEl = showAuthError('gate-login-error', result.error);
+                    const submitBtn = this.querySelector('button[type=submit]');
+                    this.insertBefore(errEl, submitBtn);
+                    return;
+                }
+
+                // Role check — e.g. student portal should not admit admins
+                if (options.requiredRole && result.user.role !== options.requiredRole) {
+                    const roleLabels = { student: 'Student', researcher: 'Researcher', admin: 'Admin' };
+                    const errEl = showAuthError('gate-login-error',
+                        `This portal is for ${roleLabels[options.requiredRole]}s only. Your account is registered as a ${roleLabels[result.user.role] || result.user.role}. Please go to the correct portal.`
+                    );
+                    const submitBtn = this.querySelector('button[type=submit]');
+                    this.insertBefore(errEl, submitBtn);
+                    return;
+                }
+
+                mdhStartSession(result.user);
+                this.reset();
+                if (options.onGrantAccess) options.onGrantAccess(result.user);
+            });
+
+            // ── SIGNUP ────────────────────────────────────────────────
+            signupForm && signupForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                clearAuthError('gate-signup-error');
+                const name = document.getElementById('signup-name').value.trim();
+                const email = document.getElementById('signup-email').value.trim();
+                const password = document.getElementById('signup-password').value;
+                // Role comes from the select if present, otherwise from options
+                const roleSelect = document.getElementById('signup-role');
+                const role = roleSelect ? roleSelect.value : (options.requiredRole || 'student');
+
+                // If role is locked to portal and user picks wrong role (shouldn't happen but safety check)
+                if (options.requiredRole && role !== options.requiredRole) {
+                    const errEl = showAuthError('gate-signup-error',
+                        `Please sign up on the correct portal for your role.`
+                    );
+                    const submitBtn = this.querySelector('button[type=submit]');
+                    this.insertBefore(errEl, submitBtn);
+                    return;
+                }
+
+                const result = mdhRegister(name, email, password, role);
+                if (!result.ok) {
+                    const errEl = showAuthError('gate-signup-error', result.error);
+                    const submitBtn = this.querySelector('button[type=submit]');
+                    this.insertBefore(errEl, submitBtn);
+                    return;
+                }
+
+                mdhStartSession(result.user);
+                this.reset();
+                if (options.onGrantAccess) options.onGrantAccess(result.user);
+            });
+        }
+
+        // ── Auto-init on DOMContentLoaded ────────────────────────────
+        document.addEventListener('DOMContentLoaded', () => {
+            seedDefaultUsers(); // ensure default test accounts always exist
+            persistSession();   // restore session if localStorage was cleared
+            initPortalDropdown();
+        });
+
+        // ═══════════════════════════════════════════════════════════════
+        //  DEFAULT SEED USERS
+        //  These are always available so you never need to re-signup.
+        //  ┌──────────────┬────────────────────────┬──────────────┐
+        //  │ Role         │ Email                  │ Password     │
+        //  ├──────────────┼────────────────────────┼──────────────┤
+        //  │ Admin        │ admin@meddoc.com       │ admin123     │
+        //  │ Researcher   │ professor@meddoc.com   │ prof123      │
+        //  │ Student      │ student@meddoc.com     │ student123   │
+        //  └──────────────┴────────────────────────┴──────────────┘
+        // ═══════════════════════════════════════════════════════════════
+        function seedDefaultUsers() {
+            const defaults = [
+                { id: 'seed_admin', name: 'Admin', email: 'admin@meddoc.com', password: 'admin123', role: 'admin', joined: 'Jan 1, 2026' },
+                { id: 'seed_prof', name: 'Professor', email: 'professor@meddoc.com', password: 'prof123', role: 'researcher', joined: 'Jan 1, 2026' },
+                { id: 'seed_student', name: 'Student', email: 'student@meddoc.com', password: 'student123', role: 'student', joined: 'Jan 1, 2026' },
+            ];
+            const users = getUsers();
+            let changed = false;
+            defaults.forEach(def => {
+                if (!users.find(u => u.email.toLowerCase() === def.email.toLowerCase())) {
+                    users.push(def);
+                    changed = true;
+                }
+            });
+            if (changed) saveUsers(users);
+        }
+
+        // ── Session persistence across page reloads ───────────────────
+        // Keeps a sessionStorage backup so the user stays logged in
+        // for the entire browser session even if localStorage is cleared.
+        function persistSession() {
+            const live = localStorage.getItem('isLoggedIn');
+            // If the user explicitly logged out, sessionStorage backup was already
+            // wiped by mdhLogout(). We must NOT restore from backup in that case.
+            // We use a separate flag 'mdh_logged_out' to detect intentional logout.
+            const wasLoggedOut = sessionStorage.getItem('mdh_logged_out') === 'true';
+
+            if (live === 'true') {
+                // Active session — back up to sessionStorage so it survives page refreshes
+                sessionStorage.removeItem('mdh_logged_out'); // clear any stale logout flag
+                sessionStorage.setItem('mdh_bak', JSON.stringify({
+                    isLoggedIn: 'true',
+                    userName: localStorage.getItem('userName') || '',
+                    userEmail: localStorage.getItem('userEmail') || '',
+                    userRole: localStorage.getItem('userRole') || '',
+                }));
+            } else if (!wasLoggedOut) {
+                // localStorage was cleared (e.g. browser quirk) but user did NOT
+                // explicitly log out — safely restore from session backup
+                try {
+                    const bak = JSON.parse(sessionStorage.getItem('mdh_bak') || 'null');
+                    if (bak && bak.isLoggedIn === 'true' && bak.userName) {
+                        localStorage.setItem('isLoggedIn', 'true');
+                        localStorage.setItem('userName', bak.userName);
+                        localStorage.setItem('userEmail', bak.userEmail || '');
+                        localStorage.setItem('userRole', bak.userRole || '');
+                    }
+                } catch (e) { }
+            }
+        }
+    </script>
+
+    <!-- ══ CHANGE PASSWORD MODAL ════════════════════════════════════ -->
+    <div class="overlay" id="change-pw-modal">
+        <div class="modal" style="max-width:420px">
+            <div class="modal-hd">
+                <h2>🔐 Change Password</h2>
+                <button class="close-btn" onclick="closeChangePassword()">✕</button>
+            </div>
+            <div class="modal-bd">
+                <div class="fg"><label>Current Password</label><input type="password" id="pw-current"
+                        placeholder="Enter current password"></div>
+                <div class="fg"><label>New Password</label><input type="password" id="pw-new"
+                        placeholder="At least 6 characters"></div>
+                <div class="fg"><label>Confirm New Password</label><input type="password" id="pw-confirm"
+                        placeholder="Repeat new password"></div>
+                <div id="pw-error" style="color:#ef4444;font-size:.83rem;margin-bottom:8px;display:none;"></div>
+                <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
+                    <button class="btn btn-outline" onclick="closeChangePassword()">Cancel</button>
+                    <button class="btn btn-primary" onclick="submitChangePassword()">💾 Update Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // ═══════════════════════════════════════════════════════════
+        //  CONSTANTS & PURE HELPERS
+        // ═══════════════════════════════════════════════════════════
+        const secTitles = {
+            overview: ['Overview', 'Your activity at a glance'],
+            papers: ['My Papers', 'All your submitted papers'],
+            analytics: ['Analytics', 'Charts & submission statistics'],
+            notifications: ['Notifications', 'Your alerts and updates'],
+            resources: ['Resources', 'Learning tools and writing guides'],
+            profile: ['My Profile', 'Manage your personal information'],
+            settings: ['Settings', 'Preferences and account options'],
+        };
+        const pillMap = { pending: '<span class="pill p-pending">⏳ Pending</span>', approved: '<span class="pill p-approved">✅ Approved</span>', rejected: '<span class="pill p-rejected">❌ Rejected</span>', revision: '<span class="pill p-revision">✏️ Revision</span>' };
+        const catIco = { 'Computer Science': '💻', 'Biology': '🧬', 'Physics': '⚛️', 'Chemistry': '🧪', 'Medicine': '🏥', 'Cardiology': '❤️', 'Neuroscience': '🧠', 'Genetics': '🔬', 'Pharmacology': '💊', 'Other': '📄' };
+        let tlChart, stChart, moChart, caChart;
+
+        // ═══════════════════════════════════════════════════════════
+        //  AUTH + BOOT (runs immediately for redirect)
+        // ═══════════════════════════════════════════════════════════
+        (function () {
+            const { isLoggedIn, userName, userRole } = getSession();
+            if (isLoggedIn && userName) {
+                if (userRole === 'researcher') { window.location.href = 'professor-dashboard.html'; return; }
+                if (userRole === 'admin') { window.location.href = 'admin.html'; return; }
+                bootDash({ name: userName });
+            } else {
+                const gate = document.getElementById('auth-gate');
+                if (gate) gate.style.display = 'flex';
+            }
+        })();
+
+        initGateForms({
+            requiredRole: 'student',
+            onGrantAccess(user) {
+                if (user.role === 'researcher') { window.location.href = 'professor-dashboard.html'; return; }
+                if (user.role === 'admin') { window.location.href = 'admin.html'; return; }
+                bootDash(user);
+            }
+        });
+
+        // ═══════════════════════════════════════════════════════════
+        //  BOOT
+        // ═══════════════════════════════════════════════════════════
+        function bootDash(user) {
+            const gate = document.getElementById('auth-gate');
+            const dash = document.getElementById('dash');
+            if (gate) gate.style.display = 'none';
+            if (dash) dash.style.display = 'flex';
+            const name = user.name || user;
+            const email = user.email || localStorage.getItem('userEmail') || '';
+            setText('sb-avatar', name.charAt(0).toUpperCase());
+            setText('sb-name', name);
+            setText('welcome-name', name.split(' ')[0]);
+            seedNotifications(name);
+            seedDemoStudentPapers(name);
+            setText('profile-big-avatar', name.charAt(0).toUpperCase());
+            setText('profile-display-name', name);
+            setText('profile-display-email', email);
+            setVal('pf-name', name);
+            setVal('pf-email', email);
+            const saved = JSON.parse(localStorage.getItem('mdh_profile_' + name) || '{}');
+            if (saved.uni) setVal('pf-uni', saved.uni);
+            if (saved.interests) setVal('pf-interests', saved.interests);
+            if (saved.link) setVal('pf-link', saved.link);
+            startClock();
+            renderAll();
+            loadSettings();
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        //  DOM EVENT WIRING — all inside DOMContentLoaded
+        // ═══════════════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // ── Sidebar (event delegation) ───────────────────────────
+            const nav = document.querySelector('.sb-nav');
+            if (nav) {
+                nav.addEventListener('click', function (e) {
+                    const btn = e.target.closest('.sb-link[data-sec]');
+                    if (btn) switchSec(btn.dataset.sec);
+                });
+            }
+
+            // ── Logout modal ─────────────────────────────────────────
+            const logoutOverlay = document.getElementById('logout-overlay');
+            const logoutConfirm = document.getElementById('logout-confirm');
+            const logoutCancel = document.getElementById('logout-cancel');
+            const logoutBtn = document.getElementById('logout-btn');
+            const loggedOutNotice = document.getElementById('logged-out-notice');
+            if (logoutBtn) logoutBtn.addEventListener('click', () => logoutOverlay && logoutOverlay.classList.add('open'));
+            if (logoutCancel) logoutCancel.addEventListener('click', () => logoutOverlay && logoutOverlay.classList.remove('open'));
+            if (logoutConfirm) logoutConfirm.addEventListener('click', () => {
+                if (logoutOverlay) logoutOverlay.classList.remove('open');
+                mdhLogout();
+                const dash = document.getElementById('dash');
+                const gate = document.getElementById('auth-gate');
+                if (dash) dash.style.display = 'none';
+                if (gate) gate.style.display = 'flex';
+                if (loggedOutNotice) { loggedOutNotice.classList.add('show'); setTimeout(() => loggedOutNotice.classList.remove('show'), 5000); }
+            });
+            if (logoutOverlay) logoutOverlay.addEventListener('click', e => { if (e.target === logoutOverlay) logoutOverlay.classList.remove('open'); });
+
+            // ── My Papers filters ────────────────────────────────────
+            const filterStatus = document.getElementById('filter-status');
+            const filterCat = document.getElementById('filter-cat');
+            if (filterStatus) filterStatus.addEventListener('change', applyFilters);
+            if (filterCat) filterCat.addEventListener('change', applyFilters);
+
+            // ── Upload modal ─────────────────────────────────────────
+            const uploadModal = document.getElementById('upload-modal');
+            const modalClose = document.getElementById('modal-close');
+            const fileDrop = document.getElementById('file-drop');
+            const fileInput = document.getElementById('p-file');
+            const uploadForm = document.getElementById('upload-form');
+            const pTitle = document.getElementById('p-title');
+            const pCat = document.getElementById('p-cat');
+            const pAbstract = document.getElementById('p-abstract');
+            if (modalClose) modalClose.addEventListener('click', closeSubmitModal);
+            if (uploadModal) uploadModal.addEventListener('click', e => { if (e.target === uploadModal) closeSubmitModal(); });
+            if (fileDrop) {
+                fileDrop.addEventListener('dragover', e => { e.preventDefault(); fileDrop.classList.add('drag'); });
+                fileDrop.addEventListener('dragleave', () => fileDrop.classList.remove('drag'));
+                fileDrop.addEventListener('drop', e => { e.preventDefault(); fileDrop.classList.remove('drag'); if (e.dataTransfer.files[0]) showFname(e.dataTransfer.files[0].name); });
+            }
+            if (fileInput) fileInput.addEventListener('change', () => { if (fileInput.files[0]) showFname(fileInput.files[0].name); });
+            if (pTitle) pTitle.addEventListener('input', () => setSteps(1));
+            if (pCat) pCat.addEventListener('change', () => setSteps(2));
+            if (pAbstract) pAbstract.addEventListener('input', () => setSteps(3));
+            if (uploadForm) {
+                uploadForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const author = localStorage.getItem('userName') || 'Student';
+                    const paper = {
+                        id: Date.now().toString(),
+                        title: document.getElementById('p-title').value.trim(),
+                        category: document.getElementById('p-cat').value,
+                        abstract: document.getElementById('p-abstract').value.trim(),
+                        keywords: document.getElementById('p-keywords').value.trim(),
+                        author, role: 'student', status: 'pending',
+                        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                        dateISO: new Date().toISOString(),
+                    };
+                    const papers = JSON.parse(localStorage.getItem('mdh_papers') || '[]');
+                    papers.push(paper);
+                    localStorage.setItem('mdh_papers', JSON.stringify(papers));
+                    addNotification('📄 Paper Submitted', `"${paper.title}" is now pending review.`);
+                    this.reset();
+                    const fnEl = document.getElementById('fname');
+                    if (fnEl) fnEl.style.display = 'none';
+                    setSteps(1);
+                    closeSubmitModal();
+                    showToast('✅ Paper submitted! Pending admin review.');
+                    renderAll();
+                });
+            }
+
+            // ── Paper detail + delete modals ─────────────────────────
+            const pdClose = document.getElementById('pd-close');
+            const pdModal = document.getElementById('paper-detail-modal');
+            const delCancel = document.getElementById('delete-cancel-btn');
+            const delConfirm = document.getElementById('delete-confirm-btn');
+            const delModal = document.getElementById('delete-confirm-modal');
+            if (pdClose) pdClose.addEventListener('click', closePaperDetail);
+            if (pdModal) pdModal.addEventListener('click', e => { if (e.target === pdModal) closePaperDetail(); });
+            if (delCancel) delCancel.addEventListener('click', () => { if (delModal) delModal.classList.remove('open'); });
+            if (delConfirm) delConfirm.addEventListener('click', () => {
+                const paperId = (document.getElementById('delete-confirm-id') || {}).value || '';
+                const papers = JSON.parse(localStorage.getItem('mdh_papers') || '[]').filter(p => p.id !== paperId);
+                localStorage.setItem('mdh_papers', JSON.stringify(papers));
+                if (delModal) delModal.classList.remove('open');
+                closePaperDetail();
+                showToast('🗑️ Paper deleted.');
+                renderAll();
+            });
+            if (delModal) delModal.addEventListener('click', e => { if (e.target === delModal) delModal.classList.remove('open'); });
+
+        }); // end DOMContentLoaded
+
+        // ═══════════════════════════════════════════════════════════
+        //  FUNCTIONS
+        // ═══════════════════════════════════════════════════════════
+        function startClock() {
+            const el = document.getElementById('tb-time');
+            if (!el) return;
+            const tick = () => el.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            tick(); setInterval(tick, 30000);
+        }
+
+        function switchSec(id) {
+            document.querySelectorAll('.sb-link[data-sec]').forEach(l => l.classList.toggle('active', l.dataset.sec === id));
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            const sec = document.getElementById('sec-' + id);
+            if (sec) sec.classList.add('active');
+            const [t, s] = secTitles[id] || [id, ''];
+            setText('tb-title', t);
+            setText('tb-sub', s);
+            if (id === 'analytics') buildAnalyticsCharts();
+            if (id === 'notifications') renderNotifications();
+            if (id === 'profile') {
+                const papers = myPapers();
+                setText('ps-total', papers.length);
+                setText('ps-approved', papers.filter(p => p.status === 'approved').length);
+                setText('ps-pending', papers.filter(p => p.status === 'pending').length);
+            }
+        }
+
+        function myPapers() {
+            const me = localStorage.getItem('userName') || '';
+            return JSON.parse(localStorage.getItem('mdh_papers') || '[]')
+                .filter(p => p.author === me && p.role === 'student').reverse();
+        }
+
+        function renderAll() {
+            const p = myPapers();
+            renderStats(p); renderRecent(p); renderPapersList(p, 'all');
+            buildOverviewCharts(p); populateCatFilter(p);
+        }
+
+        function renderStats(papers) {
+            const cats = new Set();
+            let approved = 0, pending = 0, revision = 0;
+            papers.forEach(p => {
+                if (p.status === 'approved') approved++;
+                else if (p.status === 'pending') pending++;
+                else revision++;
+                if (p.category) cats.add(p.category);
+            });
+            setText('s-total', papers.length);
+            setText('s-approved', approved);
+            setText('s-pending', pending);
+            setText('s-revision', revision);
+            setText('s-cats', cats.size);
+        }
+
+        function paperHTML(p) {
+            return `<div class="paper-row" onclick="openPaperDetail('${esc(p.id)}')" style="cursor:pointer;" title="Click to view details">
+        <div class="pr-icon">${catIco[p.category] || '📄'}</div>
+        <div class="pr-body">
+            <div class="pr-title">${esc(p.title)}</div>
+            <div class="pr-meta">
+                <span>📁 ${esc(p.category || '—')}</span>
+                <span>📅 ${esc(p.date || '—')}</span>
+                ${p.keywords ? `<span>🔖 ${esc(p.keywords.split(',').slice(0, 2).join(', '))}</span>` : ''}
+            </div>
+        </div>
+        <div class="pr-status">${pillMap[p.status] || p.status}</div>
+        <span style="color:#94a3b8;font-size:.75rem;margin-left:6px;flex-shrink:0;">›</span>
+    </div>`;
+        }
+
+        function emptyState(msg, hint) {
+            return `<div class="empty"><div class="empty-ico">📭</div><p>${msg}</p><span>${hint}</span></div>`;
+        }
+
+        function renderRecent(papers) {
+            const el = document.getElementById('recent-list');
+            if (!el) return;
+            const s = papers.slice(0, 3);
+            el.innerHTML = s.length ? s.map(paperHTML).join('') : emptyState('No submissions yet', 'Submit your first paper to get started');
+        }
+
+        function renderPapersList(papers, statusF, catF = 'all') {
+            let f = papers;
+            if (statusF !== 'all') f = f.filter(p => p.status === statusF);
+            if (catF !== 'all') f = f.filter(p => p.category === catF);
+            setText('papers-sub', papers.length + ' paper' + (papers.length !== 1 ? 's' : '') + ' total');
+            const el = document.getElementById('all-list');
+            if (el) el.innerHTML = f.length ? f.map(paperHTML).join('') : emptyState('No papers match this filter', 'Try adjusting the filters above');
+        }
+
+        function populateCatFilter(papers) {
+            const cats = [...new Set(papers.map(p => p.category).filter(Boolean))];
+            const sel = document.getElementById('filter-cat');
+            if (sel) sel.innerHTML = '<option value="all">All Categories</option>' + cats.map(c => `<option>${c}</option>`).join('');
+        }
+
+        function applyFilters() {
+            const sf = (document.getElementById('filter-status') || {}).value || 'all';
+            const cf = (document.getElementById('filter-cat') || {}).value || 'all';
+            renderPapersList(myPapers(), sf, cf);
+        }
+
+        // ── Charts ────────────────────────────────────────────────────
+        function buildOverviewCharts(papers) {
+            if (typeof Chart === 'undefined') return;
+            const counts = { approved: 0, pending: 0, rejected: 0, revision: 0 };
+            const byMonth = {};
+            papers.forEach(p => {
+                counts[p.status] = (counts[p.status] || 0) + 1;
+                const mo = p.dateISO ? new Date(p.dateISO).toLocaleDateString('en-US', { month: 'short', year: '2-digit' }) : (p.date || '—');
+                byMonth[mo] = (byMonth[mo] || 0) + 1;
+            });
+            if (stChart) stChart.destroy();
+            const sc = document.getElementById('statusChart');
+            if (sc) stChart = new Chart(sc, { type: 'doughnut', data: { labels: ['Approved', 'Pending', 'Rejected', 'Revision'], datasets: [{ data: [counts.approved, counts.pending, counts.rejected, counts.revision], backgroundColor: ['#10b981', '#f59e0b', '#ef4444', '#f97316'], borderWidth: 0, hoverOffset: 6 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 11, font: { size: 11 } } } }, cutout: '62%' } });
+            const labels = Object.keys(byMonth).length ? Object.keys(byMonth) : ['No data'];
+            const data = Object.keys(byMonth).length ? Object.values(byMonth) : [0];
+            if (tlChart) tlChart.destroy();
+            const tc = document.getElementById('timelineChart');
+            if (tc) tlChart = new Chart(tc, { type: 'bar', data: { labels, datasets: [{ label: 'Papers', data, backgroundColor: 'rgba(245,158,11,.7)', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } } });
+        }
+
+        function buildAnalyticsCharts() {
+            if (typeof Chart === 'undefined') return;
+            const papers = myPapers();
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const monthly = new Array(12).fill(0);
+            const catCounts = {};
+            papers.forEach(p => {
+                if (p.dateISO) monthly[new Date(p.dateISO).getMonth()]++;
+                if (p.category) catCounts[p.category] = (catCounts[p.category] || 0) + 1;
+            });
+            if (moChart) moChart.destroy();
+            const mc = document.getElementById('monthlyChart');
+            if (mc) moChart = new Chart(mc, { type: 'line', data: { labels: months, datasets: [{ label: 'Papers', data: monthly, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,.1)', fill: true, tension: .4, pointBackgroundColor: '#f59e0b', pointRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } } });
+            const colors = ['#6366f1', '#f59e0b', '#10b981', '#ef4444', '#06b6d4', '#8b5cf6', '#f97316', '#14b8a6'];
+            if (caChart) caChart.destroy();
+            const cc = document.getElementById('categoryChart');
+            if (cc) caChart = new Chart(cc, { type: 'pie', data: { labels: Object.keys(catCounts).length ? Object.keys(catCounts) : ['None'], datasets: [{ data: Object.values(catCounts).length ? Object.values(catCounts) : [1], backgroundColor: colors, borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 11, font: { size: 11 } } } } } });
+            const decided = papers.filter(p => p.status !== 'pending').length;
+            const approved = papers.filter(p => p.status === 'approved').length;
+            const pct = decided > 0 ? Math.round((approved / decided) * 100) : 0;
+            setText('rate-pct', pct + '%');
+            const rf = document.getElementById('rate-fill');
+            if (rf) rf.style.width = pct + '%';
+            setText('rate-detail', decided > 0 ? `${approved} approved out of ${decided} decided` : 'No decisions made yet');
+            const topCat = Object.entries(catCounts).sort((a, b) => b[1] - a[1])[0];
+            const rateEl = document.getElementById('ins-rate');
+            if (rateEl) rateEl.textContent = papers.length > 0 ? `You've submitted ${papers.length} paper${papers.length !== 1 ? 's' : ''} so far. Keep going!` : 'Submit consistently to improve visibility with reviewers.';
+            const appEl = document.getElementById('ins-approval');
+            if (appEl) appEl.textContent = decided > 0 ? `${pct}% approval rate — ${approved} of ${decided} decided papers approved.` : 'No decisions yet. Keep submitting quality papers.';
+            const catEl = document.getElementById('ins-category');
+            if (catEl) catEl.textContent = topCat ? `Your top area is ${topCat[0]} (${topCat[1]} paper${topCat[1] !== 1 ? 's' : ''}).` : 'Submit papers to see your most active research area.';
+        }
+
+        // ── Upload modal ──────────────────────────────────────────────
+        function openSubmitModal() {
+            const m = document.getElementById('upload-modal');
+            if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+        }
+        function closeSubmitModal() {
+            const m = document.getElementById('upload-modal');
+            if (m) { m.classList.remove('open'); document.body.style.overflow = ''; }
+        }
+        function showFname(n) {
+            const el = document.getElementById('fname');
+            if (el) { el.textContent = '📎 ' + n; el.style.display = 'block'; }
+        }
+        function setSteps(n) { for (let i = 1; i <= 3; i++) { const s = document.getElementById('step' + i); if (s) s.classList.toggle('done', i <= n); } }
+
+        // ── Toast ─────────────────────────────────────────────────────
+        function showToast(msg) {
+            const t = document.getElementById('toast'), m = document.getElementById('toast-msg');
+            if (t && m) { m.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500); }
+        }
+
+        // ── Demo data ─────────────────────────────────────────────────
+        function seedDemoStudentPapers(name) {
+            const all = JSON.parse(localStorage.getItem('mdh_papers') || '[]');
+            if (all.filter(p => p.author === name && p.role === 'student').length > 0) return;
+            const demos = [
+                { id: 'sd1_' + name, title: 'Impact of Machine Learning on Early Cancer Detection', category: 'Medicine', abstract: 'This study explores how machine learning algorithms improve early-stage cancer detection rates through pattern recognition in medical imaging data. We evaluated three CNN architectures across 1,200 patient scans.', keywords: 'machine learning, cancer detection, medical imaging, CNN', author: name, role: 'student', status: 'approved', date: 'Feb 12, 2026', dateISO: '2026-02-12T09:00:00Z' },
+                { id: 'sd2_' + name, title: 'CRISPR-Cas9 Applications in Cardiovascular Disease', category: 'Cardiology', abstract: 'An analysis of recent advances in CRISPR-based gene therapies targeting cardiovascular disorders, evaluating clinical outcomes from 14 peer-reviewed trials published 2022–2025.', keywords: 'CRISPR, gene editing, cardiovascular, heart disease', author: name, role: 'student', status: 'pending', date: 'Mar 3, 2026', dateISO: '2026-03-03T10:00:00Z' },
+                { id: 'sd3_' + name, title: 'Neurological Effects of Long COVID: A Systematic Review', category: 'Neuroscience', abstract: 'A comprehensive systematic review of documented neurological symptoms in post-COVID-19 patients across 42 clinical studies totalling 28,000 participants.', keywords: 'long COVID, neurological, brain, cognitive impairment', author: name, role: 'student', status: 'revision', feedback: 'Please expand the methodology section and include more recent clinical trial data from 2025. Also clarify your inclusion/exclusion criteria.', date: 'Jan 28, 2026', dateISO: '2026-01-28T08:00:00Z' },
+                { id: 'sd4_' + name, title: 'Gut Microbiome Diversity and Immune System Regulation', category: 'Biology', abstract: 'Investigating the role of gut microbiome diversity in modulating immune responses and inflammatory disease onset through a 6-month longitudinal cohort study.', keywords: 'gut microbiome, immune system, inflammation, diversity', author: name, role: 'student', status: 'approved', date: 'Jan 15, 2026', dateISO: '2026-01-15T08:00:00Z' },
+            ];
+            demos.forEach(d => all.push(d));
+            localStorage.setItem('mdh_papers', JSON.stringify(all));
+        }
+
+        // ── Notifications ─────────────────────────────────────────────
+        function seedNotifications(name) {
+            const key = 'mdh_notifs_' + name;
+            if (localStorage.getItem(key)) return;
+            const seeds = [
+                { id: 'n1', title: '🎉 Welcome to MedDoc Hub!', body: 'Your student account is ready. Start by submitting your first research paper.', time: 'Just now', unread: true },
+                { id: 'n2', title: '📋 Submission Guidelines Updated', body: 'Please review the updated paper formatting guidelines before your next submission.', time: '2 days ago', unread: true },
+                { id: 'n3', title: '🔔 Reviewer Assigned', body: 'A reviewer has been assigned to evaluate your pending submissions.', time: '3 days ago', unread: false },
+                { id: 'n4', title: '📚 New Resource Added', body: '"How to Write a Strong Abstract" — a new guide has been added to Resources.', time: '1 week ago', unread: false },
+            ];
+            localStorage.setItem(key, JSON.stringify(seeds));
+        }
+
+        function addNotification(title, body, unread = true) {
+            const name = localStorage.getItem('userName') || 'Student';
+            const key = 'mdh_notifs_' + name;
+            const notifs = JSON.parse(localStorage.getItem(key) || '[]');
+            notifs.unshift({ id: Date.now().toString(), title, body, time: 'Just now', unread });
+            localStorage.setItem(key, JSON.stringify(notifs));
+        }
+
+        function renderNotifications(name) {
+            if (!name) name = localStorage.getItem('userName') || 'Student';
+            const notifs = JSON.parse(localStorage.getItem('mdh_notifs_' + name) || '[]');
+            const el = document.getElementById('notif-list');
+            if (!el) return;
+            if (!notifs.length) { el.innerHTML = `<div class="empty"><div class="empty-ico">🔕</div><p>No notifications</p><span>You're all caught up!</span></div>`; return; }
+            el.innerHTML = notifs.map(n => `
+        <div class="notif-item ${n.unread ? 'unread' : ''}" id="notif-${n.id}" onclick="readNotif('${n.id}')">
+            <div class="notif-dot ${n.unread ? '' : 'read'}"></div>
+            <div class="notif-body">
+                <strong>${esc(n.title)}</strong>
+                <p>${esc(n.body)}</p>
+                <span class="notif-time">${esc(n.time)}</span>
+            </div>
+            ${n.unread ? '<span class="notif-badge">New</span>' : ''}
+        </div>`).join('');
+        }
+
+        function readNotif(id) {
+            const name = localStorage.getItem('userName') || 'Student';
+            const key = 'mdh_notifs_' + name;
+            const notifs = JSON.parse(localStorage.getItem(key) || '[]');
+            const n = notifs.find(x => x.id === id);
+            if (n) { n.unread = false; localStorage.setItem(key, JSON.stringify(notifs)); renderNotifications(name); }
+        }
+
+        function markAllRead() {
+            const name = localStorage.getItem('userName') || 'Student';
+            const key = 'mdh_notifs_' + name;
+            const notifs = JSON.parse(localStorage.getItem(key) || '[]');
+            notifs.forEach(n => n.unread = false);
+            localStorage.setItem(key, JSON.stringify(notifs));
+            renderNotifications(name);
+            showToast('✅ All notifications marked as read.');
+        }
+
+        // ── Profile ───────────────────────────────────────────────────
+        function saveProfile(e) {
+            e.preventDefault();
+            const name = localStorage.getItem('userName') || 'Student';
+            localStorage.setItem('mdh_profile_' + name, JSON.stringify({
+                uni: (document.getElementById('pf-uni') || {}).value || '',
+                interests: (document.getElementById('pf-interests') || {}).value || '',
+                link: (document.getElementById('pf-link') || {}).value || '',
+            }));
+            showToast('💾 Profile saved successfully!');
+        }
+
+        // ── Settings ──────────────────────────────────────────────────
+        function loadSettings() {
+            const name = localStorage.getItem('userName') || 'Student';
+            const s = JSON.parse(localStorage.getItem('mdh_settings_' + name) || '{}');
+            const set = (id, v) => { const el = document.getElementById(id); if (el) el.checked = v; };
+            if (s.statusNotif !== undefined) set('set-status', s.statusNotif);
+            if (s.remindNotif !== undefined) set('set-remind', s.remindNotif);
+            if (s.resNotif !== undefined) set('set-res', s.resNotif);
+            if (s.showDate !== undefined) set('set-date', s.showDate);
+            if (s.compact !== undefined) set('set-compact', s.compact);
+        }
+
+        function saveSettings() {
+            const name = localStorage.getItem('userName') || 'Student';
+            const g = id => (document.getElementById(id) || { checked: false }).checked;
+            localStorage.setItem('mdh_settings_' + name, JSON.stringify({
+                statusNotif: g('set-status'), remindNotif: g('set-remind'),
+                resNotif: g('set-res'), showDate: g('set-date'),
+                compact: g('set-compact'),
+            }));
+            showToast('⚙️ Settings saved!');
+        }
+
+        // ── Change Password ────────────────────────────────────────────
+        function openChangePassword() {
+            setVal('pw-current', ''); setVal('pw-new', ''); setVal('pw-confirm', '');
+            const errEl = document.getElementById('pw-error');
+            if (errEl) errEl.style.display = 'none';
+            const m = document.getElementById('change-pw-modal');
+            if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+        }
+        function closeChangePassword() {
+            const m = document.getElementById('change-pw-modal');
+            if (m) { m.classList.remove('open'); document.body.style.overflow = ''; }
+        }
+        function submitChangePassword() {
+            const email = localStorage.getItem('userEmail') || '';
+            const cur = (document.getElementById('pw-current') || {}).value || '';
+            const nw = (document.getElementById('pw-new') || {}).value || '';
+            const cf = (document.getElementById('pw-confirm') || {}).value || '';
+            const errEl = document.getElementById('pw-error');
+            const show = msg => { if (errEl) { errEl.textContent = msg; errEl.style.display = ''; } };
+            const users = JSON.parse(localStorage.getItem('mdh_users') || '[]');
+            const user = users.find(u => u.email === email);
+            if (!user || user.password !== cur) { show('⚠️ Current password is incorrect.'); return; }
+            if (nw.length < 6) { show('⚠️ New password must be at least 6 characters.'); return; }
+            if (nw !== cf) { show('⚠️ Passwords do not match.'); return; }
+            user.password = nw;
+            localStorage.setItem('mdh_users', JSON.stringify(users));
+            closeChangePassword();
+            showToast('🔐 Password updated successfully!');
+        }
+
+        // ── Export ────────────────────────────────────────────────────
+        function exportData() {
+            const me = localStorage.getItem('userName') || '';
+            const papers = JSON.parse(localStorage.getItem('mdh_papers') || '[]').filter(p => p.author === me);
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(new Blob([JSON.stringify(papers, null, 2)], { type: 'application/json' }));
+            a.download = 'my_papers.json';
+            a.click();
+            showToast('📥 Data exported!');
+        }
+
+        // ── Paper detail modal ────────────────────────────────────────
+        const pillMap2 = { pending: '<span class="pill p-pending">⏳ Pending</span>', approved: '<span class="pill p-approved">✅ Approved</span>', rejected: '<span class="pill p-rejected">❌ Rejected</span>', revision: '<span class="pill p-revision">✏️ Needs Revision</span>' };
+
+        function openPaperDetail(paperId) {
+            const papers = JSON.parse(localStorage.getItem('mdh_papers') || '[]');
+            const p = papers.find(x => x.id === paperId);
+            if (!p) return;
+            setText('pd-title', p.title || '—');
+            const pdSt = document.getElementById('pd-status');
+            if (pdSt) pdSt.innerHTML = pillMap2[p.status] || p.status;
+            setText('pd-category', p.category || '—');
+            setText('pd-keywords', p.keywords || '—');
+            setText('pd-date', p.date || '—');
+            setText('pd-abstract', p.abstract || 'No abstract provided.');
+            const delBtn = document.getElementById('pd-delete-btn');
+            if (delBtn) {
+                if (p.status === 'pending') { delBtn.style.display = ''; delBtn.onclick = () => confirmDeletePaper(paperId); }
+                else delBtn.style.display = 'none';
+            }
+            const fbWrap = document.getElementById('pd-feedback-wrap');
+            if (p.feedback) {
+                if (fbWrap) fbWrap.style.display = '';
+                setText('pd-feedback', p.feedback);
+            } else { if (fbWrap) fbWrap.style.display = 'none'; }
+            const m = document.getElementById('paper-detail-modal');
+            if (m) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+        }
+
+        function closePaperDetail() {
+            const m = document.getElementById('paper-detail-modal');
+            if (m) { m.classList.remove('open'); document.body.style.overflow = ''; }
+        }
+
+        function confirmDeletePaper(paperId) {
+            setVal('delete-confirm-id', paperId);
+            const m = document.getElementById('delete-confirm-modal');
+            if (m) m.classList.add('open');
+        }
+
+        // ── Utils ─────────────────────────────────────────────────────
+        function esc(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+        function setText(id, v) { const el = document.getElementById(id); if (el) el.textContent = v; }
+        function setVal(id, v) { const el = document.getElementById(id); if (el) el.value = v; }
+
+    </script>
+
+
+</body>
+
+</html>

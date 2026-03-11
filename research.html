@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Library – MedDoc Hub</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #1e4d8c;
+            --pri-dk: #163060;
+            --pri-lt: #e8f0fb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg: #f8fafc;
+            --border: #e2e8f0;
+            --text: #0d1f3c;
+            --text-mid: #2e4a72;
+            --text-lt: #64748b;
+            --sidebar-w: 280px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* ══ HERO BANNER ══════════════════════════════════════════════ */
+        .hero-banner {
+            background: linear-gradient(135deg, #071526 0%, #0d2d5a 45%, #1e4d8c 100%);
+            padding: 148px 24px 64px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(30, 77, 140, .45) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .hero-banner h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            color: white;
+            margin-bottom: 12px;
+            position: relative;
+            letter-spacing: -0.3px;
+        }
+
+        .hero-banner p {
+            color: rgba(255, 255, 255, .78);
+            font-size: .97rem;
+            max-width: 520px;
+            margin: 0 auto 32px;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        /* Search box */
+        .search-wrap {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            gap: 0;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 12px 0 0 12px;
+            font-family: inherit;
+            font-size: .97rem;
+            outline: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .2);
+        }
+
+        .search-btn {
+            padding: 14px 24px;
+            background: #2563ae;
+            color: white;
+            border: none;
+            border-radius: 0 12px 12px 0;
+            font-family: inherit;
+            font-size: .97rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s;
+            white-space: nowrap;
+        }
+
+        .search-btn:hover {
+            background: #163060;
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 120px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: none;
+            padding: 4px 8px;
+        }
+
+        /* Stats strip */
+        .stats-strip {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .strip-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .88rem;
+            color: var(--text-lt);
+        }
+
+        .strip-stat strong {
+            color: var(--text);
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+
+        /* ══ MAIN LAYOUT ══════════════════════════════════════════════ */
+        .page-body {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 300px);
+        }
+
+        /* ── Sidebar ── */
+        .filter-sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px 20px;
+            position: sticky;
+            top: 0;
+            height: calc(100vh - 64px);
+            overflow-y: auto;
+        }
+
+        .fs-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .fs-title {
+            font-size: .95rem;
+            font-weight: 700;
+        }
+
+        .fs-reset {
+            font-size: .8rem;
+            color: var(--primary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .fs-reset:hover {
+            background: var(--pri-lt);
+        }
+
+        .filter-group {
+            margin-bottom: 22px;
+        }
+
+        .fg-title {
+            font-size: .78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--text-lt);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .fg-title span {
+            transition: transform .2s;
+        }
+
+        .fg-title.collapsed span {
+            transform: rotate(-90deg);
+        }
+
+        .fg-body {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .fg-body.hidden {
+            display: none;
+        }
+
+        /* Filter items */
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background .15s;
+            font-size: .875rem;
+            color: var(--text-mid);
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+        }
+
+        .filter-item:hover {
+            background: #f0f5ff;
+        }
+
+        .filter-item.active {
+            background: var(--pri-lt);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .filter-item .fi-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .filter-item .fi-count {
+            margin-left: auto;
+            background: #f1f5f9;
+            color: var(--text-lt);
+            font-size: .72rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 20px;
+        }
+
+        .filter-item.active .fi-count {
+            background: rgba(30, 77, 140, .12);
+            color: var(--primary);
+        }
+
+        /* Subtopic indent */
+        .subtopic-group {
+            margin-left: 12px;
+            border-left: 2px solid var(--border);
+            padding-left: 10px;
+            margin-top: 2px;
+        }
+
+        /* Sort select */
+        .sort-select {
+            width: 100%;
+            padding: 8px 11px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: .85rem;
+            outline: none;
+            cursor: pointer;
+            color: var(--text);
+            background: white;
+        }
+
+        .sort-select:focus {
+            border-color: var(--primary);
+        }
+
+        /* ── Active filter tags ── */
+        .active-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 14px 24px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            min-height: 0;
+        }
+
+        .active-tags:empty {
+            display: none;
+        }
+
+        .filter-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--pri-lt);
+            color: var(--primary);
+            border: 1px solid rgba(30, 77, 140, .2);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: .8rem;
+            font-weight: 600;
+        }
+
+        .filter-tag button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary);
+            font-size: .9rem;
+            padding: 0;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        /* ── Content area ── */
+        .content-area {
+            flex: 1;
+            min-width: 0;
+            padding: 24px;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-left {
+            font-size: .9rem;
+            color: var(--text-lt);
+        }
+
+        .toolbar-left strong {
+            color: var(--text);
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 4px;
+        }
+
+        .vt-btn {
+            background: #f1f5f9;
+            border: 1px solid var(--border);
+            padding: 7px 11px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: .9rem;
+            transition: all .2s;
+        }
+
+        .vt-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Paper cards — list view */
+        .papers-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .papers-grid.grid-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+        }
+
+        .paper-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px;
+            transition: all .2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .paper-card:hover {
+            border-color: rgba(30, 77, 140, .3);
+            box-shadow: 0 6px 24px rgba(30, 77, 140, .1);
+            transform: translateY(-2px);
+        }
+
+        .paper-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 14px 0 0 14px;
+            opacity: 0;
+            transition: opacity .2s;
+        }
+
+        .paper-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Card header row */
+        .pc-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .pc-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--pri-lt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .pc-meta {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .pc-cats {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+
+        .cat-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 9px;
+            border-radius: 20px;
+            font-size: .72rem;
+            font-weight: 700;
+        }
+
+        .cat-main {
+            background: #e8f0fb;
+            color: #1e4d8c;
+        }
+
+        .cat-sub {
+            background: #f0fdf4;
+            color: #15803d;
+        }
+
+        .role-pill {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .pc-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+            line-height: 1.35;
+        }
+
+        .pc-title a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .pc-title a:hover {
+            color: var(--primary);
+        }
+
+        .pc-authors {
+            font-size: .82rem;
+            color: var(--text-lt);
+            margin-bottom: 10px;
+        }
+
+        .pc-abstract {
+            font-size: .88rem;
+            color: var(--text-mid);
+            line-height: 1.7;
+            margin-bottom: 14px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .pc-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 14px;
+        }
+
+        .kw-tag {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            color: var(--text-lt);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: .74rem;
+        }
+
+        .pc-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 12px;
+            border-top: 1px solid #f1f5f9;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pc-date {
+            font-size: .78rem;
+            color: var(--text-lt);
+        }
+
+        .pc-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 7px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: .83rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all .2s;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--pri-dk);
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--text-mid);
+            border: 1.5px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg);
+        }
+
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: .78rem;
+        }
+
+        /* Empty / loading */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-lt);
+        }
+
+        .empty-state .e-ico {
+            font-size: 3.5rem;
+            margin-bottom: 14px;
+        }
+
+        .empty-state h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-mid);
+            margin-bottom: 6px;
+        }
+
+        .empty-state p {
+            font-size: .9rem;
+        }
+
+        /* Paper detail modal */
+        .detail-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .55);
+            z-index: 600;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .detail-overlay.open {
+            display: flex;
+        }
+
+        .detail-modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 680px;
+            max-height: 88vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .3);
+            animation: slideUp .25s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .dm-head {
+            padding: 28px 28px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .dm-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: var(--pri-lt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .dm-titles {
+            flex: 1;
+        }
+
+        .dm-titles h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+
+        .dm-close {
+            background: #f1f5f9;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            flex-shrink: 0;
+            transition: all .2s;
+        }
+
+        .dm-close:hover {
+            background: #e2e8f0;
+        }
+
+        .dm-body {
+            padding: 0 28px 28px;
+        }
+
+        .dm-section {
+            margin-bottom: 18px;
+        }
+
+        .dm-label {
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--text-lt);
+            margin-bottom: 6px;
+        }
+
+        .dm-text {
+            font-size: .9rem;
+            color: var(--text-mid);
+            line-height: 1.75;
+        }
+
+        .dm-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 18px 0;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            padding: 7px 13px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            background: white;
+            color: var(--text-mid);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: .85rem;
+            font-weight: 600;
+            transition: all .2s;
+        }
+
+        .page-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .page-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .page-btn:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+
+        /* Mobile sidebar toggle */
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 400;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(30, 77, 140, .4);
+        }
+
+        @media(max-width:900px) {
+            .filter-sidebar {
+                position: fixed;
+                left: -100%;
+                top: 64px;
+                height: calc(100vh - 64px);
+                z-index: 300;
+                transition: left .3s ease;
+                width: 280px;
+                box-shadow: 4px 0 20px rgba(0, 0, 0, .1);
+            }
+
+            .filter-sidebar.open {
+                left: 0;
+            }
+
+            .sidebar-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* nav user info overrides */
+        #dock-user-info {
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+
+
+<body>
+
+    <!-- ═══ PILL 1: Logo — top left ═══ -->
+    <div class="dock dock-logo-pill">
+        <a href="index.html" class="dock-logo">MedDoc<span>Hub</span></a>
+    </div>
+
+    <!-- ═══ PILL 2: Nav links — top centre ═══ -->
+    <nav class="dock dock-nav-pill" id="site-dock" role="navigation" aria-label="Main navigation">
+        <ul class="dock-nav">
+            <li><a href="index.html"><span class="nav-icon">🏠</span> Home</a></li>
+            <li><a href="research.html" class="active"><span class="nav-icon">🔬</span> Research</a></li>
+            <li><a href="upload.html"><span class="nav-icon">📤</span> Upload</a></li>
+            <li><a href="about.html"><span class="nav-icon">ℹ️</span> About</a></li>
+        </ul>
+    </nav>
+
+    <!-- ═══ PILL 3: Auth / Login — top right ═══ -->
+    <div class="dock dock-auth-pill" id="site-dock-auth">
+        <button class="dock-btn-login" id="nav-auth-btn" aria-haspopup="dialog" aria-controls="auth-modal">Login / Sign
+            Up</button>
+        <div id="dock-user-info">
+            <span id="dock-username"></span>
+            <a href="#" id="dock-dash-btn"></a>
+            <button class="btn btn-secondary" id="dock-logout-btn">Logout</button>
+        </div>
+        <button class="dock-hamburger" id="dock-hamburger" aria-label="Open menu">☰</button>
+    </div>
+    <div class="dock-mobile-menu" id="dock-mobile-menu">
+        <a href="index.html"><span>🏠</span> Home</a>
+        <a href="research.html" class="active"><span>🔬</span> Research</a>
+        <a href="upload.html"><span>📤</span> Upload</a>
+        <a href="about.html"><span>ℹ️</span> About</a>
+    </div>
+    <div class="nav-bg-bar" id="nav-bg-bar"></div>
+
+    <!-- ══ HERO SEARCH BANNER ═════════════════════════════════════════ -->
+    <div class="hero-banner">
+        <h1>📚 Research Library</h1>
+        <p>Explore peer-reviewed research papers approved by our expert panel — fully searchable and filterable.</p>
+        <div class="search-wrap">
+            <input class="search-input" id="search-input" type="text"
+                placeholder="Search by title, author, keyword, abstract…" autocomplete="off">
+            <button class="search-clear" id="search-clear" title="Clear search">✕</button>
+            <button class="search-btn" id="search-btn">🔍 Search</button>
+        </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="stats-strip">
+        <div class="strip-stat"><span>📄</span>
+            <div><strong id="strip-total">0</strong> Published Papers</div>
+        </div>
+        <div class="strip-stat"><span>👥</span>
+            <div><strong id="strip-authors">0</strong> Authors</div>
+        </div>
+        <div class="strip-stat"><span>🗂️</span>
+            <div><strong id="strip-cats">0</strong> Categories</div>
+        </div>
+        <div class="strip-stat"><span>📅</span>
+            <div>Last updated <strong id="strip-date">—</strong></div>
+        </div>
+    </div>
+
+    <!-- Active filter tags -->
+    <div class="active-tags" id="active-tags"></div>
+
+    <!-- ══ MAIN BODY ══════════════════════════════════════════════════ -->
+    <div class="page-body">
+
+        <!-- ── Filter Sidebar ── -->
+        <aside class="filter-sidebar" id="filter-sidebar">
+            <div class="fs-header">
+                <span class="fs-title">🔽 Filters</span>
+                <button class="fs-reset" id="reset-all">Reset all</button>
+            </div>
+
+            <!-- Sort -->
+            <div class="filter-group">
+                <div class="fg-title" data-group="sort">Sort By <span>▾</span></div>
+                <div class="fg-body" id="fg-sort">
+                    <select class="sort-select" id="sort-select">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="title-az">Title A → Z</option>
+                        <option value="title-za">Title Z → A</option>
+                        <option value="author">Author Name</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Category -->
+            <div class="filter-group">
+                <div class="fg-title" data-group="category">Category <span>▾</span></div>
+                <div class="fg-body" id="fg-category">
+                    <!-- Built dynamically -->
+                </div>
+            </div>
+
+            <!-- Subtopic -->
+            <div class="filter-group">
+                <div class="fg-title" data-group="subtopic">Subtopic <span>▾</span></div>
+                <div class="fg-body" id="fg-subtopic">
+                    <!-- Built dynamically -->
+                </div>
+            </div>
+
+            <!-- Author type -->
+            <div class="filter-group">
+                <div class="fg-title" data-group="role">Submitted By <span>▾</span></div>
+                <div class="fg-body" id="fg-role">
+                    <button class="filter-item active" data-filter="role" data-val="all"><span
+                            class="fi-icon">👥</span>All Authors</button>
+                    <button class="filter-item" data-filter="role" data-val="researcher"><span
+                            class="fi-icon">🔬</span>Researchers</button>
+                    <button class="filter-item" data-filter="role" data-val="student"><span
+                            class="fi-icon">🎓</span>Students</button>
+                </div>
+            </div>
+
+            <!-- Date range -->
+            <div class="filter-group">
+                <div class="fg-title" data-group="date">Date Range <span>▾</span></div>
+                <div class="fg-body" id="fg-date">
+                    <button class="filter-item active" data-filter="date" data-val="all"><span
+                            class="fi-icon">📅</span>All Time</button>
+                    <button class="filter-item" data-filter="date" data-val="7"><span class="fi-icon">🕐</span>Last 7
+                        Days</button>
+                    <button class="filter-item" data-filter="date" data-val="30"><span class="fi-icon">📆</span>Last 30
+                        Days</button>
+                    <button class="filter-item" data-filter="date" data-val="90"><span class="fi-icon">🗓️</span>Last 3
+                        Months</button>
+                    <button class="filter-item" data-filter="date" data-val="365"><span class="fi-icon">📊</span>Last
+                        Year</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ── Content Area ── -->
+        <div class="content-area">
+            <div class="toolbar">
+                <div class="toolbar-left">Showing <strong id="result-count">0</strong> papers</div>
+                <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                    <div class="view-toggle">
+                        <button class="vt-btn active" id="vt-list" title="List view">☰</button>
+                        <button class="vt-btn" id="vt-grid" title="Grid view">⊞</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Papers list -->
+            <div class="papers-grid" id="papers-grid"></div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </div>
+
+    <!-- ══ PAPER DETAIL MODAL ═════════════════════════════════════════ -->
+    <div class="detail-overlay" id="detail-overlay">
+        <div class="detail-modal">
+            <div class="dm-head">
+                <div class="dm-icon" id="dm-icon">📄</div>
+                <div class="dm-titles">
+                    <div id="dm-cats" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;"></div>
+                    <h2 id="dm-title">Paper Title</h2>
+                    <div style="font-size:.82rem;color:var(--text-lt);" id="dm-meta"></div>
+                </div>
+                <button class="dm-close" id="dm-close">✕</button>
+            </div>
+            <div class="dm-body">
+                <div class="dm-section">
+                    <div class="dm-label">Abstract</div>
+                    <div class="dm-text" id="dm-abstract">—</div>
+                </div>
+                <div class="dm-divider"></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;flex-wrap:wrap;">
+                    <div class="dm-section">
+                        <div class="dm-label">Keywords</div>
+                        <div id="dm-keywords" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;"></div>
+                    </div>
+                    <div class="dm-section">
+                        <div class="dm-label">Author</div>
+                        <div class="dm-text" id="dm-author">—</div>
+                    </div>
+                </div>
+                <div class="dm-divider"></div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="btn btn-primary" onclick="closeDetail()">Close</button>
+                    <button class="btn btn-outline" onclick="copyRef()">📋 Copy Citation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ MOBILE SIDEBAR TOGGLE ══════════════════════════════════════ -->
+    <button class="sidebar-toggle" id="sidebar-toggle" title="Filters">⚙</button>
+
+    <!-- ══ AUTH MODAL ════════════════════════════════════════════════ -->
+    <div class="modal-overlay" id="auth-modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-card" role="document">
+            <button class="modal-close" id="auth-close" aria-label="Close">×</button>
+            <div class="auth-grid">
+                <div class="auth-left">
+                    <div class="auth-hero">
+                        <h3>Welcome to MedDoc Hub</h3>
+                        <p>Securely create, manage, and share medical research with confidence.</p>
+                        <div class="auth-logos">
+                            <span>🔒 HIPAA-ready</span>
+                            <span>⚡ Fast Sync</span>
+                            <span>☁️ Cloud</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="auth-right">
+                    <div class="auth-tabs">
+                        <button class="tab-btn active" data-target="login">Login</button>
+                        <button class="tab-btn" data-target="signup">Sign Up</button>
+                    </div>
+                    <form id="login" class="auth-form active" autocomplete="on">
+                        <div class="input-group"><label for="login-email">Email</label><input id="login-email"
+                                type="email" placeholder="you@hospital.com" required></div>
+                        <div class="input-group">
+                            <label for="login-password">Password</label>
+                            <div class="password-row"><input id="login-password" type="password" placeholder="••••••••"
+                                    required><button type="button" class="btn-ghost" id="login-toggle">Show</button>
+                            </div>
+                        </div>
+                        <div class="form-row"><label class="checkbox"><input type="checkbox"> Remember me</label></div>
+                        <button class="btn btn-primary btn-block" type="submit">Login</button>
+                    </form>
+                    <form id="signup" class="auth-form" autocomplete="on">
+                        <div class="input-group"><label for="signup-name">Full name</label><input id="signup-name"
+                                type="text" placeholder="Dr. Jane Doe" required></div>
+                        <div class="input-group"><label for="signup-email">Email</label><input id="signup-email"
+                                type="email" placeholder="you@hospital.com" required></div>
+                        <div class="input-group">
+                            <label for="signup-password">Create password</label>
+                            <div class="password-row"><input id="signup-password" type="password"
+                                    placeholder="Minimum 8 characters" minlength="8" required><button type="button"
+                                    class="btn-ghost" id="signup-toggle">Show</button></div>
+                        </div>
+                        <div class="input-group">
+                            <label for="signup-role">I am a…</label>
+                            <select id="signup-role" required>
+                                <option value="">Select your role</option>
+                                <option value="student">Student</option>
+                                <option value="researcher">Researcher / Professor</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="submit">Create Account</button>
+                        <p class="small">By signing up you agree to our <a href="#">Terms</a> and <a
+                                href="#">Privacy</a>.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="particles.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // ══ INIT NAV ═════════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', () => {
+            const refreshNav = initNavAuth();
+            initAuthModal(user => { if (refreshNav) refreshNav(); });
+            initApp();
+            // Dock scroll morph
+            const dockEls = document.querySelectorAll('.dock');
+            const navBgBar = document.getElementById('nav-bg-bar');
+            if (dockEls.length) {
+                const onScroll = () => {
+                    const scrolled = window.scrollY > 30;
+                    dockEls.forEach(d => d.classList.toggle('scrolled', scrolled));
+                    if (navBgBar) navBgBar.classList.toggle('scrolled', scrolled);
+                };
+                window.addEventListener('scroll', onScroll, { passive: true });
+                onScroll();
+            }
+            // Dock hamburger
+            const ham = document.getElementById('dock-hamburger');
+            const menu = document.getElementById('dock-mobile-menu');
+            if (ham && menu) {
+                ham.addEventListener('click', e => { e.stopPropagation(); menu.classList.toggle('open'); });
+                document.addEventListener('click', e => { if (!menu.contains(e.target) && e.target !== ham) menu.classList.remove('open'); });
+            }
+        });
+
+        // ══ DATA ══════════════════════════════════════════════════════════
+        function getApprovedPapers() {
+            return JSON.parse(localStorage.getItem('mdh_papers') || '[]')
+                .filter(p => p.status === 'approved');
+        }
+
+        // Category taxonomy — topics and their subtopics
+        const TAXONOMY = {
+            'Medicine': ['Cardiology', 'Oncology', 'Neurology', 'Endocrinology', 'Gastroenterology', 'Pulmonology', 'Dermatology', 'Pediatrics', 'Emergency Medicine'],
+            'Biology': ['Genetics', 'Molecular Biology', 'Cell Biology', 'Microbiology', 'Ecology', 'Evolutionary Biology'],
+            'Computer Science': ['Artificial Intelligence', 'Machine Learning', 'Data Science', 'Cybersecurity', 'Computer Vision', 'NLP'],
+            'Chemistry': ['Organic Chemistry', 'Biochemistry', 'Pharmaceutical Chemistry', 'Analytical Chemistry'],
+            'Physics': ['Quantum Physics', 'Biophysics', 'Medical Physics', 'Thermodynamics'],
+            'Neuroscience': ['Cognitive Neuroscience', 'Clinical Neuroscience', 'Neuroimaging', 'Neuropsychology'],
+            'Pharmacology': ['Clinical Pharmacology', 'Drug Discovery', 'Toxicology'],
+            'Immunology': ['Autoimmunity', 'Vaccines', 'Allergy & Hypersensitivity'],
+            'Other': ['Interdisciplinary', 'Public Health', 'Epidemiology', 'Biostatistics'],
+        };
+
+        const catIcons = {
+            'Medicine': '🏥', 'Biology': '🧬', 'Computer Science': '💻', 'Chemistry': '🧪',
+            'Physics': '⚛️', 'Neuroscience': '🧠', 'Pharmacology': '💊', 'Immunology': '🦠',
+            'Cardiology': '❤️', 'Genetics': '🔬', 'Oncology': '🎗️', 'Other': '📄',
+        };
+
+        // ══ STATE ═════════════════════════════════════════════════════════
+        const state = {
+            search: '',
+            category: 'all',
+            subtopic: 'all',
+            role: 'all',
+            date: 'all',
+            sort: 'newest',
+            page: 1,
+            perPage: 10,
+            view: 'list',
+        };
+
+        // ══ INIT ══════════════════════════════════════════════════════════
+        function initApp() {
+            buildSidebar();
+            buildStatsStrip();
+            render();
+            bindEvents();
+        }
+
+        // ══ BUILD SIDEBAR ═════════════════════════════════════════════════
+        function buildSidebar() {
+            const papers = getApprovedPapers();
+            const catCounts = {};
+            papers.forEach(p => {
+                const c = p.category || 'Other';
+                catCounts[c] = (catCounts[c] || 0) + 1;
+            });
+
+            // Category filter
+            const catContainer = document.getElementById('fg-category');
+            catContainer.innerHTML = `
+        <button class="filter-item active" data-filter="category" data-val="all">
+            <span class="fi-icon">📚</span>All Categories
+            <span class="fi-count">${papers.length}</span>
+        </button>`;
+
+            Object.keys(TAXONOMY).forEach(cat => {
+                const count = catCounts[cat] || 0;
+                catContainer.innerHTML += `
+            <button class="filter-item" data-filter="category" data-val="${esc(cat)}">
+                <span class="fi-icon">${catIcons[cat] || '📄'}</span>${esc(cat)}
+                <span class="fi-count">${count}</span>
+            </button>`;
+            });
+
+            // Also add any categories from papers not in taxonomy
+            Object.keys(catCounts).forEach(cat => {
+                if (!TAXONOMY[cat]) {
+                    catContainer.innerHTML += `
+                <button class="filter-item" data-filter="category" data-val="${esc(cat)}">
+                    <span class="fi-icon">${catIcons[cat] || '📄'}</span>${esc(cat)}
+                    <span class="fi-count">${catCounts[cat]}</span>
+                </button>`;
+                }
+            });
+
+            // Subtopic — starts with all, updates when category selected
+            buildSubtopics('all');
+        }
+
+        function buildSubtopics(category) {
+            const container = document.getElementById('fg-subtopic');
+            const subtopics = category !== 'all' && TAXONOMY[category] ? TAXONOMY[category] : null;
+
+            if (!subtopics) {
+                container.innerHTML = `<div style="font-size:.82rem;color:var(--text-lt);padding:6px 10px;">Select a category first to see subtopics.</div>`;
+                return;
+            }
+
+            container.innerHTML = `
+        <button class="filter-item active" data-filter="subtopic" data-val="all">
+            <span class="fi-icon">📋</span>All Subtopics
+        </button>` +
+                subtopics.map(s => `
+            <button class="filter-item" data-filter="subtopic" data-val="${esc(s)}">
+                <span class="fi-icon">▸</span>${esc(s)}
+            </button>`).join('');
+
+            // Re-bind subtopic click events
+            container.querySelectorAll('.filter-item').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    container.querySelectorAll('.filter-item').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    state.subtopic = btn.dataset.val;
+                    state.page = 1;
+                    render();
+                    updateActiveTags();
+                });
+            });
+        }
+
+        // ══ STATS STRIP ═══════════════════════════════════════════════════
+        function buildStatsStrip() {
+            const papers = getApprovedPapers();
+            const authors = new Set(papers.map(p => p.author));
+            const cats = new Set(papers.map(p => p.category).filter(Boolean));
+            const latest = papers.sort((a, b) => (b.dateISO || '') > (a.dateISO || '') ? 1 : -1)[0];
+            document.getElementById('strip-total').textContent = papers.length;
+            document.getElementById('strip-authors').textContent = authors.size;
+            document.getElementById('strip-cats').textContent = cats.size;
+            document.getElementById('strip-date').textContent = latest ? latest.date : '—';
+        }
+
+        // ══ FILTER + SORT + PAGINATE + RENDER ════════════════════════════
+        function getFiltered() {
+            let papers = getApprovedPapers();
+            const q = state.search.toLowerCase().trim();
+
+            // Search
+            if (q) {
+                papers = papers.filter(p =>
+                    (p.title || '').toLowerCase().includes(q) ||
+                    (p.abstract || '').toLowerCase().includes(q) ||
+                    (p.author || '').toLowerCase().includes(q) ||
+                    (p.keywords || '').toLowerCase().includes(q) ||
+                    (p.category || '').toLowerCase().includes(q)
+                );
+            }
+            // Category
+            if (state.category !== 'all') papers = papers.filter(p => p.category === state.category);
+            // Subtopic — match in keywords or abstract
+            if (state.subtopic !== 'all') papers = papers.filter(p =>
+                (p.keywords || '').toLowerCase().includes(state.subtopic.toLowerCase()) ||
+                (p.abstract || '').toLowerCase().includes(state.subtopic.toLowerCase()) ||
+                (p.category || '').toLowerCase() === state.subtopic.toLowerCase()
+            );
+            // Role
+            if (state.role !== 'all') papers = papers.filter(p => p.role === state.role);
+            // Date
+            if (state.date !== 'all') {
+                const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - parseInt(state.date));
+                papers = papers.filter(p => p.dateISO && new Date(p.dateISO) >= cutoff);
+            }
+            // Sort
+            papers = [...papers].sort((a, b) => {
+                if (state.sort === 'newest') return (b.dateISO || '') > (a.dateISO || '') ? 1 : -1;
+                if (state.sort === 'oldest') return (a.dateISO || '') > (b.dateISO || '') ? 1 : -1;
+                if (state.sort === 'title-az') return (a.title || '').localeCompare(b.title || '');
+                if (state.sort === 'title-za') return (b.title || '').localeCompare(a.title || '');
+                if (state.sort === 'author') return (a.author || '').localeCompare(b.author || '');
+                return 0;
+            });
+            return papers;
+        }
+
+        function render() {
+            const all = getFiltered();
+            const total = all.length;
+            const pages = Math.max(1, Math.ceil(total / state.perPage));
+            if (state.page > pages) state.page = 1;
+            const slice = all.slice((state.page - 1) * state.perPage, state.page * state.perPage);
+
+            document.getElementById('result-count').textContent = total;
+
+            const grid = document.getElementById('papers-grid');
+            grid.className = 'papers-grid' + (state.view === 'grid' ? ' grid-view' : '');
+
+            if (total === 0) {
+                grid.innerHTML = `<div class="empty-state">
+            <div class="e-ico">🔍</div>
+            <h3>No papers found</h3>
+            <p>Try a different search term or clear some filters.</p>
+        </div>`;
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+
+            grid.innerHTML = slice.map(paperCardHTML).join('');
+
+            // Bind card clicks
+            grid.querySelectorAll('.pc-title a').forEach(a => {
+                a.addEventListener('click', e => {
+                    e.preventDefault();
+                    openDetail(a.dataset.id);
+                });
+            });
+
+            renderPagination(pages);
+            highlightSearch(q => q);
+        }
+
+        function paperCardHTML(p) {
+            const ico = catIcons[p.category] || '📄';
+            const kws = (p.keywords || '').split(',').filter(Boolean).slice(0, 4);
+            const roleLbl = p.role === 'researcher' ? '🔬 Researcher' : '🎓 Student';
+            const abstractPreview = (p.abstract || 'No abstract provided.').slice(0, 280);
+            return `<div class="paper-card">
+        <div class="pc-top">
+            <div class="pc-icon">${ico}</div>
+            <div class="pc-meta">
+                <div class="pc-cats">
+                    <span class="cat-pill cat-main">${esc(p.category || 'General')}</span>
+                    <span class="cat-pill role-pill">${roleLbl}</span>
+                </div>
+                <div class="pc-title"><a href="#" data-id="${esc(p.id)}">${esc(p.title)}</a></div>
+                <div class="pc-authors">✍️ ${esc(p.author)} ${p.coauthors && p.coauthors.length ? '· ' + p.coauthors.slice(0, 2).join(', ') : ''}</div>
+            </div>
+        </div>
+        <div class="pc-abstract">${esc(abstractPreview)}${p.abstract && p.abstract.length > 280 ? '…' : ''}</div>
+        ${kws.length ? `<div class="pc-keywords">${kws.map(k => `<span class="kw-tag">${esc(k.trim())}</span>`).join('')}</div>` : ''}
+        <div class="pc-footer">
+            <span class="pc-date">📅 Published ${esc(p.date || '—')}</span>
+            <div class="pc-actions">
+                <button class="btn btn-outline btn-sm" onclick="openDetail('${esc(p.id)}')">View Details</button>
+            </div>
+        </div>
+    </div>`;
+        }
+
+        // ══ PAGINATION ════════════════════════════════════════════════════
+        function renderPagination(pages) {
+            const pg = document.getElementById('pagination');
+            if (pages <= 1) { pg.innerHTML = ''; return; }
+            let html = `<button class="page-btn" onclick="goPage(${state.page - 1})" ${state.page === 1 ? 'disabled' : ''}>‹ Prev</button>`;
+            for (let i = 1; i <= pages; i++) {
+                if (pages > 7 && Math.abs(i - state.page) > 2 && i !== 1 && i !== pages) {
+                    if (i === 2 || i === pages - 1) html += `<span style="padding:0 4px;color:var(--text-lt)">…</span>`;
+                    continue;
+                }
+                html += `<button class="page-btn ${i === state.page ? 'active' : ''}" onclick="goPage(${i})">${i}</button>`;
+            }
+            html += `<button class="page-btn" onclick="goPage(${state.page + 1})" ${state.page === pages ? 'disabled' : ''}>Next ›</button>`;
+            pg.innerHTML = html;
+        }
+
+        function goPage(n) {
+            state.page = n;
+            render();
+            document.querySelector('.content-area').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ══ ACTIVE FILTER TAGS ════════════════════════════════════════════
+        function updateActiveTags() {
+            const container = document.getElementById('active-tags');
+            const tags = [];
+            if (state.search) tags.push({ label: `🔍 "${state.search}"`, key: 'search' });
+            if (state.category !== 'all') tags.push({ label: `📁 ${state.category}`, key: 'category' });
+            if (state.subtopic !== 'all') tags.push({ label: `▸ ${state.subtopic}`, key: 'subtopic' });
+            if (state.role !== 'all') tags.push({ label: state.role === 'researcher' ? '🔬 Researchers' : '🎓 Students', key: 'role' });
+            if (state.date !== 'all') tags.push({ label: `📅 Last ${state.date} days`, key: 'date' });
+
+            container.innerHTML = tags.map(t =>
+                `<span class="filter-tag">${esc(t.label)} <button onclick="clearFilter('${t.key}')">✕</button></span>`
+            ).join('');
+        }
+
+        function clearFilter(key) {
+            state[key] = key === 'search' ? '' : 'all';
+            if (key === 'search') document.getElementById('search-input').value = '';
+            if (key === 'category') { buildSubtopics('all'); state.subtopic = 'all'; }
+            state.page = 1;
+            syncSidebarUI();
+            render();
+            updateActiveTags();
+        }
+
+        function syncSidebarUI() {
+            // Re-highlight sidebar items based on current state
+            ['category', 'role', 'date'].forEach(ftype => {
+                document.querySelectorAll(`[data-filter="${ftype}"]`).forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.val === state[ftype]);
+                });
+            });
+        }
+
+        // ══ PAPER DETAIL MODAL ════════════════════════════════════════════
+        let currentPaper = null;
+        function openDetail(id) {
+            const paper = getApprovedPapers().find(p => p.id === id);
+            if (!paper) return;
+            currentPaper = paper;
+            const ico = catIcons[paper.category] || '📄';
+            document.getElementById('dm-icon').textContent = ico;
+            document.getElementById('dm-title').textContent = paper.title || '—';
+            document.getElementById('dm-meta').textContent = `✍️ ${paper.author || '—'} · 📅 ${paper.date || '—'} · ${paper.role === 'researcher' ? '🔬 Researcher' : '🎓 Student'}`;
+            document.getElementById('dm-abstract').textContent = paper.abstract || 'No abstract provided.';
+            document.getElementById('dm-author').textContent = [paper.author, ...(paper.coauthors || [])].filter(Boolean).join(', ') || '—';
+            const kws = (paper.keywords || '').split(',').filter(Boolean);
+            document.getElementById('dm-keywords').innerHTML = kws.length ? kws.map(k => `<span class="kw-tag">${esc(k.trim())}</span>`).join('') : '<span style="color:var(--text-lt);font-size:.82rem;">—</span>';
+            const catsEl = document.getElementById('dm-cats');
+            catsEl.innerHTML = `<span class="cat-pill cat-main">${esc(paper.category || 'General')}</span>`;
+            document.getElementById('detail-overlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeDetail() {
+            document.getElementById('detail-overlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.getElementById('dm-close').addEventListener('click', closeDetail);
+        document.getElementById('detail-overlay').addEventListener('click', e => { if (e.target === document.getElementById('detail-overlay')) closeDetail(); });
+
+        function copyRef() {
+            if (!currentPaper) return;
+            const ref = `${currentPaper.author || 'Unknown'} (${new Date(currentPaper.dateISO || '').getFullYear() || '2026'}). ${currentPaper.title}. MedDoc Hub. Category: ${currentPaper.category}.`;
+            navigator.clipboard.writeText(ref).then(() => alert('Citation copied to clipboard!'));
+        }
+
+        // ══ SEARCH ════════════════════════════════════════════════════════
+        const searchInput = document.getElementById('search-input');
+        const searchClear = document.getElementById('search-clear');
+
+        searchInput.addEventListener('input', () => {
+            state.search = searchInput.value;
+            searchClear.style.display = state.search ? 'block' : 'none';
+            state.page = 1;
+            render();
+            updateActiveTags();
+        });
+        document.getElementById('search-btn').addEventListener('click', () => {
+            state.search = searchInput.value;
+            state.page = 1;
+            render();
+            updateActiveTags();
+        });
+        searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') { state.search = searchInput.value; state.page = 1; render(); updateActiveTags(); } });
+        searchClear.addEventListener('click', () => {
+            searchInput.value = ''; state.search = ''; searchClear.style.display = 'none';
+            state.page = 1; render(); updateActiveTags();
+        });
+
+        // ══ FILTER CLICKS (category, role, date) ══════════════════════════
+        function bindEvents() {
+            document.addEventListener('click', e => {
+                const btn = e.target.closest('[data-filter]');
+                if (!btn) return;
+                const ftype = btn.dataset.filter;
+                const val = btn.dataset.val;
+                if (!ftype || !val) return;
+
+                // Update state
+                state[ftype] = val;
+                state.page = 1;
+
+                // If category changed, rebuild subtopics
+                if (ftype === 'category') {
+                    buildSubtopics(val === 'all' ? 'all' : val);
+                    state.subtopic = 'all';
+                }
+
+                // Highlight active
+                document.querySelectorAll(`[data-filter="${ftype}"]`).forEach(b => b.classList.toggle('active', b === btn));
+
+                render();
+                updateActiveTags();
+            });
+
+            // Sort
+            document.getElementById('sort-select').addEventListener('change', function () {
+                state.sort = this.value;
+                state.page = 1;
+                render();
+            });
+
+            // Reset all
+            document.getElementById('reset-all').addEventListener('click', () => {
+                Object.assign(state, { search: '', category: 'all', subtopic: 'all', role: 'all', date: 'all', sort: 'newest', page: 1 });
+                searchInput.value = '';
+                searchClear.style.display = 'none';
+                document.getElementById('sort-select').value = 'newest';
+                buildSubtopics('all');
+                syncSidebarUI();
+                render();
+                updateActiveTags();
+            });
+
+            // View toggle
+            document.getElementById('vt-list').addEventListener('click', () => { state.view = 'list'; document.getElementById('vt-list').classList.add('active'); document.getElementById('vt-grid').classList.remove('active'); render(); });
+            document.getElementById('vt-grid').addEventListener('click', () => { state.view = 'grid'; document.getElementById('vt-grid').classList.add('active'); document.getElementById('vt-list').classList.remove('active'); render(); });
+
+            // Mobile sidebar toggle
+            document.getElementById('sidebar-toggle').addEventListener('click', () => {
+                document.getElementById('filter-sidebar').classList.toggle('open');
+            });
+
+            // Collapsible filter groups
+            document.querySelectorAll('.fg-title').forEach(title => {
+                title.addEventListener('click', () => {
+                    title.classList.toggle('collapsed');
+                    const body = document.getElementById('fg-' + title.dataset.group);
+                    if (body) body.classList.toggle('hidden');
+                });
+            });
+        }
+
+        // ══ UTILS ═════════════════════════════════════════════════════════
+        function esc(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — MedDoc Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ═══ PILL 1: Logo — top left ═══ -->
+    <div class="dock dock-logo-pill">
+        <a href="index.html" class="dock-logo">MedDoc<span>Hub</span></a>
+    </div>
+
+    <!-- ═══ PILL 2: Nav links — top centre ═══ -->
+    <nav class="dock dock-nav-pill" id="site-dock" role="navigation" aria-label="Main navigation">
+        <ul class="dock-nav">
+            <li><a href="index.html"><span class="nav-icon">🏠</span> Home</a></li>
+            <li><a href="research.html"><span class="nav-icon">🔬</span> Research</a></li>
+            <li><a href="upload.html"><span class="nav-icon">📤</span> Upload</a></li>
+            <li><a href="about.html" class="active"><span class="nav-icon">ℹ️</span> About</a></li>
+        </ul>
+    </nav>
+
+    <!-- ═══ PILL 3: Auth / Login — top right ═══ -->
+    <div class="dock dock-auth-pill" id="site-dock-auth">
+        <button class="dock-btn-login" id="nav-auth-btn" aria-haspopup="dialog" aria-controls="auth-modal">Login / Sign
+            Up</button>
+        <div id="dock-user-info">
+            <span id="dock-username"></span>
+            <a href="#" id="dock-dash-btn"></a>
+            <button class="btn btn-secondary" id="dock-logout-btn">Logout</button>
+        </div>
+        <button class="dock-hamburger" id="dock-hamburger" aria-label="Open menu">☰</button>
+    </div>
+    <div class="dock-mobile-menu" id="dock-mobile-menu">
+        <a href="index.html"><span>🏠</span> Home</a>
+        <a href="research.html"><span>🔬</span> Research</a>
+        <a href="upload.html"><span>📤</span> Upload</a>
+        <a href="about.html" class="active"><span>ℹ️</span> About</a>
+    </div>
+    <div class="nav-bg-bar" id="nav-bg-bar"></div>
+
+    <!-- ═══════════════════════ ABOUT PAGE ═══════════════════════ -->
+    <main class="about-section">
+
+        <!-- Hero block -->
+        <div class="about-hero">
+            <span class="about-eyebrow">About the Platform</span>
+            <h1>Advancing Medical <span>Research</span> Together</h1>
+            <p class="about-lead">
+                MedDoc Hub is a dedicated online platform designed to streamline the
+                publication and sharing of medical research across the global academic community.
+            </p>
+        </div>
+
+        <!-- Mission statement card -->
+        <div class="about-mission-card float-up">
+            <div class="about-mission-icon">🏥</div>
+            <div>
+                <h2>Our Mission</h2>
+                <p>
+                    We aim to foster collaboration, ensure quality, and accelerate medical advancements
+                    by combining automated AI checks with expert human oversight — making it easier than
+                    ever to share knowledge that matters. Every approved paper contributes to an open,
+                    accessible repository that benefits clinicians, educators, and researchers worldwide.
+                </p>
+            </div>
+        </div>
+
+        <!-- Content blocks -->
+        <div class="about-content">
+
+            <div class="about-block float-up">
+                <h2>How Submission Works</h2>
+                <p>
+                    Researchers and students can upload their medical papers through a simple, guided
+                    form. Each submission requires a title, structured abstract, category tags, and
+                    keywords — ensuring every paper is properly indexed for discovery. Uploads are
+                    accepted as PDFs and immediately queued for review upon submission.
+                </p>
+            </div>
+
+            <div class="about-block float-up">
+                <h2>AI-Assisted Review</h2>
+                <p>
+                    Once submitted, an advanced AI model reviews the document for topical relevance,
+                    structural formatting, completeness, and basic compliance with our publication
+                    standards. The AI produces a structured report that flags any issues and assigns
+                    a preliminary category — giving administrators a clear, objective starting point
+                    for their evaluation.
+                </p>
+            </div>
+
+            <div class="about-block float-up">
+                <h2>Human Oversight &amp; Approval</h2>
+                <p>
+                    After the AI examination, a qualified human administrator evaluates the paper
+                    alongside the AI report. The administrator makes the final decision: approve for
+                    publication, request revisions, or reject with feedback. This dual-layer process
+                    ensures no content bypasses expert scrutiny — maintaining the integrity of the
+                    repository.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Process steps -->
+        <div class="about-steps-section float-up">
+            <h2 class="about-steps-heading">The Review Pipeline</h2>
+            <div class="about-steps">
+                <div class="about-step">
+                    <div class="about-step-num">01</div>
+                    <h3>Upload</h3>
+                    <p>Submit your paper via the guided upload form with metadata.</p>
+                </div>
+                <div class="about-step">
+                    <div class="about-step-num">02</div>
+                    <h3>AI Scan</h3>
+                    <p>Automated checks for relevance, structure, and compliance.</p>
+                </div>
+                <div class="about-step">
+                    <div class="about-step-num">03</div>
+                    <h3>Admin Review</h3>
+                    <p>Human expert evaluates alongside the AI report.</p>
+                </div>
+                <div class="about-step">
+                    <div class="about-step-num">04</div>
+                    <h3>Published</h3>
+                    <p>Approved papers go live in the open-access repository.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Who it's for -->
+        <div class="about-roles float-up">
+            <h2 class="about-roles-heading">Built for Everyone in Academia</h2>
+            <div class="about-roles-grid">
+                <div class="about-role-card">
+                    <div class="about-role-icon">🎓</div>
+                    <h3>Students</h3>
+                    <p>Submit undergraduate and postgraduate research, track your submission status, and build your
+                        academic profile.</p>
+                    <a href="student-dashboard.html" class="btn btn-outline btn-sm">Student Portal →</a>
+                </div>
+                <div class="about-role-card">
+                    <div class="about-role-icon">🔬</div>
+                    <h3>Researchers & Professors</h3>
+                    <p>Publish peer-reviewed work, review student submissions, and collaborate with the broader medical
+                        community.</p>
+                    <a href="professor-dashboard.html" class="btn btn-outline btn-sm">Researcher Portal →</a>
+                </div>
+                <div class="about-role-card">
+                    <div class="about-role-icon">🛡️</div>
+                    <h3>Administrators</h3>
+                    <p>Moderate all submissions, manage user accounts, configure categories, and maintain platform
+                        integrity.</p>
+                    <a href="admin.html" class="btn btn-outline btn-sm">Admin Portal →</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">MedDoc<span>Hub</span></a>
+                <p>Building exceptional medical research experiences.</p>
+                <div class="footer-brand-badges">
+                    <span class="footer-brand-badge">🔒 HIPAA-ready</span>
+                    <span class="footer-brand-badge">⚡ Fast Sync</span>
+                    <span class="footer-brand-badge">☁️ Cloud</span>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Security</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 MedDoc Hub — All Rights Reserved</p>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Security</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════════════════ AUTH MODAL ═══════════════════════ -->
+    <div class="modal-overlay" id="auth-modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-card" role="document">
+            <button class="modal-close" id="auth-close" aria-label="Close">×</button>
+
+            <!-- Step 1: Role picker -->
+            <div id="modal-step-role" class="modal-step">
+                <div class="modal-step-header">
+                    <div class="modal-logo-mark"></div>
+                    <div>
+                        <h2 class="modal-title">Welcome to MedDoc<span>Hub</span></h2>
+                        <p class="modal-subtitle">Choose how you're signing in</p>
+                    </div>
+                </div>
+                <div class="role-picker">
+                    <button class="role-card" data-role="student">
+                        <span class="role-card-icon">🎓</span>
+                        <span class="role-card-title">Student</span>
+                        <span class="role-card-desc">Submit &amp; track research papers</span>
+                        <span class="role-card-arrow">→</span>
+                    </button>
+                    <button class="role-card" data-role="researcher">
+                        <span class="role-card-icon">🔬</span>
+                        <span class="role-card-title">Researcher / Professor</span>
+                        <span class="role-card-desc">Review &amp; publish medical research</span>
+                        <span class="role-card-arrow">→</span>
+                    </button>
+                    <button class="role-card" data-role="admin">
+                        <span class="role-card-icon">🛡️</span>
+                        <span class="role-card-title">Administrator</span>
+                        <span class="role-card-desc">Manage users, approvals &amp; platform</span>
+                        <span class="role-card-arrow">→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Login / Signup -->
+            <div id="modal-step-form" class="modal-step" style="display:none;">
+                <div class="modal-step-header">
+                    <button class="modal-back-btn" id="modal-back">← Back</button>
+                    <div class="modal-role-badge" id="modal-role-badge"></div>
+                </div>
+                <div class="auth-right">
+                    <div class="auth-tabs">
+                        <button class="tab-btn active" data-target="login">Login</button>
+                        <button class="tab-btn" data-target="signup">Sign Up</button>
+                    </div>
+                    <form id="login" class="auth-form active" autocomplete="on">
+                        <div class="input-group">
+                            <label for="login-email">Email</label>
+                            <input id="login-email" type="email" placeholder="you@hospital.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="login-password">Password</label>
+                            <div class="password-row">
+                                <input id="login-password" type="password" placeholder="••••••••" required>
+                                <button type="button" class="btn-ghost" id="login-toggle">Show</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label class="checkbox"><input type="checkbox"> Remember me</label>
+                            <a href="#" class="small-link">Forgot?</a>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="submit">Login</button>
+                    </form>
+                    <form id="signup" class="auth-form" autocomplete="on">
+                        <div class="input-group">
+                            <label for="signup-name">Full name</label>
+                            <input id="signup-name" type="text" placeholder="Dr. Jane Doe" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="signup-email">Email</label>
+                            <input id="signup-email" type="email" placeholder="you@hospital.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="signup-password">Create password</label>
+                            <div class="password-row">
+                                <input id="signup-password" type="password" placeholder="Minimum 8 characters"
+                                    minlength="8" required>
+                                <button type="button" class="btn-ghost" id="signup-toggle">Show</button>
+                            </div>
+                        </div>
+                        <input type="hidden" id="signup-role" value="">
+                        <button class="btn btn-primary btn-block" type="submit">Create Account</button>
+                        <p class="small">By signing up you agree to our <a href="#">Terms</a> and <a
+                                href="#">Privacy</a>.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="particles.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dock scroll morph
+            const dockEls = document.querySelectorAll('.dock');
+            const navBgBar = document.getElementById('nav-bg-bar');
+            if (dockEls.length) {
+                const onScroll = () => {
+                    const scrolled = window.scrollY > 30;
+                    dockEls.forEach(d => d.classList.toggle('scrolled', scrolled));
+                    if (navBgBar) navBgBar.classList.toggle('scrolled', scrolled);
+                };
+                window.addEventListener('scroll', onScroll, { passive: true });
+                onScroll();
+            }
+            // Dock hamburger
+            const ham = document.getElementById('dock-hamburger');
+            const menu = document.getElementById('dock-mobile-menu');
+            if (ham && menu) {
+                ham.addEventListener('click', e => { e.stopPropagation(); menu.classList.toggle('open'); });
+                document.addEventListener('click', e => { if (!menu.contains(e.target) && e.target !== ham) menu.classList.remove('open'); });
+            }
+
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.float-up').forEach(el => obs.observe(el));
+
+            const refreshNav = initNavAuth();
+            initRoleAuthModal(function (user) {
+                document.body.style.overflow = '';
+                if (refreshNav) refreshNav();
+            });
+        });
+
+        function initRoleAuthModal(onSuccess) {
+            const modal = document.getElementById('auth-modal');
+            const closeBtn = document.getElementById('auth-close');
+            const navAuthBtn = document.getElementById('nav-auth-btn');
+            const stepRole = document.getElementById('modal-step-role');
+            const stepForm = document.getElementById('modal-step-form');
+            const backBtn = document.getElementById('modal-back');
+            const roleBadge = document.getElementById('modal-role-badge');
+            const tabBtns = Array.from(modal.querySelectorAll('.tab-btn'));
+            const forms = Array.from(modal.querySelectorAll('.auth-form'));
+
+            const ROLE_META = {
+                student: { label: '🎓 Student', color: '#1e4080' },
+                researcher: { label: '🔬 Researcher / Professor', color: '#0f766e' },
+                admin: { label: '🛡️ Administrator', color: '#7c3aed' }
+            };
+            let selectedRole = null;
+
+            function openModal() {
+                modal.setAttribute('aria-hidden', 'false');
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                showStep('role');
+            }
+            function closeModal() {
+                modal.setAttribute('aria-hidden', 'true');
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+                selectedRole = null;
+                modal.querySelectorAll('form').forEach(f => f.reset());
+                clearAuthError('modal-login-error');
+                clearAuthError('modal-signup-error');
+                tabBtns.forEach((b, i) => b.classList.toggle('active', i === 0));
+                forms.forEach((f, i) => f.classList.toggle('active', i === 0));
+            }
+            function showStep(step) {
+                if (step === 'role') { stepRole.style.display = ''; stepForm.style.display = 'none'; }
+                else { stepRole.style.display = 'none'; stepForm.style.display = ''; }
+            }
+
+            navAuthBtn && navAuthBtn.addEventListener('click', openModal);
+            closeBtn && closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+            backBtn && backBtn.addEventListener('click', () => showStep('role'));
+
+            modal.querySelectorAll('.role-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    selectedRole = card.dataset.role;
+                    const meta = ROLE_META[selectedRole];
+                    roleBadge.textContent = meta.label;
+                    roleBadge.style.color = meta.color;
+                    roleBadge.style.background = meta.color + '12';
+                    roleBadge.style.borderColor = meta.color + '30';
+                    const roleInput = document.getElementById('signup-role');
+                    if (roleInput) roleInput.value = selectedRole;
+                    showStep('form');
+                    const first = stepForm.querySelector('input:not([type=hidden])');
+                    if (first) setTimeout(() => first.focus(), 100);
+                });
+            });
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    forms.forEach(f => f.classList.remove('active'));
+                    const t = document.getElementById(btn.dataset.target);
+                    if (t) t.classList.add('active');
+                });
+            });
+
+            ['login', 'signup'].forEach(p => {
+                const toggle = document.getElementById(p + '-toggle');
+                const input = document.getElementById(p + '-password');
+                if (toggle && input) toggle.addEventListener('click', () => {
+                    input.type = input.type === 'text' ? 'password' : 'text';
+                    toggle.textContent = input.type === 'password' ? 'Show' : 'Hide';
+                });
+            });
+
+            const loginForm = document.getElementById('login');
+            loginForm && loginForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                clearAuthError('modal-login-error');
+                const result = mdhLogin(
+                    document.getElementById('login-email').value.trim(),
+                    document.getElementById('login-password').value
+                );
+                if (!result.ok) { insertFormError('modal-login-error', result.error, this); return; }
+                if (result.user.role !== selectedRole) {
+                    const names = { student: 'Student', researcher: 'Researcher / Professor', admin: 'Admin' };
+                    insertFormError('modal-login-error',
+                        'This account is a <strong>' + names[result.user.role] + '</strong>. Please go back and select the correct role.', this);
+                    return;
+                }
+                mdhStartSession(result.user);
+                this.reset(); closeModal();
+                if (onSuccess) onSuccess(result.user);
+            });
+
+            const signupForm = document.getElementById('signup');
+            signupForm && signupForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                clearAuthError('modal-signup-error');
+                if (!selectedRole) { insertFormError('modal-signup-error', 'Please go back and select your role.', this); return; }
+                const result = mdhRegister(
+                    document.getElementById('signup-name').value.trim(),
+                    document.getElementById('signup-email').value.trim(),
+                    document.getElementById('signup-password').value,
+                    selectedRole
+                );
+                if (!result.ok) { insertFormError('modal-signup-error', result.error, this); return; }
+                mdhStartSession(result.user);
+                this.reset(); closeModal();
+                if (onSuccess) onSuccess(result.user);
+            });
+        }
+
+        function insertFormError(id, msg, form) {
+            let el = document.getElementById(id);
+            if (!el) {
+                el = document.createElement('div');
+                el.id = id;
+                el.style.cssText = 'background:#fef2f2;border:1px solid #fecaca;border-left:3px solid #dc2626;border-radius:6px;padding:10px 14px;font-size:.84rem;color:#b91c1c;font-weight:500;display:flex;gap:8px;align-items:flex-start;margin-bottom:4px;';
+            }
+            el.innerHTML = '<span>⚠️</span><span>' + msg + '</span>';
+            el.style.display = 'flex';
+            form.insertBefore(el, form.querySelector('button[type=submit]'));
+        }
+    </script>
+
+    <style>
+        .modal-step-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem 2.5rem 0;
+            margin-bottom: 1.75rem;
+        }
+
+        .modal-logo-mark {
+            width: 36px;
+            height: 36px;
+            background: var(--navy-700);
+            border-radius: 9px;
+            flex-shrink: 0;
+        }
+
+        .modal-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--navy-900);
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        .modal-title span {
+            color: var(--navy-600);
+        }
+
+        .modal-subtitle {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin: 0.15rem 0 0;
+        }
+
+        .role-picker {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            padding: 0 2.5rem 2.5rem;
+        }
+
+        .role-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            background: var(--slate-50);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: left;
+            font-family: inherit;
+        }
+
+        .role-card:hover {
+            background: var(--navy-50);
+            border-color: var(--navy-400);
+            transform: translateX(3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .role-card-icon {
+            font-size: 1.6rem;
+            width: 46px;
+            height: 46px;
+            background: var(--white);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .role-card-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--navy-900);
+            display: block;
+        }
+
+        .role-card-desc {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 0.1rem;
+        }
+
+        .role-card-arrow {
+            margin-left: auto;
+            font-size: 1rem;
+            color: var(--navy-400);
+            font-weight: 700;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .role-card:hover .role-card-arrow {
+            transform: translateX(4px);
+        }
+
+        .modal-back-btn {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.35rem 0.8rem;
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-back-btn:hover {
+            background: var(--slate-100);
+            color: var(--navy-800);
+        }
+
+        .modal-role-badge {
+            margin-left: auto;
+            background: var(--navy-50);
+            border: 1px solid var(--navy-100);
+            border-radius: 999px;
+            padding: 0.3rem 0.85rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--navy-700);
+        }
+
+        .modal-step {
+            animation: stepIn 0.22s ease both;
+        }
+
+        @keyframes stepIn {
+            from {
+                opacity: 0;
+                transform: translateX(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+    </style>
+
+    <style>
+        /* About-page-specific styles */
+        .about-mission-card {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            background: var(--navy-900);
+            border-radius: var(--radius-xl);
+            padding: 2rem 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--white);
+        }
+
+        .about-mission-icon {
+            font-size: 2.2rem;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.08);
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .about-mission-card h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--navy-100);
+            margin-bottom: 0.6rem;
+        }
+
+        .about-mission-card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .about-steps-section {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .about-steps-heading,
+        .about-roles-heading {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.3px;
+        }
+
+        .about-roles {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-subtle);
+            padding-bottom: 1.5rem;
+        }
+
+        .about-roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .about-role-card {
+            background: var(--white);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .about-role-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--navy-100);
+        }
+
+        .about-role-icon {
+            font-size: 1.8rem;
+            background: var(--navy-50);
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--navy-100);
+            flex-shrink: 0;
+        }
+
+        .about-role-card h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .about-role-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            flex: 1;
+        }
+
+        @media (max-width: 640px) {
+            .about-mission-card {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+</body>
+
+</html>
