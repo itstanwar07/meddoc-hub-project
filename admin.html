@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - MedDoc Hub</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,500&family=JetBrains+Mono:wght@500&display=swap"
         rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <style>
@@ -20,20 +20,30 @@
         }
 
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #8b5cf6;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #06b6d4;
-            --bg: #f1f5f9;
+            --primary: #1e4d8c;
+            --primary-dark: #132848;
+            --secondary: #2563ae;
+            --success: #2f9e44;
+            --warning: #e67700;
+            --danger: #e03131;
+            --info: #0891b2;
+            --bg: #f4f8fc;
             --bg-white: #ffffff;
-            --border: #e2e8f0;
-            --text-dark: #0f172a;
-            --text-mid: #334155;
-            --text-light: #64748b;
+            --border: #dfe8f2;
+            --text-dark: #0d1f3c;
+            --text-mid: #3d4f63;
+            --text-light: #6b7f96;
             --sidebar-w: 260px;
+        }
+
+
+        .ic {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            flex-shrink: 0;
+            stroke: currentColor;
         }
 
         body {
@@ -48,7 +58,7 @@
             min-height: 100vh;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
+            background: linear-gradient(135deg, #0d1f3c 0%, #132848 50%, #1a3560 100%);
         }
 
         .gate-card {
@@ -73,7 +83,7 @@
         }
 
         .gate-left {
-            background: linear-gradient(145deg, #1e1b4b, #4c1d95);
+            background: linear-gradient(145deg, #0d1f3c, #1a3560);
             color: white;
             padding: 50px 38px;
             display: flex;
@@ -87,7 +97,7 @@
         }
 
         .gate-left h2 {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Fraunces', Georgia, serif;
             font-size: 1.7rem;
             line-height: 1.25;
         }
@@ -143,7 +153,7 @@
 
         .auth-tabs {
             display: flex;
-            background: #f1f5f9;
+            background: #f4f8fc;
             padding: 4px;
             border-radius: 8px;
             margin-bottom: 22px;
@@ -156,7 +166,7 @@
             padding: 9px 16px;
             font-weight: 600;
             cursor: pointer;
-            color: #64748b;
+            color: #6b7f96;
             border-radius: 6px;
             font-size: .92rem;
             transition: all .2s;
@@ -184,14 +194,14 @@
             display: block;
             margin-bottom: 5px;
             font-weight: 600;
-            color: #334155;
+            color: #3d4f63;
             font-size: .88rem;
         }
 
         .input-group input {
             width: 100%;
             padding: 10px 13px;
-            border: 1.5px solid #e2e8f0;
+            border: 1.5px solid #dfe8f2;
             border-radius: 7px;
             font-family: inherit;
             font-size: .94rem;
@@ -201,7 +211,7 @@
 
         .input-group input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, .12);
+            box-shadow: 0 0 0 3px rgba(30, 77, 140, .12);
         }
 
         .password-row {
@@ -215,12 +225,12 @@
 
         .btn-ghost {
             background: none;
-            border: 1.5px solid #e2e8f0;
+            border: 1.5px solid #dfe8f2;
             padding: 9px 12px;
             border-radius: 7px;
             cursor: pointer;
             font-size: .82rem;
-            color: #64748b;
+            color: #6b7f96;
             font-weight: 600;
         }
 
@@ -277,22 +287,22 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            box-shadow: 0 3px 10px rgba(99, 102, 241, .3);
+            box-shadow: 0 3px 10px rgba(30, 77, 140, .3);
         }
 
         .btn-primary:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(99, 102, 241, .4);
+            box-shadow: 0 6px 16px rgba(30, 77, 140, .4);
         }
 
         .btn-secondary {
-            background: #f1f5f9;
+            background: #f4f8fc;
             color: var(--text-mid);
             border: 1px solid var(--border);
         }
 
         .btn-secondary:hover {
-            background: #e2e8f0;
+            background: #dfe8f2;
         }
 
         .btn-danger {
@@ -342,7 +352,7 @@
         /* ── Sidebar ── */
         .sidebar {
             width: var(--sidebar-w);
-            background: #0f172a;
+            background: #0d1f3c;
             color: white;
             display: flex;
             flex-direction: column;
@@ -353,6 +363,7 @@
             z-index: 200;
             overflow-y: auto;
         }
+        
 
         .sidebar-logo {
             padding: 24px 22px 20px;
@@ -360,10 +371,10 @@
         }
 
         .sidebar-logo a {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Fraunces', Georgia, serif;
             font-size: 1.3rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #a78bfa, #67e8f9);
+            background: linear-gradient(135deg, #2563ae, #4f8fd4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -386,7 +397,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: .1em;
-            color: #334155;
+            color: #3d4f63;
             padding: 0 10px;
             margin: 16px 0 6px;
         }
@@ -417,7 +428,7 @@
         }
 
         .sidebar-link.active {
-            background: rgba(99, 102, 241, .2);
+            background: rgba(30, 77, 140, .2);
             color: #a5b4fc;
             font-weight: 600;
         }
@@ -648,13 +659,14 @@
             overflow: hidden;
         }
 
-        .stat-card::after {
-            content: attr(data-icon);
+        .stat-card-icon {
             position: absolute;
             right: 16px;
             top: 16px;
-            font-size: 2rem;
-            opacity: .12;
+            width: 2rem;
+            height: 2rem;
+            opacity: .15;
+            color: var(--text-dark);
         }
 
         .stat-label {
@@ -667,7 +679,7 @@
         }
 
         .stat-value {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Fraunces', Georgia, serif;
             font-size: 2rem;
             font-weight: 800;
             line-height: 1;
@@ -779,7 +791,7 @@
 
         td {
             padding: 12px 14px;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f4f8fc;
             color: var(--text-mid);
             vertical-align: middle;
         }
@@ -857,7 +869,7 @@
             align-items: flex-start;
             gap: 12px;
             padding: 12px 0;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f4f8fc;
         }
 
         .activity-item:last-child {
@@ -939,7 +951,7 @@
 
         .search-input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, .1);
+            box-shadow: 0 0 0 3px rgba(30, 77, 140, .1);
         }
 
         .filter-select {
@@ -958,7 +970,7 @@
             display: flex;
             gap: 6px;
             margin-bottom: 18px;
-            background: #f1f5f9;
+            background: #f4f8fc;
             padding: 5px;
             border-radius: 10px;
             width: fit-content;
@@ -985,8 +997,8 @@
 
         /* ═══ ANNOUNCEMENT CONTROL ═══════════════════════════════════ */
         .announcement-preview {
-            background: linear-gradient(90deg, rgba(99, 102, 241, .08), rgba(139, 92, 246, .08));
-            border: 1px solid rgba(99, 102, 241, .2);
+            background: linear-gradient(90deg, rgba(30, 77, 140, .08), rgba(37, 99, 174, .08));
+            border: 1px solid rgba(30, 77, 140, .2);
             border-radius: 10px;
             padding: 14px 18px;
             margin-top: 14px;
@@ -1068,12 +1080,12 @@
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 8px;
-            color: #0f172a;
+            color: #0d1f3c;
         }
 
         .logout-modal p {
             font-size: .9rem;
-            color: #64748b;
+            color: #6b7f96;
             margin-bottom: 24px;
             line-height: 1.6;
         }
@@ -1088,9 +1100,9 @@
             flex: 1;
             padding: 11px;
             border-radius: 10px;
-            border: 1.5px solid #e2e8f0;
+            border: 1.5px solid #dfe8f2;
             background: white;
-            color: #334155;
+            color: #3d4f63;
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
@@ -1098,7 +1110,7 @@
         }
 
         .logout-cancel:hover {
-            background: #f1f5f9;
+            background: #f4f8fc;
         }
 
         .logout-confirm {
@@ -1106,7 +1118,7 @@
             padding: 11px;
             border-radius: 10px;
             border: none;
-            background: #ef4444;
+            background: #e03131;
             color: white;
             font-weight: 700;
             cursor: pointer;
@@ -1117,7 +1129,7 @@
         .logged-out-notice {
             background: #fef2f2;
             border: 1px solid #fecaca;
-            border-left: 4px solid #ef4444;
+            border-left: 4px solid #e03131;
             border-radius: 8px;
             padding: 13px 16px;
             margin-bottom: 24px;
@@ -1142,14 +1154,41 @@
     <section id="auth-gate">
         <div class="gate-card">
             <div class="gate-left">
-                <div class="lock-icon">🔐</div>
+                <div class="lock-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="11" width="16" height="9" rx="1.5" />
+                        <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                        <circle cx="12" cy="15.5" r="1.3" />
+                    </svg></div>
                 <h2>Admin Control Panel</h2>
                 <p>Manage users, moderate papers, view analytics, and control the entire MedDoc Hub platform.</p>
                 <div class="badge-row">
-                    <div class="badge">👥 User Management</div>
-                    <div class="badge">📊 Analytics & Charts</div>
-                    <div class="badge">📋 Paper Moderation</div>
-                    <div class="badge">⚙️ System Controls</div>
+                    <div class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="8" r="3.2" />
+                            <path d="M2.5 21c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5" />
+                            <circle cx="17" cy="8" r="2.8" />
+                            <path d="M21.5 21c0-3-2-5-4.7-5.4" />
+                        </svg> User Management</div>
+                    <div class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18" />
+                            <path d="M7 15v3" />
+                            <path d="M12 10v8" />
+                            <path d="M17 6v12" />
+                        </svg> Analytics & Charts</div>
+                    <div class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="6" y="4" width="12" height="17" rx="2" />
+                            <path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1" />
+                            <path d="M9 12h6M9 16h6" />
+                        </svg> Paper Moderation</div>
+                    <div class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3.2" />
+                            <path
+                                d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" />
+                        </svg> System Controls</div>
                 </div>
             </div>
             <div class="gate-right">
@@ -1159,7 +1198,12 @@
                         panel.</span>
                 </div>
                 <div class="alert-banner">
-                    <span class="alert-icon">⚠️</span>
+                    <span class="alert-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" />
+                            <path d="M12 9v4" />
+                            <path d="M12 17h.01" />
+                        </svg></span>
                     <span><strong>Access Restricted.</strong> Sign in with an admin account to access the
                         dashboard.</span>
                 </div>
@@ -1182,7 +1226,12 @@
                     <div class="form-row">
                         <label class="checkbox"><input type="checkbox"> Remember me</label>
                     </div>
-                    <button class="btn btn-primary btn-block" type="submit">Login →</button>
+                    <button class="btn btn-primary btn-block" type="submit">Login <svg class="ic" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M5 12h14" />
+                            <path d="m13 6 6 6-6 6" />
+                        </svg></button>
                 </form>
                 <form id="signup-form" class="auth-form">
                     <div class="input-group">
@@ -1201,7 +1250,12 @@
                             <button type="button" class="btn-ghost" id="signup-toggle">Show</button>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-block" type="submit">Create Admin Account →</button>
+                    <button class="btn btn-primary btn-block" type="submit">Create Admin Account <svg class="ic"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14" />
+                            <path d="m13 6 6 6-6 6" />
+                        </svg></button>
                     <p class="small">By signing up you agree to our <a href="#">Terms</a> and <a href="#">Privacy
                             Policy</a>.</p>
                 </form>
@@ -1223,32 +1277,64 @@
             <nav class="sidebar-nav">
                 <div class="sidebar-section-label">Overview</div>
                 <button class="sidebar-link active" data-section="overview">
-                    <span class="icon">📊</span> Dashboard
+                    <span class="icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18" />
+                            <path d="M7 15v3" />
+                            <path d="M12 10v8" />
+                            <path d="M17 6v12" />
+                        </svg></span> Dashboard
                 </button>
                 <button class="sidebar-link" data-section="analytics">
-                    <span class="icon">📈</span> Analytics
+                    <span class="icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 17 9 11l4 4 8-8" />
+                            <path d="M15 7h6v6" />
+                        </svg></span> Analytics
                 </button>
 
                 <div class="sidebar-section-label">Content</div>
                 <button class="sidebar-link" data-section="papers">
-                    <span class="icon">📄</span> Paper Moderation
+                    <span class="icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2h9l5 5v15H6z" />
+                            <path d="M15 2v5h5" />
+                        </svg></span> Paper Moderation
                     <span class="badge-count" id="pending-badge">12</span>
                 </button>
                 <button class="sidebar-link" data-section="categories">
-                    <span class="icon">🗂️</span> Categories
+                    <span class="icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        </svg></span> Categories
                 </button>
 
                 <div class="sidebar-section-label">Users</div>
                 <button class="sidebar-link" data-section="users">
-                    <span class="icon">👥</span> User Management
+                    <span class="icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="8" r="3.2" />
+                            <path d="M2.5 21c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5" />
+                            <circle cx="17" cy="8" r="2.8" />
+                            <path d="M21.5 21c0-3-2-5-4.7-5.4" />
+                        </svg></span> User Management
                 </button>
 
                 <div class="sidebar-section-label">System</div>
                 <button class="sidebar-link" data-section="announcement">
-                    <span class="icon">📢</span> Announcements
+                    <span class="icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                        </svg></span> Announcements
                 </button>
                 <a href="index.html" class="sidebar-link">
-                    <span class="icon">🌐</span> View Site
+                    <span class="icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M3 12h18" />
+                            <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18" />
+                        </svg></span> View Site
                 </a>
             </nav>
             <div class="sidebar-footer">
@@ -1258,7 +1344,12 @@
                         <div class="name" id="sidebar-name">Admin</div>
                         <div class="role">Administrator</div>
                     </div>
-                    <button class="sidebar-logout" id="logout-btn" title="Logout">⏻</button>
+                    <button class="sidebar-logout" id="logout-btn" title="Logout"><svg class="ic" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M12 2v6" />
+                            <path d="M18.4 6.6a9 9 0 1 1-12.8 0" />
+                        </svg></button>
                 </div>
             </div>
         </aside>
@@ -1268,7 +1359,11 @@
 
             <!-- Announcement bar -->
             <div id="announcement-bar">
-                <span>📢 <span id="ann-text">System maintenance scheduled for Sunday 2 AM UTC.</span></span>
+                <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                        <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                    </svg> <span id="ann-text">System maintenance scheduled for Sunday 2 AM UTC.</span></span>
                 <button onclick="document.getElementById('announcement-bar').classList.remove('visible')">×</button>
             </div>
 
@@ -1287,8 +1382,11 @@
 
                 <!-- Admin Role Notice -->
                 <div
-                    style="background:linear-gradient(135deg,#1e1b4b,#312e81);color:white;border-radius:14px;padding:18px 22px;margin-bottom:22px;display:flex;align-items:center;gap:16px;">
-                    <span style="font-size:2rem;">🛡️</span>
+                    style="background:linear-gradient(135deg,#0d1f3c,#132848);color:white;border-radius:14px;padding:18px 22px;margin-bottom:22px;display:flex;align-items:center;gap:16px;">
+                    <span style="font-size:2rem;"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5z" />
+                        </svg></span>
                     <div>
                         <div style="font-weight:700;font-size:1rem;margin-bottom:3px;">Admin Account — View &amp;
                             Moderate Only</div>
@@ -1301,50 +1399,100 @@
 
                 <div class="alerts-row">
                     <div class="alert-card danger">
-                        <span class="a-icon">🚨</span>
+                        <span class="a-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" />
+                                <path d="M12 9v4" />
+                                <path d="M12 17h.01" />
+                            </svg></span>
                         <div class="a-text" id="alert-pending"><strong>0</strong> Papers Pending Review</div>
                     </div>
                     <div class="alert-card warning">
-                        <span class="a-icon">👤</span>
+                        <span class="a-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="8" r="4" />
+                                <path d="M4 21c0-4 3.5-6 8-6s8 2 8 6" />
+                            </svg></span>
                         <div class="a-text" id="alert-new-users"><strong>0</strong> Total Users</div>
                     </div>
                     <div class="alert-card success">
-                        <span class="a-icon">✅</span>
+                        <span class="a-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="m8.5 12 2.5 2.5 5-5" />
+                            </svg></span>
                         <div class="a-text" id="alert-approved"><strong>0</strong> Papers Approved</div>
                     </div>
                     <div class="alert-card info">
-                        <span class="a-icon">✏️</span>
+                        <span class="a-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 20h9" />
+                                <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                            </svg></span>
                         <div class="a-text" id="alert-rejected"><strong>0</strong> Rejected / Need Revision</div>
                     </div>
                 </div>
 
                 <div class="stats-grid">
-                    <div class="stat-card purple" data-icon="👥">
+                    <div class="stat-card purple"><span class="stat-card-icon"><svg class="ic" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="9" cy="8" r="3.2" />
+                                <path d="M2.5 21c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5" />
+                                <circle cx="17" cy="8" r="2.8" />
+                                <path d="M21.5 21c0-3-2-5-4.7-5.4" />
+                            </svg></span>
                         <div class="stat-label">Total Users</div>
                         <div class="stat-value" id="stat-total-users">0</div>
                         <div class="stat-sub">All registered users</div>
                     </div>
-                    <div class="stat-card blue" data-icon="📄">
+                    <div class="stat-card blue"><span class="stat-card-icon"><svg class="ic" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M6 2h9l5 5v15H6z" />
+                                <path d="M15 2v5h5" />
+                            </svg></span>
                         <div class="stat-label">Total Papers</div>
                         <div class="stat-value" id="stat-total-papers">0</div>
                         <div class="stat-sub">All submitted papers</div>
                     </div>
-                    <div class="stat-card amber" data-icon="⏳">
+                    <div class="stat-card amber"><span class="stat-card-icon"><svg class="ic" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M12 7v5l3 3" />
+                            </svg></span>
                         <div class="stat-label">Pending Review</div>
                         <div class="stat-value" id="stat-pending">0</div>
                         <div class="stat-sub">Awaiting decision</div>
                     </div>
-                    <div class="stat-card green" data-icon="✅">
+                    <div class="stat-card green"><span class="stat-card-icon"><svg class="ic" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="m8.5 12 2.5 2.5 5-5" />
+                            </svg></span>
                         <div class="stat-label">Approved Papers</div>
                         <div class="stat-value" id="stat-approved">0</div>
                         <div class="stat-sub">Published to research page</div>
                     </div>
-                    <div class="stat-card teal" data-icon="🎓">
+                    <div class="stat-card teal"><span class="stat-card-icon"><svg class="ic" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="m2 9 10-5 10 5-10 5z" />
+                                <path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5" />
+                            </svg></span>
                         <div class="stat-label">Student Papers</div>
                         <div class="stat-value" id="stat-student-p">0</div>
                         <div class="stat-sub">Submitted by students</div>
                     </div>
-                    <div class="stat-card rose" data-icon="🔬">
+                    <div class="stat-card rose"><span class="stat-card-icon"><svg class="ic" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2" />
+                                <path d="M9 2h6" />
+                            </svg></span>
                         <div class="stat-label">Researcher Papers</div>
                         <div class="stat-value" id="stat-researcher-p">0</div>
                         <div class="stat-sub">Submitted by researchers</div>
@@ -1427,9 +1575,21 @@
                 <!-- Tabs: All / Student / Researcher / Pending -->
                 <div class="paper-tabs">
                     <button class="paper-tab active" data-ptab="all">All Papers</button>
-                    <button class="paper-tab" data-ptab="student">🎓 Student Papers</button>
-                    <button class="paper-tab" data-ptab="researcher">🔬 Researcher Papers</button>
-                    <button class="paper-tab" data-ptab="pending">⏳ Pending Only</button>
+                    <button class="paper-tab" data-ptab="student"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m2 9 10-5 10 5-10 5z" />
+                            <path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5" />
+                        </svg> Student Papers</button>
+                    <button class="paper-tab" data-ptab="researcher"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2" />
+                            <path d="M9 2h6" />
+                        </svg> Researcher Papers</button>
+                    <button class="paper-tab" data-ptab="pending"><span class="ic"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M12 7v5l3 3" />
+                            </svg></span> Pending Only</button>
                 </div>
 
                 <div class="card">
@@ -1583,7 +1743,11 @@
             <section class="page-section" id="sec-announcement">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">📢 Site Announcement Banner</div>
+                        <div class="card-title"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                            </svg> Site Announcement Banner</div>
                     </div>
                     <p style="font-size:.9rem;color:var(--text-light);margin-bottom:16px;">The announcement bar appears
                         at the top of the admin dashboard for all logged-in admins. Use it to communicate maintenance,
@@ -1596,13 +1760,33 @@
                     </div>
 
                     <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                        <button class="btn btn-primary" onclick="showAnnouncement()">📢 Show Banner</button>
-                        <button class="btn btn-danger" onclick="hideAnnouncement()">✕ Hide Banner</button>
-                        <button class="btn btn-secondary" onclick="updateAnnouncement()">💾 Update Text</button>
+                        <button class="btn btn-primary" onclick="showAnnouncement()"><svg class="ic" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                            </svg> Show Banner</button>
+                        <button class="btn btn-danger" onclick="hideAnnouncement()"><svg class="ic" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M18 6 6 18" />
+                                <path d="M6 6l12 12" />
+                            </svg> Hide Banner</button>
+                        <button class="btn btn-secondary" onclick="updateAnnouncement()"><svg class="ic"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 3h11l3 3v15H5z" />
+                                <path d="M8 3v6h8V3" />
+                                <path d="M8 13h8v8H8z" />
+                            </svg> Update Text</button>
                     </div>
 
                     <div class="announcement-preview" id="ann-preview">
-                        📢 <span id="ann-preview-text">System maintenance scheduled for Sunday 2 AM UTC.</span>
+                        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                        </svg> <span id="ann-preview-text">System maintenance scheduled for Sunday 2 AM UTC.</span>
                     </div>
                 </div>
             </section>
@@ -1686,9 +1870,9 @@
 
         // ── Portal map ────────────────────────────────────────────────
         const PORTAL_MAP = {
-            student: { url: 'student-dashboard.html', icon: '🎓', label: 'Student Dashboard' },
-            researcher: { url: 'professor-dashboard.html', icon: '🔬', label: 'Researcher Dashboard' },
-            admin: { url: 'admin.html', icon: '🛡️', label: 'Admin Dashboard' }
+            student: { url: 'student-dashboard.html', icon: '', label: 'Student Dashboard' },
+            researcher: { url: 'professor-dashboard.html', icon: '', label: 'Researcher Dashboard' },
+            admin: { url: 'admin.html', icon: '', label: 'Admin Dashboard' }
         };
 
         // ── Show inline error message ─────────────────────────────────
@@ -1698,12 +1882,12 @@
                 el = document.createElement('div');
                 el.id = containerId;
                 el.style.cssText = `
-            background:#fef2f2;border:1px solid #fecaca;border-left:4px solid #ef4444;
+            background:#fef2f2;border:1px solid #fecaca;border-left:4px solid #e03131;
             border-radius:7px;padding:11px 14px;margin-bottom:14px;
             font-size:.88rem;color:#b91c1c;font-weight:500;display:flex;gap:8px;align-items:flex-start;
         `;
             }
-            el.innerHTML = `<span>⚠️</span><span>${message}</span>`;
+            el.innerHTML = `<span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span>${message}</span>`;
             el.style.display = 'flex';
             return el;
         }
@@ -1731,10 +1915,10 @@
                 if (isLoggedIn) {
                     navAuthBtn.style.display = 'none';
                     if (navUserInfo) navUserInfo.style.display = 'flex';
-                    if (navUsername) navUsername.textContent = '👤 ' + userName;
+                    if (navUsername) navUsername.textContent = '' + userName;
                     if (dockDashBtn) {
                         const map = { student: 'student-dashboard.html', researcher: 'professor-dashboard.html', admin: 'admin.html' };
-                        const labels = { student: '🎓 My Dashboard', researcher: '🔬 My Dashboard', admin: '🛡️ Admin Panel' };
+                        const labels = { student: 'My Dashboard', researcher: 'My Dashboard', admin: 'Admin Panel' };
                         dockDashBtn.href = map[userRole] || 'index.html';
                         dockDashBtn.textContent = labels[userRole] || 'My Dashboard';
                         dockDashBtn.style.display = '';
@@ -2167,12 +2351,15 @@
             const { isLoggedIn, userName, userRole } = getSession();
             if (isLoggedIn && userName) {
                 if (userRole && userRole !== 'admin') {
-                    // Wrong role — redirect
                     const map = { student: 'student-dashboard.html', researcher: 'professor-dashboard.html' };
                     window.location.href = map[userRole] || 'index.html';
                     return;
                 }
-                showDashboard(userName);
+                try {
+                    showDashboard(userName);
+                } catch (err) {
+                    console.error('Dashboard init error:', err);
+                }
             } else {
                 showGate();
             }
@@ -2262,7 +2449,7 @@
                 const paperId = document.getElementById('ar-paper-id').value;
                 const action = document.getElementById('ar-action').value;
                 const feedback = document.getElementById('ar-feedback').value.trim();
-                if (!feedback) { document.getElementById('ar-error').style.display = ''; document.getElementById('ar-error').textContent = '⚠️ Feedback is required.'; return; }
+                if (!feedback) { document.getElementById('ar-error').style.display = ''; document.getElementById('ar-error').textContent = 'Feedback is required.'; return; }
                 changePaperStatus(paperId, action, feedback); closeAdminReview();
             });
             document.getElementById('ar-cancel-btn')?.addEventListener('click', closeAdminReview);
@@ -2344,7 +2531,7 @@
             return cats;
         }
 
-        const CHART_COLORS = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+        const CHART_COLORS = ['#1e4d8c', '#0891b2', '#2f9e44', '#e67700', '#e03131', '#2563ae', '#ec4899'];
 
         function initCharts() {
             const monthly = getMonthlyData();
@@ -2363,11 +2550,11 @@
                 data: {
                     labels: monthly.map(m => m.label),
                     datasets: [
-                        { label: '🎓 Student', data: monthly.map(m => m.student), borderColor: '#6366f1', backgroundColor: 'rgba(99,102,241,.08)', tension: .4, fill: true, pointBackgroundColor: '#6366f1', pointRadius: 4 },
-                        { label: '🔬 Researcher', data: monthly.map(m => m.researcher), borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,.06)', tension: .4, fill: true, pointBackgroundColor: '#10b981', pointRadius: 4 },
+                        { label: 'Student', data: monthly.map(m => m.student), borderColor: '#1e4d8c', backgroundColor: 'rgba(30, 77, 140,.08)', tension: .4, fill: true, pointBackgroundColor: '#1e4d8c', pointRadius: 4 },
+                        { label: 'Researcher', data: monthly.map(m => m.researcher), borderColor: '#2f9e44', backgroundColor: 'rgba(16,185,129,.06)', tension: .4, fill: true, pointBackgroundColor: '#2f9e44', pointRadius: 4 },
                     ]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } }, x: { grid: { color: '#f1f5f9' } } } }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true, grid: { color: '#f4f8fc' } }, x: { grid: { color: '#f4f8fc' } } } }
             });
 
             categoryChart = new Chart(document.getElementById('categoryChart'), {
@@ -2382,8 +2569,8 @@
             roleChart = new Chart(document.getElementById('roleChart'), {
                 type: 'doughnut',
                 data: {
-                    labels: ['🎓 Student Papers', '🔬 Researcher Papers'],
-                    datasets: [{ data: [studentP || 0, researchP || 0], backgroundColor: ['#6366f1', '#10b981'], borderWidth: 0, hoverOffset: 6 }]
+                    labels: ['Student Papers', 'Researcher Papers'],
+                    datasets: [{ data: [studentP || 0, researchP || 0], backgroundColor: ['#1e4d8c', '#2f9e44'], borderWidth: 0, hoverOffset: 6 }]
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 16 } } }, cutout: '60%' }
             });
@@ -2407,11 +2594,11 @@
                 data: {
                     labels: monthly.map(m => m.label),
                     datasets: [
-                        { label: '🎓 Student', data: monthly.map(m => m.student), backgroundColor: 'rgba(99,102,241,.75)', borderRadius: 6 },
-                        { label: '🔬 Researcher', data: monthly.map(m => m.researcher), backgroundColor: 'rgba(16,185,129,.75)', borderRadius: 6 },
+                        { label: 'Student', data: monthly.map(m => m.student), backgroundColor: 'rgba(30, 77, 140,.75)', borderRadius: 6 },
+                        { label: 'Researcher', data: monthly.map(m => m.researcher), backgroundColor: 'rgba(16,185,129,.75)', borderRadius: 6 },
                     ]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { x: { grid: { display: false } }, y: { grid: { color: '#f1f5f9' }, beginAtZero: true } } }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { x: { grid: { display: false } }, y: { grid: { color: '#f4f8fc' }, beginAtZero: true } } }
             });
 
             barChart = new Chart(document.getElementById('barChart'), {
@@ -2420,14 +2607,14 @@
                     labels: catLabels.length ? catLabels : ['No papers yet'],
                     datasets: [{ label: 'Papers', data: catVals.length ? catVals : [0], backgroundColor: CHART_COLORS, borderRadius: 6 }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { grid: { color: '#f1f5f9' }, beginAtZero: true } } }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { grid: { color: '#f4f8fc' }, beginAtZero: true } } }
             });
 
             approvalChart = new Chart(document.getElementById('approvalChart'), {
                 type: 'pie',
                 data: {
                     labels: ['Approved', 'Pending', 'Revision', 'Rejected'],
-                    datasets: [{ data: [approved, pending, revision, rejected], backgroundColor: ['#10b981', '#f59e0b', '#06b6d4', '#ef4444'], borderWidth: 0, hoverOffset: 6 }]
+                    datasets: [{ data: [approved, pending, revision, rejected], backgroundColor: ['#2f9e44', '#e67700', '#0891b2', '#e03131'], borderWidth: 0, hoverOffset: 6 }]
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } } } }
             });
@@ -2447,9 +2634,9 @@
             const dotColor = { student: 'dot-blue', researcher: 'dot-green' };
             feed.innerHTML = papers.map(p => `
         <div class="activity-item">
-            <div class="activity-dot ${dotColor[p.role] || 'dot-blue'}">📄</div>
+            <div class="activity-dot ${dotColor[p.role] || 'dot-blue'}"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
             <div class="activity-text">
-                <strong>${p.role === 'student' ? '🎓 Student' : '🔬 Researcher'} submitted a paper</strong>
+                <strong>${p.role === 'student' ? 'Student' : 'Researcher'} submitted a paper</strong>
                 <p>"${p.title}" by @${p.author} — <span class="badge-pill ${p.role === 'student' ? 'badge-student' : 'badge-researcher'}">${p.category}</span></p>
             </div>
             <div class="activity-time">${p.date}</div>
@@ -2460,14 +2647,14 @@
         //  PAPER MODERATION TABLE — live
         // ═══════════════════════════════════════════════════════════
         const statusBadge = {
-            pending: '<span class="badge-pill badge-pending">⏳ Pending</span>',
-            approved: '<span class="badge-pill badge-approved">✅ Approved</span>',
-            revision: '<span class="badge-pill badge-revision">✏️ Revision</span>',
-            rejected: '<span class="badge-pill badge-rejected">❌ Rejected</span>',
+            pending: '<span class="badge-pill badge-pending"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending</span>',
+            approved: '<span class="badge-pill badge-approved"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 5-5"/></svg> Approved</span>',
+            revision: '<span class="badge-pill badge-revision"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Revision</span>',
+            rejected: '<span class="badge-pill badge-rejected"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></svg> Rejected</span>',
         };
         const roleBadge = {
-            student: '<span class="badge-pill badge-student">🎓 Student</span>',
-            researcher: '<span class="badge-pill badge-researcher">🔬 Researcher</span>',
+            student: '<span class="badge-pill badge-student"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg> Student</span>',
+            researcher: '<span class="badge-pill badge-researcher"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2"/><path d="M9 2h6"/></svg> Researcher</span>',
         };
 
         let currentPaperTab = 'all';
@@ -2476,7 +2663,7 @@
 
         function renderPapers(tab) {
             currentPaperTab = tab;
-            const titles = { all: 'All Submitted Papers', student: '🎓 Student Papers', researcher: '🔬 Researcher Papers', pending: '⏳ Pending Papers' };
+            const titles = { all: 'All Submitted Papers', student: 'Student Papers', researcher: 'Researcher Papers', pending: '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending Papers' };
             document.getElementById('papers-card-title').textContent = titles[tab];
 
             const papers = getPapers().slice().reverse();
@@ -2490,7 +2677,7 @@
 
             if (filtered.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-light);padding:40px;">
-            ${getPapers().length === 0 ? '📭 No papers have been submitted yet. Papers will appear here once students or researchers upload them.' : 'No papers match your filter.'}
+            ${getPapers().length === 0 ? 'No papers have been submitted yet. Papers will appear here once students or researchers upload them.' : 'No papers match your filter.'}
         </td></tr>`;
                 return;
             }
@@ -2504,10 +2691,10 @@
             <td>${esc(p.date || '—')}</td>
             <td>${statusBadge[p.status] || p.status}</td>
             <td style="white-space:nowrap">
-                <button class="btn btn-secondary btn-sm" title="View Details" onclick="openAdminPaperDetail('${esc(p.id)}')">👁</button>
-                <button class="btn btn-success btn-sm" title="Approve" onclick="changePaperStatus('${esc(p.id)}', 'approved')">✅</button>
-                <button class="btn btn-warning btn-sm" title="Request Revision" onclick="openAdminReview('${esc(p.id)}','revision')">✏️</button>
-                <button class="btn btn-danger btn-sm"  title="Reject" onclick="openAdminReview('${esc(p.id)}','rejected')">❌</button>
+                <button class="btn btn-secondary btn-sm" title="View Details" onclick="openAdminPaperDetail('${esc(p.id)}')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                <button class="btn btn-success btn-sm" title="Approve" onclick="changePaperStatus('${esc(p.id)}', 'approved')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 5-5"/></svg></button>
+                <button class="btn btn-warning btn-sm" title="Request Revision" onclick="openAdminReview('${esc(p.id)}','revision')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+                <button class="btn btn-danger btn-sm"  title="Reject" onclick="openAdminReview('${esc(p.id)}','rejected')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></svg></button>
             </td>
         </tr>`).join('');
         }
@@ -2524,7 +2711,7 @@
             renderPapers(currentPaperTab);
             updateAllStats();
             initCharts();
-            const label = { approved: '✅ Paper Approved!', revision: '✏️ Revision Requested', rejected: '❌ Paper Rejected' }[newStatus] || 'Updated';
+            const label = { approved: 'Paper Approved!', revision: 'Revision Requested', rejected: 'Paper Rejected' }[newStatus] || 'Updated';
             showAdminToast(label);
         }
 
@@ -2540,7 +2727,7 @@
             document.getElementById('apd-keywords').textContent = p.keywords || '—';
             document.getElementById('apd-abstract').textContent = p.abstract || 'No abstract provided.';
             const statEl = document.getElementById('apd-status');
-            const smap = { pending: '⏳ Pending', approved: '✅ Approved', rejected: '❌ Rejected', revision: '✏️ Revision' };
+            const smap = { pending: '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending', approved: 'Approved', rejected: 'Rejected', revision: 'Revision' };
             statEl.textContent = smap[p.status] || p.status;
             const fbWrap = document.getElementById('apd-feedback-wrap');
             if (p.feedback) {
@@ -2559,13 +2746,13 @@
         function openAdminReview(paperId, action) {
             document.getElementById('ar-paper-id').value = paperId;
             document.getElementById('ar-action').value = action;
-            document.getElementById('ar-title').textContent = action === 'revision' ? '✏️ Request Revision' : '❌ Reject Paper';
+            document.getElementById('ar-title').textContent = action === 'revision' ? 'Request Revision' : 'Reject Paper';
             document.getElementById('ar-label').textContent = action === 'revision'
                 ? 'Explain what changes are needed:'
                 : 'Reason for rejection:';
             document.getElementById('ar-submit').textContent = action === 'revision' ? 'Send Revision Request' : 'Reject Paper';
             document.getElementById('ar-submit').style.background = action === 'revision'
-                ? 'linear-gradient(135deg,#f59e0b,#d97706)' : 'linear-gradient(135deg,#ef4444,#dc2626)';
+                ? 'linear-gradient(135deg,#e67700,#d97706)' : 'linear-gradient(135deg,#e03131,#dc2626)';
             document.getElementById('ar-feedback').value = '';
             document.getElementById('ar-error').style.display = 'none';
             document.getElementById('admin-review-modal').style.display = 'flex';
@@ -2596,7 +2783,7 @@
             const list = document.getElementById('ud-papers-list');
             list.innerHTML = uPapers.length
                 ? uPapers.slice().reverse().slice(0, 5).map(p => `
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f1f5f9;gap:10px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f4f8fc;gap:10px;">
                 <div style="flex:1;min-width:0;">
                     <div style="font-size:.86rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(p.title)}</div>
                     <div style="font-size:.74rem;color:#94a3b8;">${esc(p.category || '—')} · ${esc(p.date || '—')}</div>
@@ -2633,7 +2820,7 @@
 
             if (filtered.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-light);padding:40px;">
-            ${users.length === 0 ? '👤 No users have registered yet. Users who sign in will appear here.' : 'No users match your filter.'}
+            ${users.length === 0 ? 'No users have registered yet. Users who sign in will appear here.' : 'No users match your filter.'}
         </td></tr>`;
                 return;
             }
@@ -2641,7 +2828,7 @@
             tbody.innerHTML = filtered.map(u => {
                 const paperCount = papers.filter(p => p.author === u.name).length;
                 const rb = u.role === 'admin'
-                    ? '<span class="badge-pill badge-admin">🛡️ Admin</span>'
+                    ? '<span class="badge-pill badge-admin"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5z"/></svg> Admin</span>'
                     : roleBadge[u.role] || '';
                 return `<tr>
             <td><strong>${u.name || '—'}</strong><div style='font-size:.72rem;color:#94a3b8;'>${u.id || ''}</div></td>
@@ -2651,14 +2838,14 @@
             <td>${u.joined}</td>
             <td>
                 <select class="filter-select" style="padding:4px 8px;font-size:.8rem;" onchange="changeUserRole('${esc(u.email)}', this.value)">
-                    <option value="student"    ${u.role === 'student' ? 'selected' : ''}>🎓 Student</option>
-                    <option value="researcher" ${u.role === 'researcher' ? 'selected' : ''}>🔬 Researcher</option>
-                    <option value="admin"      ${u.role === 'admin' ? 'selected' : ''}>🛡️ Admin</option>
+                    <option value="student"    ${u.role === 'student' ? 'selected' : ''}><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg> Student</option>
+                    <option value="researcher" ${u.role === 'researcher' ? 'selected' : ''}><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2"/><path d="M9 2h6"/></svg> Researcher</option>
+                    <option value="admin"      ${u.role === 'admin' ? 'selected' : ''}><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5z"/></svg> Admin</option>
                 </select>
             </td>
             <td>
-                <button class="btn btn-secondary btn-sm" onclick="openUserDetail('${esc(u.email)}')">👁 View</button>
-                <button class="btn btn-danger btn-sm" onclick="banUser('${esc(u.email)}','${esc(u.name || u.email)}')">🚫 Ban</button>
+                <button class="btn btn-secondary btn-sm" onclick="openUserDetail('${esc(u.email)}')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg> View</button>
+                <button class="btn btn-danger btn-sm" onclick="banUser('${esc(u.email)}','${esc(u.name || u.email)}')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m5 5 14 14"/></svg> Ban</button>
             </td>
         </tr>`;
             }).join('');
@@ -2677,7 +2864,7 @@
             saveUsers(users);
             renderUsers(userRoleFilter);
             updateAllStats();
-            showAdminToast('🚫 User removed.');
+            showAdminToast('User removed.');
         }
 
         // (user search listeners moved to DOMContentLoaded)
@@ -2701,7 +2888,7 @@
             <td>${esc(cat)}${isCustom ? '<span style="font-size:.68rem;background:#ede9fe;color:#7c3aed;padding:2px 7px;border-radius:4px;margin-left:6px;font-weight:600;">Custom</span>' : ''}</td>
             <td>${sc}</td><td>${rc}</td>
             <td><strong>${sc + rc}</strong></td>
-            <td>${isCustom ? `<button class="btn btn-danger btn-sm" onclick="deleteCategory('${esc(cat)}')">🗑️ Delete</button>` : '<span style="color:#94a3b8;font-size:.82rem;">Built-in</span>'}</td>
+            <td>${isCustom ? `<button class="btn btn-danger btn-sm" onclick="deleteCategory('${esc(cat)}')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg> Delete</button>` : '<span style="color:#94a3b8;font-size:.82rem;">Built-in</span>'}</td>
         </tr>`;
             }).join('');
         }
@@ -2710,20 +2897,20 @@
             const cats = JSON.parse(localStorage.getItem('mdh_custom_cats') || '[]').filter(c => c !== name);
             localStorage.setItem('mdh_custom_cats', JSON.stringify(cats));
             renderCategories();
-            showAdminToast('🗑️ Category deleted.');
+            showAdminToast('Category deleted.');
         }
 
         function addCategory() {
             const input = document.getElementById('new-category');
             const name = input.value.trim();
-            if (!name) { showAdminToast('⚠️ Enter a category name first.'); return; }
+            if (!name) { showAdminToast('Enter a category name first.'); return; }
             const cats = JSON.parse(localStorage.getItem('mdh_custom_cats') || '[]');
-            if (cats.includes(name)) { showAdminToast('⚠️ Category already exists.'); return; }
+            if (cats.includes(name)) { showAdminToast('Category already exists.'); return; }
             cats.push(name);
             localStorage.setItem('mdh_custom_cats', JSON.stringify(cats));
             input.value = '';
             renderCategories();
-            showAdminToast('✅ Category "' + name + '" added!');
+            showAdminToast('Category "' + name + '" added!');
         }
 
         // ═══════════════════════════════════════════════════════════
@@ -2750,7 +2937,7 @@
             if (!t) {
                 t = document.createElement('div');
                 t.id = 'admin-toast';
-                t.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;background:#0f172a;color:white;padding:14px 22px;border-radius:12px;font-size:.88rem;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);transform:translateY(60px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);font-family:Inter,sans-serif;';
+                t.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:9999;background:#0d1f3c;color:white;padding:14px 22px;border-radius:12px;font-size:.88rem;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);transform:translateY(60px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);font-family:Inter,sans-serif;';
                 document.body.appendChild(t);
             }
             t.textContent = msg;
@@ -2765,17 +2952,26 @@
             style="background:white;border-radius:20px;width:100%;max-width:620px;max-height:90vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.3);animation:fadeIn .2s ease;">
             <div
                 style="padding:22px 26px 0;display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-                <h2 style="font-size:1.05rem;font-weight:700;">📄 Paper Details</h2>
+                <h2 style="font-size:1.05rem;font-weight:700;"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2h9l5 5v15H6z" />
+                        <path d="M15 2v5h5" />
+                    </svg> Paper Details</h2>
                 <button id="apd-close-btn"
-                    style="background:#f1f5f9;border:none;width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:#64748b;">✕</button>
+                    style="background:#f4f8fc;border:none;width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:#6b7f96;"><svg
+                        class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6 6 18" />
+                        <path d="M6 6l12 12" />
+                    </svg></button>
             </div>
             <div style="padding:0 26px 26px;">
                 <div
                     style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
-                    <h3 id="apd-title" style="font-size:1rem;font-weight:700;color:#0f172a;flex:1;line-height:1.4;">
+                    <h3 id="apd-title" style="font-size:1rem;font-weight:700;color:#0d1f3c;flex:1;line-height:1.4;">
                     </h3>
                     <div id="apd-status"
-                        style="flex-shrink:0;font-size:.8rem;font-weight:700;padding:4px 12px;border-radius:20px;background:#f1f5f9;color:#475569;">
+                        style="flex-shrink:0;font-size:.8rem;font-weight:700;padding:4px 12px;border-radius:20px;background:#f4f8fc;color:#475569;">
                     </div>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;">
@@ -2783,19 +2979,19 @@
                         <div
                             style="font-size:.66rem;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:3px;">
                             Author</div>
-                        <div id="apd-author" style="font-size:.88rem;font-weight:600;color:#0f172a;"></div>
+                        <div id="apd-author" style="font-size:.88rem;font-weight:600;color:#0d1f3c;"></div>
                     </div>
                     <div style="background:#f8fafc;border-radius:9px;padding:11px 13px;">
                         <div
                             style="font-size:.66rem;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:3px;">
                             Role</div>
-                        <div id="apd-role" style="font-size:.88rem;font-weight:600;color:#0f172a;"></div>
+                        <div id="apd-role" style="font-size:.88rem;font-weight:600;color:#0d1f3c;"></div>
                     </div>
                     <div style="background:#f8fafc;border-radius:9px;padding:11px 13px;">
                         <div
                             style="font-size:.66rem;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:3px;">
                             Submitted</div>
-                        <div id="apd-date" style="font-size:.88rem;font-weight:600;color:#0f172a;"></div>
+                        <div id="apd-date" style="font-size:.88rem;font-weight:600;color:#0d1f3c;"></div>
                     </div>
                 </div>
                 <div style="background:#eff6ff;border-radius:9px;padding:11px 14px;margin-bottom:14px;">
@@ -2808,20 +3004,28 @@
                     style="background:#fefce8;border:1px solid #fde68a;border-radius:9px;padding:11px 14px;margin-bottom:14px;">
                     <div
                         style="font-size:.66rem;font-weight:700;text-transform:uppercase;color:#92400e;margin-bottom:3px;">
-                        🔖 Keywords</div>
+                        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 3h12v18l-6-4-6 4z" />
+                        </svg> Keywords
+                    </div>
                     <div id="apd-keywords" style="font-size:.86rem;color:#78350f;"></div>
                 </div>
                 <div style="background:#f8fafc;border-radius:10px;padding:14px 16px;margin-bottom:14px;">
                     <div
                         style="font-size:.66rem;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:6px;">
                         Abstract</div>
-                    <div id="apd-abstract" style="font-size:.86rem;color:#334155;line-height:1.7;"></div>
+                    <div id="apd-abstract" style="font-size:.86rem;color:#3d4f63;line-height:1.7;"></div>
                 </div>
                 <div id="apd-feedback-wrap"
                     style="display:none;background:#fff7ed;border:1px solid #fed7aa;border-left:3px solid #f97316;border-radius:9px;padding:12px 14px;">
                     <div
                         style="font-size:.66rem;font-weight:700;text-transform:uppercase;color:#c2410c;margin-bottom:5px;">
-                        💬 Reviewer Feedback</div>
+                        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16v12H8l-4 4z" />
+                        </svg> Reviewer Feedback
+                    </div>
                     <div id="apd-feedback" style="font-size:.86rem;color:#9a3412;line-height:1.7;"></div>
                 </div>
             </div>
@@ -2837,25 +3041,30 @@
                 style="padding:22px 26px 0;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
                 <h2 id="ar-title" style="font-size:1.05rem;font-weight:700;"></h2>
                 <button id="ar-close-btn"
-                    style="background:#f1f5f9;border:none;width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:#64748b;">✕</button>
+                    style="background:#f4f8fc;border:none;width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:#6b7f96;"><svg
+                        class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6 6 18" />
+                        <path d="M6 6l12 12" />
+                    </svg></button>
             </div>
             <div style="padding:0 26px 26px;">
                 <input type="hidden" id="ar-paper-id">
                 <input type="hidden" id="ar-action">
                 <div style="margin-bottom:14px;">
                     <label id="ar-label"
-                        style="display:block;margin-bottom:6px;font-weight:600;color:#334155;font-size:.86rem;"></label>
+                        style="display:block;margin-bottom:6px;font-weight:600;color:#3d4f63;font-size:.86rem;"></label>
                     <textarea id="ar-feedback" placeholder="Add your feedback for the author…"
-                        style="width:100%;padding:10px 13px;border:1.5px solid #e2e8f0;border-radius:8px;font-family:inherit;font-size:.9rem;outline:none;resize:vertical;min-height:100px;transition:border-color .2s;box-sizing:border-box;"
+                        style="width:100%;padding:10px 13px;border:1.5px solid #dfe8f2;border-radius:8px;font-family:inherit;font-size:.9rem;outline:none;resize:vertical;min-height:100px;transition:border-color .2s;box-sizing:border-box;"
                         onfocus="this.style.borderColor='var(--primary)'"
-                        onblur="this.style.borderColor='#e2e8f0'"></textarea>
+                        onblur="this.style.borderColor='#dfe8f2'"></textarea>
                 </div>
                 <div id="ar-error"
                     style="display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:7px;padding:9px 13px;font-size:.83rem;color:#b91c1c;font-weight:500;margin-bottom:12px;">
                 </div>
                 <div style="display:flex;gap:10px;">
                     <button id="ar-cancel-btn"
-                        style="flex:1;padding:10px;border-radius:9px;border:1.5px solid #e2e8f0;background:white;color:#334155;font-weight:600;cursor:pointer;font-family:inherit;font-size:.9rem;">Cancel</button>
+                        style="flex:1;padding:10px;border-radius:9px;border:1.5px solid #dfe8f2;background:white;color:#3d4f63;font-weight:600;cursor:pointer;font-family:inherit;font-size:.9rem;">Cancel</button>
                     <button id="ar-submit"
                         style="flex:1;padding:10px;border-radius:9px;border:none;color:white;font-weight:700;cursor:pointer;font-family:inherit;font-size:.9rem;"></button>
                 </div>
@@ -2870,9 +3079,18 @@
             style="background:white;border-radius:20px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.3);animation:fadeIn .2s ease;">
             <div
                 style="padding:22px 26px 0;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-                <h2 style="font-size:1.05rem;font-weight:700;">👤 User Details</h2>
+                <h2 style="font-size:1.05rem;font-weight:700;"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M4 21c0-4 3.5-6 8-6s8 2 8 6" />
+                    </svg> User Details</h2>
                 <button id="ud-close-btn"
-                    style="background:#f1f5f9;border:none;width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:#64748b;">✕</button>
+                    style="background:#f4f8fc;border:none;width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:#6b7f96;"><svg
+                        class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6 6 18" />
+                        <path d="M6 6l12 12" />
+                    </svg></button>
             </div>
             <div style="padding:0 26px 26px;">
                 <div
@@ -2880,8 +3098,8 @@
                     <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.3rem;color:white;flex-shrink:0;"
                         id="ud-avatar">?</div>
                     <div>
-                        <div id="ud-name" style="font-size:1rem;font-weight:700;color:#0f172a;margin-bottom:3px;"></div>
-                        <div id="ud-email" style="font-size:.82rem;color:#64748b;"></div>
+                        <div id="ud-name" style="font-size:1rem;font-weight:700;color:#0d1f3c;margin-bottom:3px;"></div>
+                        <div id="ud-email" style="font-size:.82rem;color:#6b7f96;"></div>
                     </div>
                 </div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;">
@@ -2890,13 +3108,13 @@
                             style="font-size:.66rem;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:3px;">
                             Role</div>
                         <div id="ud-role"
-                            style="font-size:.88rem;font-weight:600;color:#0f172a;text-transform:capitalize;"></div>
+                            style="font-size:.88rem;font-weight:600;color:#0d1f3c;text-transform:capitalize;"></div>
                     </div>
                     <div style="background:#f8fafc;border-radius:9px;padding:11px 13px;">
                         <div
                             style="font-size:.66rem;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:3px;">
                             Member Since</div>
-                        <div id="ud-joined" style="font-size:.88rem;font-weight:600;color:#0f172a;"></div>
+                        <div id="ud-joined" style="font-size:.88rem;font-weight:600;color:#0d1f3c;"></div>
                     </div>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;">
@@ -2909,11 +3127,11 @@
                         <div style="font-size:.72rem;color:#d97706;">Pending</div>
                     </div>
                     <div style="background:#f8fafc;border-radius:9px;padding:12px;text-align:center;">
-                        <div id="ud-total" style="font-size:1.4rem;font-weight:800;color:#0f172a;"></div>
-                        <div style="font-size:.72rem;color:#64748b;">Total</div>
+                        <div id="ud-total" style="font-size:1.4rem;font-weight:800;color:#0d1f3c;"></div>
+                        <div style="font-size:.72rem;color:#6b7f96;">Total</div>
                     </div>
                 </div>
-                <div style="font-size:.82rem;font-weight:700;color:#334155;margin-bottom:10px;">Recent Submissions</div>
+                <div style="font-size:.82rem;font-weight:700;color:#3d4f63;margin-bottom:10px;">Recent Submissions</div>
                 <div id="ud-papers-list"></div>
             </div>
         </div>
@@ -2935,7 +3153,11 @@
     <!-- ══ LOGOUT CONFIRMATION MODAL ══════════════════════════════ -->
     <div class="logout-overlay" id="logout-overlay">
         <div class="logout-modal">
-            <div style="font-size:2.5rem;margin-bottom:12px;">⏻</div>
+            <div style="font-size:2.5rem;margin-bottom:12px;"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v6" />
+                    <path d="M18.4 6.6a9 9 0 1 1-12.8 0" />
+                </svg></div>
             <h3>Log Out?</h3>
             <p>Are you sure you want to log out of the Admin Panel?</p>
             <div class="logout-btns">
