@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Researcher Dashboard – MedDoc Hub</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,500&family=JetBrains+Mono:wght@500&display=swap"
         rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <style>
@@ -19,25 +19,35 @@
         }
 
         :root {
-            --accent: #0ea5e9;
-            --accent-dk: #0284c7;
-            --accent-lt: #e0f2fe;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --purple: #8b5cf6;
-            --teal: #14b8a6;
-            --bg: #f8fafc;
-            --border: #e2e8f0;
-            --text: #0f172a;
-            --text-mid: #334155;
-            --text-lt: #64748b;
+            --accent: #1e4d8c;
+            --accent-dk: #132848;
+            --accent-lt: #daeaf8;
+            --success: #2f9e44;
+            --danger: #e03131;
+            --warning: #e67700;
+            --purple: #2563ae;
+            --teal: #0891b2;
+            --bg: #f4f8fc;
+            --border: #dfe8f2;
+            --text: #0d1f3c;
+            --text-mid: #3d4f63;
+            --text-lt: #6b7f96;
             --sidebar-collapsed: 62px;
             --sidebar-expanded: 250px;
         }
 
+
+        .ic {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            flex-shrink: 0;
+            stroke: currentColor;
+        }
+
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--bg);
             color: var(--text);
         }
@@ -48,7 +58,7 @@
             min-height: 100vh;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #0c4a6e 0%, #0ea5e9 60%, #38bdf8 100%);
+            background: linear-gradient(135deg, #132848 0%, #1e4d8c 60%, #4f8fd4 100%);
         }
 
         .gate-card {
@@ -73,7 +83,7 @@
         }
 
         .gate-left {
-            background: linear-gradient(145deg, #0c4a6e, #0ea5e9);
+            background: linear-gradient(145deg, #132848, #1e4d8c);
             color: white;
             padding: 50px 38px;
             display: flex;
@@ -87,7 +97,7 @@
         }
 
         .gate-left h2 {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Fraunces', sans-serif;
             font-size: 1.7rem;
             line-height: 1.25;
         }
@@ -122,8 +132,8 @@
         }
 
         .alert-banner {
-            background: #e0f2fe;
-            border: 1px solid #7dd3fc;
+            background: #daeaf8;
+            border: 1px solid #93bfe8;
             border-left: 4px solid var(--accent);
             border-radius: 8px;
             padding: 13px 16px;
@@ -132,7 +142,7 @@
             gap: 10px;
             align-items: flex-start;
             font-size: .9rem;
-            color: #0369a1;
+            color: #132848;
         }
 
         .auth-tabs {
@@ -150,7 +160,7 @@
             padding: 9px 16px;
             font-weight: 600;
             cursor: pointer;
-            color: #64748b;
+            color: #6b7f96;
             border-radius: 6px;
             font-size: .92rem;
             transition: all .2s;
@@ -179,7 +189,7 @@
             display: block;
             margin-bottom: 5px;
             font-weight: 600;
-            color: #334155;
+            color: #3d4f63;
             font-size: .88rem;
         }
 
@@ -187,7 +197,7 @@
         .input-group select {
             width: 100%;
             padding: 10px 13px;
-            border: 1.5px solid #e2e8f0;
+            border: 1.5px solid #dfe8f2;
             border-radius: 7px;
             font-family: inherit;
             font-size: .94rem;
@@ -198,7 +208,7 @@
         .input-group input:focus,
         .input-group select:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, .12);
+            box-shadow: 0 0 0 3px rgba(30, 77, 140, .12);
         }
 
         .pass-row {
@@ -212,12 +222,12 @@
 
         .btn-ghost {
             background: none;
-            border: 1.5px solid #e2e8f0;
+            border: 1.5px solid #dfe8f2;
             padding: 9px 12px;
             border-radius: 7px;
             cursor: pointer;
             font-size: .82rem;
-            color: #64748b;
+            color: #6b7f96;
             font-weight: 600;
             font-family: inherit;
         }
@@ -277,12 +287,12 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--accent), var(--teal));
             color: white;
-            box-shadow: 0 3px 10px rgba(14, 165, 233, .3);
+            box-shadow: 0 3px 10px rgba(30, 77, 140, .3);
         }
 
         .btn-primary:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(14, 165, 233, .4);
+            box-shadow: 0 6px 16px rgba(30, 77, 140, .4);
         }
 
         .btn-outline {
@@ -310,7 +320,7 @@
         /* ── Hover-expand sidebar ── */
         .sidebar {
             width: var(--sidebar-collapsed);
-            background: #0f172a;
+            background: #0d1f3c;
             color: white;
             position: fixed;
             top: 0;
@@ -343,7 +353,7 @@
             height: 34px;
             min-width: 34px;
             border-radius: 9px;
-            background: linear-gradient(135deg, #38bdf8, #14b8a6);
+            background: linear-gradient(135deg, #4f8fd4, #0891b2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -353,13 +363,19 @@
 
         .sb-logo-text {
             overflow: hidden;
+            opacity: 0;
+            transition: opacity .18s .04s;
+        }
+
+        .sidebar:hover .sb-logo-text {
+            opacity: 1;
         }
 
         .sb-logo-text a {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Fraunces', sans-serif;
             font-size: 1.1rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #38bdf8, #14b8a6);
+            background: linear-gradient(135deg, #4f8fd4, #0891b2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -389,7 +405,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: .1em;
-            color: #334155;
+            color: #3d4f63;
             padding: 0 10px;
             margin: 14px 0 4px;
             white-space: nowrap;
@@ -432,9 +448,21 @@
         }
 
         .sb-link.active {
-            background: rgba(14, 165, 233, .18);
-            color: #38bdf8;
+            background: rgba(30, 77, 140, .18);
+            color: #4f8fd4;
             font-weight: 600;
+            border-radius: 8px;
+        }
+
+        .sidebar:not(:hover) .sb-link.active {
+            justify-content: center;
+            margin: 0 6px 2px;
+            width: calc(100% - 12px);
+        }
+
+        .sidebar:not(:hover) .sb-link.active .sb-icon {
+            width: auto;
+            min-width: 0;
         }
 
         .sb-icon {
@@ -506,7 +534,7 @@
             height: 36px;
             min-width: 36px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+            background: linear-gradient(135deg, #1e4d8c, #0891b2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -535,7 +563,7 @@
 
         .sb-role {
             font-size: .68rem;
-            color: #64748b;
+            color: #6b7f96;
         }
 
         .sb-logout {
@@ -630,7 +658,7 @@
 
         /* ══ WELCOME BANNER ══════════════════════════════════════════ */
         .welcome {
-            background: linear-gradient(135deg, #0c4a6e, #0284c7 50%, #0ea5e9);
+            background: linear-gradient(135deg, #132848, #132848 50%, #1e4d8c);
             border-radius: 16px;
             padding: 24px 28px;
             margin-bottom: 22px;
@@ -644,7 +672,7 @@
         }
 
         .welcome::after {
-            content: '🔬';
+            content: '';
             position: absolute;
             right: 24px;
             top: 50%;
@@ -655,7 +683,7 @@
         }
 
         .welcome h2 {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Fraunces', sans-serif;
             color: white;
             font-size: 1.25rem;
             margin-bottom: 4px;
@@ -668,7 +696,7 @@
 
         .welcome-btn {
             background: white;
-            color: #0c4a6e;
+            color: #132848;
             font-weight: 700;
             border: none;
             border-radius: 9px;
@@ -708,13 +736,14 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
         }
 
-        .stat::after {
-            content: attr(data-ico);
+        .stat-icon {
             position: absolute;
             right: 14px;
             top: 14px;
-            font-size: 1.8rem;
-            opacity: .09;
+            width: 1.8rem;
+            height: 1.8rem;
+            opacity: .13;
+            color: var(--text);
             pointer-events: none;
         }
 
@@ -728,7 +757,7 @@
         }
 
         .stat-val {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Fraunces', sans-serif;
             font-size: 2rem;
             font-weight: 800;
             line-height: 1;
@@ -967,12 +996,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #64748b;
+            color: #6b7f96;
             transition: all .2s;
         }
 
         .close-btn:hover {
-            background: #e2e8f0;
+            background: #dfe8f2;
         }
 
         .modal-bd {
@@ -996,7 +1025,7 @@
         .fg select {
             width: 100%;
             padding: 10px 13px;
-            border: 1.5px solid #e2e8f0;
+            border: 1.5px solid #dfe8f2;
             border-radius: 8px;
             font-family: inherit;
             font-size: .92rem;
@@ -1010,7 +1039,7 @@
         .fg textarea:focus,
         .fg select:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, .1);
+            box-shadow: 0 0 0 3px rgba(30, 77, 140, .1);
         }
 
         .fg textarea {
@@ -1025,7 +1054,7 @@
         }
 
         .file-drop {
-            border: 2px dashed #e2e8f0;
+            border: 2px dashed #dfe8f2;
             border-radius: 10px;
             padding: 22px;
             text-align: center;
@@ -1037,7 +1066,7 @@
         .file-drop:hover,
         .file-drop.drag {
             border-color: var(--accent);
-            background: #e0f2fe;
+            background: #daeaf8;
         }
 
         .file-drop input[type=file] {
@@ -1090,7 +1119,7 @@
             flex: 1;
             height: 3px;
             border-radius: 99px;
-            background: #e2e8f0;
+            background: #dfe8f2;
             transition: background .3s;
         }
 
@@ -1134,7 +1163,7 @@
             bottom: 24px;
             right: 24px;
             z-index: 999;
-            background: #0f172a;
+            background: #0d1f3c;
             color: white;
             padding: 14px 20px;
             border-radius: 12px;
@@ -1207,7 +1236,7 @@
         }
 
         .rate-num {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Fraunces', sans-serif;
             font-size: 3.5rem;
             font-weight: 800;
             color: var(--success);
@@ -1227,7 +1256,7 @@
         .rate-bar {
             height: 10px;
             border-radius: 99px;
-            background: #e2e8f0;
+            background: #dfe8f2;
             overflow: hidden;
             margin-top: 12px;
         }
@@ -1247,7 +1276,7 @@
         }
 
         .impact-card {
-            background: #f8fafc;
+            background: #f4f8fc;
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 16px;
@@ -1255,7 +1284,7 @@
         }
 
         .impact-val {
-            font-family: 'Sora', sans-serif;
+            font-family: 'Fraunces', sans-serif;
             font-size: 1.8rem;
             font-weight: 800;
             color: var(--accent-dk);
@@ -1365,7 +1394,7 @@
         }
 
         .notif-dot.read {
-            background: #e2e8f0;
+            background: #dfe8f2;
         }
 
         .notif-body {
@@ -1487,7 +1516,7 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+            background: linear-gradient(135deg, #1e4d8c, #0891b2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1550,7 +1579,7 @@
         .profile-form select {
             width: 100%;
             padding: 10px 13px;
-            border: 1.5px solid #e2e8f0;
+            border: 1.5px solid #dfe8f2;
             border-radius: 8px;
             font-family: inherit;
             font-size: .92rem;
@@ -1563,7 +1592,7 @@
         .profile-form input:focus,
         .profile-form textarea:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, .1);
+            box-shadow: 0 0 0 3px rgba(30, 77, 140, .1);
         }
 
         .profile-form textarea {
@@ -1624,7 +1653,7 @@
         .toggle-slider {
             position: absolute;
             inset: 0;
-            background: #e2e8f0;
+            background: #dfe8f2;
             border-radius: 24px;
             cursor: pointer;
             transition: .3s;
@@ -1688,12 +1717,12 @@
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 8px;
-            color: #0f172a;
+            color: #0d1f3c;
         }
 
         .logout-modal p {
             font-size: .9rem;
-            color: #64748b;
+            color: #6b7f96;
             margin-bottom: 24px;
             line-height: 1.6;
         }
@@ -1708,9 +1737,9 @@
             flex: 1;
             padding: 11px;
             border-radius: 10px;
-            border: 1.5px solid #e2e8f0;
+            border: 1.5px solid #dfe8f2;
             background: white;
-            color: #334155;
+            color: #3d4f63;
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
@@ -1727,7 +1756,7 @@
             padding: 11px;
             border-radius: 10px;
             border: none;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
+            background: linear-gradient(135deg, #e03131, #dc2626);
             color: white;
             font-weight: 700;
             cursor: pointer;
@@ -1745,7 +1774,7 @@
         .logged-out-notice {
             background: #fef2f2;
             border: 1px solid #fecaca;
-            border-left: 4px solid #ef4444;
+            border-left: 4px solid #e03131;
             border-radius: 8px;
             padding: 13px 16px;
             margin-bottom: 20px;
@@ -1768,22 +1797,49 @@
     <section id="auth-gate">
         <div class="gate-card">
             <div class="gate-left">
-                <div class="g-icon">🔬</div>
+                <div class="g-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2" />
+                        <path d="M9 2h6" />
+                    </svg></div>
                 <h2>Researcher Portal</h2>
                 <p>Publish your groundbreaking research, track submissions, and reach the global academic community.</p>
                 <div class="badge-row">
-                    <div class="badge">🔬 Publish Research</div>
-                    <div class="badge">📊 Track Submissions</div>
-                    <div class="badge">🌐 Global Reach</div>
+                    <div class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2" />
+                            <path d="M9 2h6" />
+                        </svg> Publish Research</div>
+                    <div class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18" />
+                            <path d="M7 15v3" />
+                            <path d="M12 10v8" />
+                            <path d="M17 6v12" />
+                        </svg> Track Submissions</div>
+                    <div class="badge"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M3 12h18" />
+                            <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18" />
+                        </svg> Global Reach</div>
                 </div>
             </div>
             <div class="gate-right">
                 <div class="logged-out-notice" id="logged-out-notice">
-                    <span>🔒</span>
+                    <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="11" width="16" height="9" rx="1.5" />
+                            <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                        </svg></span>
                     <span><strong>You've been logged out.</strong> Please sign in again to access your dashboard.</span>
                 </div>
                 <div class="alert-banner">
-                    <span>🔒</span>
+                    <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="11" width="16" height="9" rx="1.5" />
+                            <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                        </svg></span>
                     <span><strong>Access Restricted.</strong> Sign in to access the Researcher Dashboard.</span>
                 </div>
                 <div class="auth-tabs">
@@ -1799,7 +1855,12 @@
                                 required><button type="button" class="btn-ghost" id="login-toggle">Show</button></div>
                     </div>
                     <div class="form-row"><label class="checkbox"><input type="checkbox"> Remember me</label></div>
-                    <button class="btn btn-primary btn-block" type="submit">Sign In →</button>
+                    <button class="btn btn-primary btn-block" type="submit">Sign In <svg class="ic" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M5 12h14" />
+                            <path d="m13 6 6 6-6 6" />
+                        </svg></button>
                 </form>
                 <form id="signup-form" class="auth-form" autocomplete="on">
                     <div class="input-group"><label>Full Name</label><input id="signup-name" type="text"
@@ -1820,7 +1881,12 @@
                             <option value="researcher" selected>Researcher / Professor</option>
                         </select>
                     </div>
-                    <button class="btn btn-primary btn-block" type="submit">Create Account →</button>
+                    <button class="btn btn-primary btn-block" type="submit">Create Account <svg class="ic"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14" />
+                            <path d="m13 6 6 6-6 6" />
+                        </svg></button>
                     <p class="small">By signing up you agree to our <a href="#">Terms</a> and <a href="#">Privacy</a>.
                     </p>
                 </form>
@@ -1832,7 +1898,11 @@
     <div id="dash">
         <aside class="sidebar">
             <div class="sb-logo">
-                <div class="sb-logo-icon">🔬</div>
+                <div class="sb-logo-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2" />
+                        <path d="M9 2h6" />
+                    </svg></div>
                 <div class="sb-logo-text">
                     <a href="index.html">MedDoc Hub</a>
                     <span>Researcher Portal</span>
@@ -1841,49 +1911,94 @@
             <nav class="sb-nav">
                 <div class="sb-section">Main</div>
                 <button class="sb-link active" data-sec="overview">
-                    <span class="sb-icon">🏠</span><span class="sb-label">Overview</span>
+                    <span class="sb-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 10.5 12 3l9 7.5" />
+                            <path d="M5 9.5V21h14V9.5" />
+                        </svg></span><span class="sb-label">Overview</span>
                     <span class="sb-tooltip">Overview</span>
                 </button>
                 <button class="sb-link" data-sec="papers">
-                    <span class="sb-icon">📄</span><span class="sb-label">My Papers</span>
+                    <span class="sb-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2h9l5 5v15H6z" />
+                            <path d="M15 2v5h5" />
+                        </svg></span><span class="sb-label">My Papers</span>
                     <span class="sb-tooltip">My Papers</span>
                 </button>
                 <button class="sb-link" data-sec="analytics">
-                    <span class="sb-icon">📊</span><span class="sb-label">Analytics</span>
+                    <span class="sb-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18" />
+                            <path d="M7 15v3" />
+                            <path d="M12 10v8" />
+                            <path d="M17 6v12" />
+                        </svg></span><span class="sb-label">Analytics</span>
                     <span class="sb-tooltip">Analytics</span>
                 </button>
                 <div class="sb-section">Researcher</div>
                 <button class="sb-link" data-sec="review">
-                    <span class="sb-icon">📋</span><span class="sb-label">Review Papers</span>
+                    <span class="sb-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="6" y="4" width="12" height="17" rx="2" />
+                            <path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1" />
+                            <path d="M9 12h6M9 16h6" />
+                        </svg></span><span class="sb-label">Review Papers</span>
                     <span class="sb-tooltip">Review Papers</span>
                 </button>
                 <button class="sb-link" data-sec="notifications">
-                    <span class="sb-icon">🔔</span><span class="sb-label">Notifications</span><span
+                    <span class="sb-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                        </svg></span><span class="sb-label">Notifications</span><span
                         class="sb-tooltip">Notifications</span>
                 </button>
                 <button class="sb-link" data-sec="resources">
-                    <span class="sb-icon">📚</span><span class="sb-label">Resources</span><span
-                        class="sb-tooltip">Resources</span>
+                    <span class="sb-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                        </svg></span><span class="sb-label">Resources</span><span class="sb-tooltip">Resources</span>
                 </button>
                 <button class="sb-link" data-sec="profile">
-                    <span class="sb-icon">👤</span><span class="sb-label">My Profile</span><span class="sb-tooltip">My
+                    <span class="sb-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="4" />
+                            <path d="M4 21c0-4 3.5-6 8-6s8 2 8 6" />
+                        </svg></span><span class="sb-label">My Profile</span><span class="sb-tooltip">My
                         Profile</span>
                 </button>
                 <button class="sb-link" data-sec="settings">
-                    <span class="sb-icon">⚙️</span><span class="sb-label">Settings</span><span
-                        class="sb-tooltip">Settings</span>
+                    <span class="sb-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3.2" />
+                            <path
+                                d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" />
+                        </svg></span><span class="sb-label">Settings</span><span class="sb-tooltip">Settings</span>
                 </button>
                 <div class="sb-section">Quick Actions</div>
                 <button class="sb-link" id="sb-upload" onclick="openSubmitModal()">
-                    <span class="sb-icon">➕</span><span class="sb-label">Submit New Paper</span>
+                    <span class="sb-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 5v14M5 12h14" />
+                        </svg></span><span class="sb-label">Submit New Paper</span>
                     <span class="sb-tooltip">Submit Paper</span>
                 </button>
                 <a class="sb-link" href="research.html">
-                    <span class="sb-icon">🔍</span><span class="sb-label">Browse Research</span>
+                    <span class="sb-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="7" />
+                            <path d="m21 21-4.3-4.3" />
+                        </svg></span><span class="sb-label">Browse Research</span>
                     <span class="sb-tooltip">Browse Research</span>
                 </a>
                 <a class="sb-link" href="index.html">
-                    <span class="sb-icon">🏡</span><span class="sb-label">Back to Home</span>
+                    <span class="sb-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 10.5 12 3l9 7.5" />
+                            <path d="M5 9.5V21h14V9.5" />
+                        </svg></span><span class="sb-label">Back to Home</span>
                     <span class="sb-tooltip">Home</span>
                 </a>
             </nav>
@@ -1892,9 +2007,18 @@
                     <div class="sb-avatar" id="sb-avatar">R</div>
                     <div class="sb-user-text">
                         <div class="sb-name" id="sb-name">Researcher</div>
-                        <div class="sb-role">🔬 Researcher</div>
+                        <div class="sb-role"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2" />
+                                <path d="M9 2h6" />
+                            </svg> Researcher</div>
                     </div>
-                    <button class="sb-logout" id="logout-btn" title="Logout">⏻</button>
+                    <button class="sb-logout" id="logout-btn" title="Logout"><svg class="ic" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M12 2v6" />
+                            <path d="M18.4 6.6a9 9 0 1 1-12.8 0" />
+                        </svg></button>
                 </div>
             </div>
         </aside>
@@ -1916,7 +2040,15 @@
             <div class="section active" id="sec-overview">
                 <div class="welcome">
                     <div>
-                        <h2>Welcome back, <span id="welcome-name">Researcher</span>! 👋</h2>
+                        <h2>Welcome back, <span id="welcome-name">Researcher</span>! <svg class="ic" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M18 11V6a2 2 0 0 0-4 0" />
+                                <path d="M14 10V4a2 2 0 0 0-4 0v2" />
+                                <path d="M10 10.5V6a2 2 0 0 0-4 0v9" />
+                                <path d="M6 15c-2 0-3-1.5-3-3V9a2 2 0 0 1 4 0" />
+                                <path d="M18 11a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-2a7 7 0 0 1-6-3.5" />
+                            </svg></h2>
                         <p>Your research contributions are making an impact on the global community.</p>
                     </div>
                     <button class="welcome-btn" id="banner-upload" onclick="openSubmitModal()">＋ Submit New
@@ -1924,27 +2056,46 @@
                 </div>
 
                 <div class="stats">
-                    <div class="stat c-blue" data-ico="📄">
+                    <div class="stat c-blue"><span class="stat-icon"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 2h9l5 5v15H6z" />
+                                <path d="M15 2v5h5" />
+                            </svg></span>
                         <div class="stat-lbl">Total Submitted</div>
                         <div class="stat-val" id="s-total">0</div>
                         <div class="stat-hint">All time</div>
                     </div>
-                    <div class="stat c-green" data-ico="✅">
+                    <div class="stat c-green"><span class="stat-icon"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="m8.5 12 2.5 2.5 5-5" />
+                            </svg></span>
                         <div class="stat-lbl">Approved</div>
                         <div class="stat-val" id="s-approved">0</div>
                         <div class="stat-hint">Published papers</div>
                     </div>
-                    <div class="stat c-amber" data-ico="⏳">
+                    <div class="stat c-amber"><span class="stat-icon"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M12 7v5l3 3" />
+                            </svg></span>
                         <div class="stat-lbl">Pending Review</div>
                         <div class="stat-val" id="s-pending">0</div>
                         <div class="stat-hint">Awaiting decision</div>
                     </div>
-                    <div class="stat c-red" data-ico="✏️">
+                    <div class="stat c-red"><span class="stat-icon"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 20h9" />
+                                <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                            </svg></span>
                         <div class="stat-lbl">Needs Revision</div>
                         <div class="stat-val" id="s-revision">0</div>
                         <div class="stat-hint">Rejected or revision</div>
                     </div>
-                    <div class="stat c-teal" data-ico="🗂️">
+                    <div class="stat c-teal"><span class="stat-icon"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                            </svg></span>
                         <div class="stat-lbl">Categories</div>
                         <div class="stat-val" id="s-cats">0</div>
                         <div class="stat-hint">Research areas covered</div>
@@ -1978,7 +2129,12 @@
                             <div class="card-title">Recent Submissions</div>
                             <div class="card-sub">Your latest 3 papers</div>
                         </div>
-                        <button class="btn btn-outline btn-sm" onclick="switchSec('papers')">View All →</button>
+                        <button class="btn btn-outline btn-sm" onclick="switchSec('papers')">View All <svg class="ic"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14" />
+                                <path d="m13 6 6 6-6 6" />
+                            </svg></button>
                     </div>
                     <div class="papers-list" id="recent-list"></div>
                 </div>
@@ -1989,11 +2145,17 @@
                 <div class="card">
                     <div class="card-head">
                         <div>
-                            <div class="card-title">📋 Review Student Papers</div>
+                            <div class="card-title"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="6" y="4" width="12" height="17" rx="2" />
+                                    <path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1" />
+                                    <path d="M9 12h6M9 16h6" />
+                                </svg> Review Student Papers</div>
                             <div class="card-sub" id="rv-count">0 papers</div>
                         </div>
                         <div class="filter-bar">
-                            <input type="text" id="rv-search" placeholder="🔍 Search by title or author…"
+                            <input type="text" id="rv-search" placeholder="Search by title or author…"
                                 style="padding:7px 11px;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.83rem;outline:none;min-width:200px;">
                             <select id="rv-filter"
                                 style="padding:7px 11px;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.83rem;outline:none;cursor:pointer;">
@@ -2099,7 +2261,12 @@
                 <div class="card">
                     <div class="card-head">
                         <div>
-                            <div class="card-title">🔔 Notifications</div>
+                            <div class="card-title"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                                    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                                </svg> Notifications</div>
                             <div class="card-sub">Updates on your paper reviews and system alerts</div>
                         </div>
                         <button class="btn btn-outline btn-sm" onclick="markAllRead()">Mark all read</button>
@@ -2112,89 +2279,183 @@
             <div class="section" id="sec-resources">
                 <div class="card" style="margin-bottom:18px">
                     <div class="card-head">
-                        <div class="card-title">📚 Research Resources</div>
+                        <div class="card-title"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                            </svg> Research Resources</div>
                         <div class="card-sub">Tools and databases for researchers</div>
                     </div>
                     <div class="resources-grid">
                         <div class="res-card" onclick="window.open('https://scholar.google.com','_blank')">
-                            <div class="res-banner" style="background:#e0f2fe">🔍</div>
+                            <div class="res-banner" style="background:#daeaf8"><svg class="ic" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="7" />
+                                    <path d="m21 21-4.3-4.3" />
+                                </svg></div>
                             <div class="res-body">
                                 <h4>Google Scholar</h4>
                                 <p>Search millions of scholarly articles, theses, and conference papers.</p><span
-                                    class="res-tag">🔗 External</span>
+                                    class="res-tag"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M9 15 15 9" />
+                                        <path d="M14 4h3a4 4 0 0 1 0 8h-3" />
+                                        <path d="M10 20H7a4 4 0 0 1 0-8h3" />
+                                    </svg> External</span>
                             </div>
                         </div>
                         <div class="res-card" onclick="window.open('https://www.ncbi.nlm.nih.gov/pmc/','_blank')">
-                            <div class="res-banner" style="background:#d1fae5">🏥</div>
+                            <div class="res-banner" style="background:#d1fae5"><svg class="ic" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                                    <path d="M12 8v8M8 12h8" />
+                                </svg></div>
                             <div class="res-body">
                                 <h4>PubMed Central</h4>
                                 <p>Free full-text archive of biomedical and life sciences literature.</p><span
-                                    class="res-tag">🔗 External</span>
+                                    class="res-tag"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M9 15 15 9" />
+                                        <path d="M14 4h3a4 4 0 0 1 0 8h-3" />
+                                        <path d="M10 20H7a4 4 0 0 1 0-8h3" />
+                                    </svg> External</span>
                             </div>
                         </div>
                         <div class="res-card" onclick="window.open('https://arxiv.org','_blank')">
-                            <div class="res-banner" style="background:#ede9fe">⚛️</div>
+                            <div class="res-banner" style="background:#ede9fe"></div>
                             <div class="res-body">
                                 <h4>arXiv</h4>
                                 <p>Open-access preprints in physics, math, CS, and related fields.</p><span
-                                    class="res-tag">🔗 External</span>
+                                    class="res-tag"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M9 15 15 9" />
+                                        <path d="M14 4h3a4 4 0 0 1 0 8h-3" />
+                                        <path d="M10 20H7a4 4 0 0 1 0-8h3" />
+                                    </svg> External</span>
                             </div>
                         </div>
                         <div class="res-card" onclick="window.open('https://www.mendeley.com','_blank')">
-                            <div class="res-banner" style="background:#fff7ed">📌</div>
+                            <div class="res-banner" style="background:#fff7ed"><svg class="ic" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M12 17v5" />
+                                    <path d="M8 3h8l-1 8 3 3H6l3-3z" />
+                                </svg></div>
                             <div class="res-body">
                                 <h4>Mendeley</h4>
                                 <p>Reference manager and academic social network for researchers.</p><span
-                                    class="res-tag">🛠️ Tool</span>
+                                    class="res-tag"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path
+                                            d="M14.7 6.3a4 4 0 0 0-5.4 5.4L2 19l3 3 7.3-7.3a4 4 0 0 0 5.4-5.4l-2.8 2.8-2-2z" />
+                                    </svg> Tool</span>
                             </div>
                         </div>
                         <div class="res-card" onclick="window.open('https://www.scopus.com','_blank')">
-                            <div class="res-banner" style="background:#fce7f3">🌐</div>
+                            <div class="res-banner" style="background:#fce7f3"><svg class="ic" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M3 12h18" />
+                                    <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18" />
+                                </svg></div>
                             <div class="res-body">
                                 <h4>Scopus</h4>
                                 <p>The world's largest abstract and citation database of peer-reviewed literature.</p>
-                                <span class="res-tag">🔗 External</span>
+                                <span class="res-tag"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M9 15 15 9" />
+                                        <path d="M14 4h3a4 4 0 0 1 0 8h-3" />
+                                        <path d="M10 20H7a4 4 0 0 1 0-8h3" />
+                                    </svg> External</span>
                             </div>
                         </div>
                         <div class="res-card" onclick="window.open('https://ieee.org','_blank')">
-                            <div class="res-banner" style="background:#dbeafe">💡</div>
+                            <div class="res-banner" style="background:#dbeafe"><svg class="ic" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M9 18h6" />
+                                    <path d="M10 22h4" />
+                                    <path
+                                        d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.3h6c0-1.1.4-1.8 1-2.3A7 7 0 0 0 12 2z" />
+                                </svg></div>
                             <div class="res-body">
                                 <h4>IEEE Xplore</h4>
                                 <p>Access to technical literature in electrical engineering, computer science.</p><span
-                                    class="res-tag">🔗 External</span>
+                                    class="res-tag"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M9 15 15 9" />
+                                        <path d="M14 4h3a4 4 0 0 1 0 8h-3" />
+                                        <path d="M10 20H7a4 4 0 0 1 0-8h3" />
+                                    </svg> External</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-head">
-                        <div class="card-title">💡 Publishing Tips</div>
+                        <div class="card-title"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 18h6" />
+                                <path d="M10 22h4" />
+                                <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.3h6c0-1.1.4-1.8 1-2.3A7 7 0 0 0 12 2z" />
+                            </svg> Publishing Tips</div>
                         <div class="card-sub">Best practices for researcher submissions</div>
                     </div>
                     <div class="insights-grid">
                         <div class="insight-card">
-                            <div class="insight-ico blue">🔬</div>
+                            <div class="insight-ico blue"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2" />
+                                    <path d="M9 2h6" />
+                                </svg></div>
                             <div class="insight-body">
                                 <h4>Methodology Clarity</h4>
                                 <p>Detail your experimental methods so results are fully reproducible.</p>
                             </div>
                         </div>
                         <div class="insight-card">
-                            <div class="insight-ico green">📈</div>
+                            <div class="insight-ico green"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M3 17 9 11l4 4 8-8" />
+                                    <path d="M15 7h6v6" />
+                                </svg></div>
                             <div class="insight-body">
                                 <h4>Statistical Rigor</h4>
                                 <p>Include confidence intervals and p-values for all key findings.</p>
                             </div>
                         </div>
                         <div class="insight-card">
-                            <div class="insight-ico amber">🌐</div>
+                            <div class="insight-ico amber"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M3 12h18" />
+                                    <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18" />
+                                </svg></div>
                             <div class="insight-body">
                                 <h4>Open Access</h4>
                                 <p>Consider open-access journals to maximise reach and citation count.</p>
                             </div>
                         </div>
                         <div class="insight-card">
-                            <div class="insight-ico purple">🤝</div>
+                            <div class="insight-ico purple"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M9 15 15 9" />
+                                    <path d="M14 4h3a4 4 0 0 1 0 8h-3" />
+                                    <path d="M10 20H7a4 4 0 0 1 0-8h3" />
+                                </svg></div>
                             <div class="insight-body">
                                 <h4>Peer Collaboration</h4>
                                 <p>Co-authored papers average 40% more citations than solo submissions.</p>
@@ -2230,7 +2491,7 @@
                                         placeholder="e.g. Harvard, MIT"></div>
                             </div>
                             <div class="fg"><label>Email Address</label><input type="email" id="pf-email"
-                                    placeholder="your@email.com" readonly style="background:#f8fafc;color:#94a3b8">
+                                    placeholder="your@email.com" readonly style="background:#f4f8fc;color:#94a3b8">
                             </div>
                             <div class="fg"><label>Research Specialisation</label><textarea id="pf-interests"
                                     placeholder="e.g. Genomics, AI in Medicine, Clinical Trials…"></textarea></div>
@@ -2240,7 +2501,13 @@
                                 <div class="fg"><label>LinkedIn / Website</label><input type="url" id="pf-link"
                                         placeholder="https://linkedin.com/in/yourname"></div>
                             </div>
-                            <button type="submit" class="btn btn-primary">💾 Save Changes</button>
+                            <button type="submit" class="btn btn-primary"><svg class="ic" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M5 3h11l3 3v15H5z" />
+                                    <path d="M8 3v6h8V3" />
+                                    <path d="M8 13h8v8H8z" />
+                                </svg> Save Changes</button>
                         </form>
                     </div>
                 </div>
@@ -2250,7 +2517,12 @@
             <div class="section" id="sec-settings">
                 <div class="card">
                     <div class="card-head">
-                        <div class="card-title">⚙️ Settings</div>
+                        <div class="card-title"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3.2" />
+                                <path
+                                    d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" />
+                            </svg> Settings</div>
                         <div class="card-sub">Manage your preferences and account</div>
                     </div>
                     <div class="settings-group">
@@ -2298,7 +2570,13 @@
                                 onclick="exportData()">Export</button>
                         </div>
                     </div>
-                    <button class="btn btn-primary" onclick="saveSettings()">💾 Save Settings</button>
+                    <button class="btn btn-primary" onclick="saveSettings()"><svg class="ic" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M5 3h11l3 3v15H5z" />
+                            <path d="M8 3v6h8V3" />
+                            <path d="M8 13h8v8H8z" />
+                        </svg> Save Settings</button>
                 </div>
             </div>
         </div>
@@ -2308,8 +2586,16 @@
     <div class="overlay" id="upload-modal">
         <div class="modal">
             <div class="modal-hd">
-                <h2>🔬 Submit Research Paper</h2>
-                <button class="close-btn" id="modal-close">✕</button>
+                <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2" />
+                        <path d="M9 2h6" />
+                    </svg> Submit Research Paper</h2>
+                <button class="close-btn" id="modal-close"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6 6 18" />
+                        <path d="M6 6l12 12" />
+                    </svg></button>
             </div>
             <div class="modal-bd">
                 <div class="progress-steps">
@@ -2361,13 +2647,21 @@
                         <label>Upload PDF (optional)</label>
                         <div class="file-drop" id="file-drop">
                             <input type="file" id="p-file" accept=".pdf">
-                            <div class="drop-ico">📎</div>
+                            <div class="drop-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M21 12.5 12.5 21a5 5 0 0 1-7-7l9-9a3.5 3.5 0 0 1 5 5l-9 9a2 2 0 0 1-3-3l8.5-8.5" />
+                                </svg></div>
                             <div class="drop-txt"><strong>Click to upload</strong> or drag &amp; drop</div>
                             <div class="drop-txt">PDF only · Max 10MB</div>
                             <div id="fname"></div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary modal-submit">🚀 Submit for Review</button>
+                    <button type="submit" class="btn btn-primary modal-submit"><svg class="ic" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M13 2 4 14h6l-1 8 9-12h-6z" />
+                        </svg> Submit for Review</button>
                 </form>
             </div>
         </div>
@@ -2377,68 +2671,100 @@
     <div class="overlay" id="review-modal">
         <div class="modal" style="max-width:660px">
             <div class="modal-hd">
-                <h2>📋 Review Student Paper</h2>
-                <button class="close-btn" id="rv-close">✕</button>
+                <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="6" y="4" width="12" height="17" rx="2" />
+                        <path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1" />
+                        <path d="M9 12h6M9 16h6" />
+                    </svg> Review Student Paper</h2>
+                <button class="close-btn" id="rv-close"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6 6 18" />
+                        <path d="M6 6l12 12" />
+                    </svg></button>
             </div>
             <div class="modal-bd">
                 <input type="hidden" id="rv-paper-id">
                 <h3 id="rv-title"
-                    style="font-size:1rem;font-weight:700;color:#0f172a;margin-bottom:14px;line-height:1.4;"></h3>
+                    style="font-size:1rem;font-weight:700;color:#0d1f3c;margin-bottom:14px;line-height:1.4;"></h3>
                 <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;">
-                    <div style="background:#f8fafc;border-radius:9px;padding:10px 13px;">
+                    <div style="background:#f4f8fc;border-radius:9px;padding:10px 13px;">
                         <div
                             style="font-size:.68rem;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:3px;">
                             Author</div>
-                        <div id="rv-author" style="font-size:.88rem;font-weight:600;color:#0f172a;"></div>
+                        <div id="rv-author" style="font-size:.88rem;font-weight:600;color:#0d1f3c;"></div>
                     </div>
-                    <div style="background:#f8fafc;border-radius:9px;padding:10px 13px;">
+                    <div style="background:#f4f8fc;border-radius:9px;padding:10px 13px;">
                         <div
                             style="font-size:.68rem;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:3px;">
                             Category</div>
-                        <div id="rv-category" style="font-size:.88rem;font-weight:600;color:#0f172a;"></div>
+                        <div id="rv-category" style="font-size:.88rem;font-weight:600;color:#0d1f3c;"></div>
                     </div>
-                    <div style="background:#f8fafc;border-radius:9px;padding:10px 13px;">
+                    <div style="background:#f4f8fc;border-radius:9px;padding:10px 13px;">
                         <div
                             style="font-size:.68rem;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:3px;">
                             Submitted</div>
-                        <div id="rv-date" style="font-size:.88rem;font-weight:600;color:#0f172a;"></div>
+                        <div id="rv-date" style="font-size:.88rem;font-weight:600;color:#0d1f3c;"></div>
                     </div>
                 </div>
-                <div style="background:#e0f2fe;border-radius:9px;padding:10px 14px;margin-bottom:14px;">
+                <div style="background:#daeaf8;border-radius:9px;padding:10px 14px;margin-bottom:14px;">
                     <div
-                        style="font-size:.68rem;font-weight:700;text-transform:uppercase;color:#0369a1;margin-bottom:3px;">
-                        🔖 Keywords</div>
-                    <div id="rv-keywords" style="font-size:.86rem;color:#0c4a6e;"></div>
+                        style="font-size:.68rem;font-weight:700;text-transform:uppercase;color:#132848;margin-bottom:3px;">
+                        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 3h12v18l-6-4-6 4z" />
+                        </svg> Keywords
+                    </div>
+                    <div id="rv-keywords" style="font-size:.86rem;color:#132848;"></div>
                 </div>
                 <div
-                    style="background:#f8fafc;border-radius:10px;padding:14px 16px;margin-bottom:16px;max-height:160px;overflow-y:auto;">
+                    style="background:#f4f8fc;border-radius:10px;padding:14px 16px;margin-bottom:16px;max-height:160px;overflow-y:auto;">
                     <div
                         style="font-size:.68rem;font-weight:700;text-transform:uppercase;color:#94a3b8;margin-bottom:6px;">
                         Abstract</div>
-                    <div id="rv-abstract" style="font-size:.86rem;color:#334155;line-height:1.7;"></div>
+                    <div id="rv-abstract" style="font-size:.86rem;color:#3d4f63;line-height:1.7;"></div>
                 </div>
                 <div class="fg" style="margin-bottom:14px;">
-                    <label style="display:block;margin-bottom:6px;font-weight:600;color:#334155;font-size:.86rem;">💬
+                    <label style="display:block;margin-bottom:6px;font-weight:600;color:#3d4f63;font-size:.86rem;"><svg
+                            class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16v12H8l-4 4z" />
+                        </svg>
                         Feedback / Notes <span style="color:#94a3b8;font-weight:400;">(required for Revision &
                             Reject)</span></label>
                     <textarea id="rv-feedback"
                         placeholder="Add your review comments, required improvements, or reason for rejection…"
-                        style="width:100%;padding:10px 13px;border:1.5px solid #e2e8f0;border-radius:8px;font-family:inherit;font-size:.9rem;outline:none;resize:vertical;min-height:90px;transition:border-color .2s;"
+                        style="width:100%;padding:10px 13px;border:1.5px solid #dfe8f2;border-radius:8px;font-family:inherit;font-size:.9rem;outline:none;resize:vertical;min-height:90px;transition:border-color .2s;"
                         onfocus="this.style.borderColor='var(--accent)'"
-                        onblur="this.style.borderColor='#e2e8f0'"></textarea>
+                        onblur="this.style.borderColor='#dfe8f2'"></textarea>
                 </div>
                 <div id="rv-error"
-                    style="display:none;background:#fef2f2;border:1px solid #fecaca;border-left:3px solid #ef4444;border-radius:7px;padding:9px 13px;font-size:.83rem;color:#b91c1c;font-weight:500;margin-bottom:12px;">
+                    style="display:none;background:#fef2f2;border:1px solid #fecaca;border-left:3px solid #e03131;border-radius:7px;padding:9px 13px;font-size:.83rem;color:#b91c1c;font-weight:500;margin-bottom:12px;">
                 </div>
                 <div style="display:flex;gap:10px;flex-wrap:wrap;">
                     <button id="rv-approve" class="btn"
-                        style="flex:1;justify-content:center;background:linear-gradient(135deg,#10b981,#059669);color:white;border:none;min-width:120px;">✅
+                        style="flex:1;justify-content:center;background:linear-gradient(135deg,#2f9e44,#059669);color:white;border:none;min-width:120px;"><svg
+                            class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="m8.5 12 2.5 2.5 5-5" />
+                        </svg>
                         Approve</button>
                     <button id="rv-revision" class="btn"
-                        style="flex:1;justify-content:center;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;border:none;min-width:120px;">✏️
+                        style="flex:1;justify-content:center;background:linear-gradient(135deg,#e67700,#d97706);color:white;border:none;min-width:120px;"><svg
+                            class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 20h9" />
+                            <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                        </svg>
                         Request Revision</button>
                     <button id="rv-reject" class="btn"
-                        style="flex:1;justify-content:center;background:linear-gradient(135deg,#ef4444,#dc2626);color:white;border:none;min-width:120px;">❌
+                        style="flex:1;justify-content:center;background:linear-gradient(135deg,#e03131,#dc2626);color:white;border:none;min-width:120px;"><svg
+                            class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="m9 9 6 6M15 9l-6 6" />
+                        </svg>
                         Reject</button>
                 </div>
             </div>
@@ -2446,12 +2772,20 @@
     </div>
 
     <!-- ══ TOAST ══════════════════════════════════════════════════════ -->
-    <div class="toast" id="toast"><span id="toast-msg">✅ Paper submitted!</span></div>
+    <div class="toast" id="toast"><span id="toast-msg"><svg class="ic" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <path d="m8.5 12 2.5 2.5 5-5" />
+            </svg> Paper submitted!</span></div>
 
     <!-- ══ LOGOUT CONFIRMATION MODAL ══════════════════════════════ -->
     <div class="logout-overlay" id="logout-overlay">
         <div class="logout-modal">
-            <div class="logout-icon">🔒</div>
+            <div class="logout-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="4" y="11" width="16" height="9" rx="1.5" />
+                    <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                </svg></div>
             <h3>Log Out?</h3>
             <p>You'll need to sign in again to access this portal. Any unsaved work will remain intact.</p>
             <div class="logout-btns">
@@ -2536,9 +2870,9 @@
 
         // ── Portal map ────────────────────────────────────────────────
         const PORTAL_MAP = {
-            student: { url: 'student-dashboard.html', icon: '🎓', label: 'Student Dashboard' },
-            researcher: { url: 'professor-dashboard.html', icon: '🔬', label: 'Researcher Dashboard' },
-            admin: { url: 'admin.html', icon: '🛡️', label: 'Admin Dashboard' }
+            student: { url: 'student-dashboard.html', icon: '', label: 'Student Dashboard' },
+            researcher: { url: 'professor-dashboard.html', icon: '', label: 'Researcher Dashboard' },
+            admin: { url: 'admin.html', icon: '', label: 'Admin Dashboard' }
         };
 
         // ── Show inline error message ─────────────────────────────────
@@ -2548,12 +2882,12 @@
                 el = document.createElement('div');
                 el.id = containerId;
                 el.style.cssText = `
-            background:#fef2f2;border:1px solid #fecaca;border-left:4px solid #ef4444;
+            background:#fef2f2;border:1px solid #fecaca;border-left:4px solid #e03131;
             border-radius:7px;padding:11px 14px;margin-bottom:14px;
             font-size:.88rem;color:#b91c1c;font-weight:500;display:flex;gap:8px;align-items:flex-start;
         `;
             }
-            el.innerHTML = `<span>⚠️</span><span>${message}</span>`;
+            el.innerHTML = `<span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span>${message}</span>`;
             el.style.display = 'flex';
             return el;
         }
@@ -2581,10 +2915,10 @@
                 if (isLoggedIn) {
                     navAuthBtn.style.display = 'none';
                     if (navUserInfo) navUserInfo.style.display = 'flex';
-                    if (navUsername) navUsername.textContent = '👤 ' + userName;
+                    if (navUsername) navUsername.textContent = '' + userName;
                     if (dockDashBtn) {
                         const map = { student: 'student-dashboard.html', researcher: 'professor-dashboard.html', admin: 'admin.html' };
-                        const labels = { student: '🎓 My Dashboard', researcher: '🔬 My Dashboard', admin: '🛡️ Admin Panel' };
+                        const labels = { student: 'My Dashboard', researcher: 'My Dashboard', admin: 'Admin Panel' };
                         dockDashBtn.href = map[userRole] || 'index.html';
                         dockDashBtn.textContent = labels[userRole] || 'My Dashboard';
                         dockDashBtn.style.display = '';
@@ -2951,54 +3285,78 @@
     <div class="overlay" id="paper-detail-modal">
         <div class="modal" style="max-width:640px">
             <div class="modal-hd">
-                <h2>🔬 Paper Details</h2>
-                <button class="close-btn" id="pd-close" onclick="closePaperDetail()">✕</button>
+                <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2" />
+                        <path d="M9 2h6" />
+                    </svg> Paper Details</h2>
+                <button class="close-btn" id="pd-close" onclick="closePaperDetail()"><svg class="ic" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M18 6 6 18" />
+                        <path d="M6 6l12 12" />
+                    </svg></button>
             </div>
             <div class="modal-bd">
                 <div
                     style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap;">
-                    <h3 id="pd-title" style="font-size:1rem;font-weight:700;color:#0f172a;flex:1;line-height:1.4;"></h3>
+                    <h3 id="pd-title" style="font-size:1rem;font-weight:700;color:#0d1f3c;flex:1;line-height:1.4;"></h3>
                     <div id="pd-status"></div>
                 </div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
-                    <div style="background:#f8fafc;border-radius:10px;padding:12px 14px;">
+                    <div style="background:#f4f8fc;border-radius:10px;padding:12px 14px;">
                         <div
                             style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:4px;">
                             Category</div>
-                        <div id="pd-category" style="font-size:.9rem;font-weight:600;color:#0f172a;"></div>
+                        <div id="pd-category" style="font-size:.9rem;font-weight:600;color:#0d1f3c;"></div>
                     </div>
-                    <div style="background:#f8fafc;border-radius:10px;padding:12px 14px;">
+                    <div style="background:#f4f8fc;border-radius:10px;padding:12px 14px;">
                         <div
                             style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:4px;">
                             Submitted</div>
-                        <div id="pd-date" style="font-size:.9rem;font-weight:600;color:#0f172a;"></div>
+                        <div id="pd-date" style="font-size:.9rem;font-weight:600;color:#0d1f3c;"></div>
                     </div>
                 </div>
                 <div id="pd-coauthors-wrap"
                     style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px 14px;margin-bottom:16px;display:none;">
                     <div
                         style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#1e40af;margin-bottom:4px;">
-                        👥 Co-Authors</div>
+                        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="8" r="3.2" />
+                            <path d="M2.5 21c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5" />
+                            <circle cx="17" cy="8" r="2.8" />
+                            <path d="M21.5 21c0-3-2-5-4.7-5.4" />
+                        </svg> Co-Authors
+                    </div>
                     <div id="pd-coauthors" style="font-size:.88rem;color:#1d4ed8;"></div>
                 </div>
                 <div
                     style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 14px;margin-bottom:16px;">
                     <div
                         style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#92400e;margin-bottom:4px;">
-                        🔖 Keywords</div>
+                        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 3h12v18l-6-4-6 4z" />
+                        </svg> Keywords
+                    </div>
                     <div id="pd-keywords" style="font-size:.88rem;color:#78350f;"></div>
                 </div>
-                <div style="background:#f8fafc;border-radius:10px;padding:14px 16px;margin-bottom:16px;">
+                <div style="background:#f4f8fc;border-radius:10px;padding:14px 16px;margin-bottom:16px;">
                     <div
                         style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:8px;">
                         Abstract</div>
-                    <div id="pd-abstract" style="font-size:.88rem;color:#334155;line-height:1.7;"></div>
+                    <div id="pd-abstract" style="font-size:.88rem;color:#3d4f63;line-height:1.7;"></div>
                 </div>
                 <div id="pd-feedback-wrap"
                     style="display:none;background:#fff7ed;border:1px solid #fed7aa;border-left:3px solid #f97316;border-radius:10px;padding:14px 16px;margin-bottom:16px;">
                     <div
                         style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#c2410c;margin-bottom:6px;">
-                        💬 Reviewer Feedback</div>
+                        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16v12H8l-4 4z" />
+                        </svg> Reviewer Feedback
+                    </div>
                     <div id="pd-feedback" style="font-size:.88rem;color:#9a3412;line-height:1.7;"></div>
                 </div>
                 <div style="display:flex;gap:10px;justify-content:flex-end;padding-top:6px;">
@@ -3012,8 +3370,18 @@
     <div class="overlay" id="change-pw-modal">
         <div class="modal" style="max-width:420px">
             <div class="modal-hd">
-                <h2>🔐 Change Password</h2>
-                <button class="close-btn" onclick="closeChangePassword()">✕</button>
+                <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="11" width="16" height="9" rx="1.5" />
+                        <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                        <circle cx="12" cy="15.5" r="1.3" />
+                    </svg> Change Password</h2>
+                <button class="close-btn" onclick="closeChangePassword()"><svg class="ic" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M18 6 6 18" />
+                        <path d="M6 6l12 12" />
+                    </svg></button>
             </div>
             <div class="modal-bd">
                 <div class="fg"><label>Current Password</label><input type="password" id="pw-current"
@@ -3022,10 +3390,16 @@
                         placeholder="At least 6 characters"></div>
                 <div class="fg"><label>Confirm New Password</label><input type="password" id="pw-confirm"
                         placeholder="Repeat new password"></div>
-                <div id="pw-error" style="color:#ef4444;font-size:.83rem;margin-bottom:8px;display:none;"></div>
+                <div id="pw-error" style="color:#e03131;font-size:.83rem;margin-bottom:8px;display:none;"></div>
                 <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
                     <button class="btn btn-outline" onclick="closeChangePassword()">Cancel</button>
-                    <button class="btn btn-primary" onclick="submitChangePassword()">💾 Update Password</button>
+                    <button class="btn btn-primary" onclick="submitChangePassword()"><svg class="ic" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M5 3h11l3 3v15H5z" />
+                            <path d="M8 3v6h8V3" />
+                            <path d="M8 13h8v8H8z" />
+                        </svg> Update Password</button>
                 </div>
             </div>
         </div>
@@ -3046,10 +3420,10 @@
             profile: ['My Profile', 'Manage your researcher profile'],
             settings: ['Settings', 'Preferences and account options'],
         };
-        const pillMap = { pending: '<span class="pill p-pending">⏳ Pending</span>', approved: '<span class="pill p-approved">✅ Approved</span>', rejected: '<span class="pill p-rejected">❌ Rejected</span>', revision: '<span class="pill p-revision">✏️ Revision</span>' };
-        const catIco = { 'Computer Science': '💻', 'Biology': '🧬', 'Physics': '⚛️', 'Chemistry': '🧪', 'Medicine': '🏥', 'Cardiology': '❤️', 'Neuroscience': '🧠', 'Genetics': '🔬', 'Pharmacology': '💊', 'Oncology': '🎗️', 'Immunology': '🦠', 'Other': '📄' };
-        const catIco2 = { 'Computer Science': '💻', 'Biology': '🧬', 'Physics': '⚛️', 'Chemistry': '🧪', 'Medicine': '🏥', 'Cardiology': '❤️', 'Neuroscience': '🧠', 'Genetics': '🔬', 'Pharmacology': '💊', 'Oncology': '🔴', 'Immunology': '🛡️', 'Other': '📄' };
-        const pillMap3 = { pending: '<span class="pill p-pending">⏳ Pending</span>', approved: '<span class="pill p-approved">✅ Approved</span>', rejected: '<span class="pill p-rejected">❌ Rejected</span>', revision: '<span class="pill p-revision">✏️ Revision</span>' };
+        const pillMap = { pending: '<span class="pill p-pending"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending</span>', approved: '<span class="pill p-approved"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 5-5"/></svg> Approved</span>', rejected: '<span class="pill p-rejected"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></svg> Rejected</span>', revision: '<span class="pill p-revision"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Revision</span>' };
+        const catIco = { 'Computer Science': '', 'Biology': '', 'Physics': '', 'Chemistry': '', 'Medicine': '', 'Cardiology': '', 'Neuroscience': '', 'Genetics': '', 'Pharmacology': '', 'Oncology': '', 'Immunology': '', 'Other': '' };
+        const catIco2 = { 'Computer Science': '', 'Biology': '', 'Physics': '', 'Chemistry': '', 'Medicine': '', 'Cardiology': '', 'Neuroscience': '', 'Genetics': '', 'Pharmacology': '', 'Oncology': '', 'Immunology': '', 'Other': '' };
+        const pillMap3 = { pending: '<span class="pill p-pending"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending</span>', approved: '<span class="pill p-approved"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 5-5"/></svg> Approved</span>', rejected: '<span class="pill p-rejected"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></svg> Rejected</span>', revision: '<span class="pill p-revision"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Revision</span>' };
         let tlChart, stChart, moChart, caChart;
         const coauthors = [];
 
@@ -3198,12 +3572,12 @@
                     const papers = JSON.parse(localStorage.getItem('mdh_papers') || '[]');
                     papers.push(paper);
                     localStorage.setItem('mdh_papers', JSON.stringify(papers));
-                    addNotification('📤 Paper Submitted', `"${paper.title}" is now pending review.`);
+                    addNotification('Paper Submitted', `"${paper.title}" is now pending review.`);
                     this.reset();
                     if (fnameEl) fnameEl.style.display = 'none';
                     coauthors.length = 0; renderTags(); setSteps(1);
                     closeSubmitModal();
-                    showToast('✅ Paper submitted! Pending admin review.');
+                    showToast('Paper submitted! Pending admin review.');
                     renderAll();
                 });
             }
@@ -3294,15 +3668,15 @@
 
         function paperHTML(p) {
             const coStr = p.coauthors && p.coauthors.length
-                ? `<span>👥 ${p.coauthors.slice(0, 2).join(', ')}${p.coauthors.length > 2 ? ' +' + (p.coauthors.length - 2) : ''}</span>` : '';
+                ? `<span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 21c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5"/><circle cx="17" cy="8" r="2.8"/><path d="M21.5 21c0-3-2-5-4.7-5.4"/></svg> ${p.coauthors.slice(0, 2).join(', ')}${p.coauthors.length > 2 ? ' +' + (p.coauthors.length - 2) : ''}</span>` : '';
             return `<div class="paper-row" onclick="openPaperDetail('${esc(p.id)}')" style="cursor:pointer;" title="Click to view details">
-        <div class="pr-icon">${catIco[p.category] || '📄'}</div>
+        <div class="pr-icon">${catIco[p.category] || ''}</div>
         <div class="pr-body">
             <div class="pr-title">${esc(p.title)}</div>
             <div class="pr-meta">
-                <span>📁 ${esc(p.category || '—')}</span>
-                <span>📅 ${esc(p.date || '—')}</span>
-                ${p.keywords ? `<span>🔖 ${esc(p.keywords.split(',').slice(0, 2).join(', '))}</span>` : ''}
+                <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> ${esc(p.category || '—')}</span>
+                <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> ${esc(p.date || '—')}</span>
+                ${p.keywords ? `<span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z"/></svg> ${esc(p.keywords.split(',').slice(0, 2).join(', '))}</span>` : ''}
                 ${coStr}
             </div>
         </div>
@@ -3312,7 +3686,7 @@
         }
 
         function emptyState(msg, hint) {
-            return `<div class="empty"><div class="empty-ico">📭</div><p>${msg}</p><span>${hint}</span></div>`;
+            return `<div class="empty"><div class="empty-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 4 8 8 8-8"/></svg></div><p>${msg}</p><span>${hint}</span></div>`;
         }
 
         function renderRecent(papers) {
@@ -3355,12 +3729,12 @@
             });
             if (stChart) stChart.destroy();
             const sc = document.getElementById('statusChart');
-            if (sc) stChart = new Chart(sc, { type: 'doughnut', data: { labels: ['Approved', 'Pending', 'Rejected', 'Revision'], datasets: [{ data: [counts.approved, counts.pending, counts.rejected, counts.revision], backgroundColor: ['#10b981', '#0ea5e9', '#ef4444', '#f59e0b'], borderWidth: 0, hoverOffset: 6 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 11, font: { size: 11 } } } }, cutout: '62%' } });
+            if (sc) stChart = new Chart(sc, { type: 'doughnut', data: { labels: ['Approved', 'Pending', 'Rejected', 'Revision'], datasets: [{ data: [counts.approved, counts.pending, counts.rejected, counts.revision], backgroundColor: ['#2f9e44', '#1e4d8c', '#e03131', '#e67700'], borderWidth: 0, hoverOffset: 6 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 11, font: { size: 11 } } } }, cutout: '62%' } });
             const labels = Object.keys(byMonth).length ? Object.keys(byMonth) : ['No data'];
             const data = Object.keys(byMonth).length ? Object.values(byMonth) : [0];
             if (tlChart) tlChart.destroy();
             const tc = document.getElementById('timelineChart');
-            if (tc) tlChart = new Chart(tc, { type: 'bar', data: { labels, datasets: [{ label: 'Papers', data, backgroundColor: 'rgba(14,165,233,.7)', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } } });
+            if (tc) tlChart = new Chart(tc, { type: 'bar', data: { labels, datasets: [{ label: 'Papers', data, backgroundColor: 'rgba(30, 77, 140,.7)', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } } });
         }
 
         function buildAnalyticsCharts() {
@@ -3375,8 +3749,8 @@
             });
             if (moChart) moChart.destroy();
             const mc = document.getElementById('monthlyChart');
-            if (mc) moChart = new Chart(mc, { type: 'line', data: { labels: months, datasets: [{ label: 'Papers', data: monthly, borderColor: '#0ea5e9', backgroundColor: 'rgba(14,165,233,.1)', fill: true, tension: .4, pointBackgroundColor: '#0ea5e9', pointRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } } });
-            const colors = ['#0ea5e9', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#14b8a6', '#f97316', '#6366f1'];
+            if (mc) moChart = new Chart(mc, { type: 'line', data: { labels: months, datasets: [{ label: 'Papers', data: monthly, borderColor: '#1e4d8c', backgroundColor: 'rgba(30, 77, 140,.1)', fill: true, tension: .4, pointBackgroundColor: '#1e4d8c', pointRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } } });
+            const colors = ['#1e4d8c', '#2f9e44', '#e67700', '#e03131', '#2563ae', '#0891b2', '#f97316', '#6366f1'];
             if (caChart) caChart.destroy();
             const cc = document.getElementById('categoryChart');
             if (cc) caChart = new Chart(cc, { type: 'pie', data: { labels: Object.keys(catCounts).length ? Object.keys(catCounts) : ['None'], datasets: [{ data: Object.values(catCounts).length ? Object.values(catCounts) : [1], backgroundColor: colors, borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 11, font: { size: 11 } } } } } });
@@ -3405,7 +3779,7 @@
         }
         function showFname(n) {
             const el = document.getElementById('fname');
-            if (el) { el.textContent = '📎 ' + n; el.style.display = 'block'; }
+            if (el) { el.textContent = '' + n; el.style.display = 'block'; }
         }
         function renderTags() {
             const el = document.getElementById('coauthor-tags');
@@ -3450,10 +3824,10 @@
             const key = 'mdh_notifs_' + name;
             if (localStorage.getItem(key)) return;
             const seeds = [
-                { id: 'n1', title: '🎉 Welcome, Researcher!', body: 'Your researcher account is active. Submit papers to reach the global academic community.', time: 'Just now', unread: true },
-                { id: 'n2', title: '🔬 Peer Review Reminder', body: 'Submit your outstanding drafts for peer review before the end of the quarter.', time: '1 day ago', unread: true },
-                { id: 'n3', title: '📋 Submission Guidelines Updated', body: 'Updated formatting guidelines are now in effect. Check Resources for details.', time: '3 days ago', unread: false },
-                { id: 'n4', title: '🌐 New Collaboration Tool', body: 'Mendeley integration tips added to your Resources section.', time: '1 week ago', unread: false },
+                { id: 'n1', title: 'Welcome, Researcher!', body: 'Your researcher account is active. Submit papers to reach the global academic community.', time: 'Just now', unread: true },
+                { id: 'n2', title: 'Peer Review Reminder', body: 'Submit your outstanding drafts for peer review before the end of the quarter.', time: '1 day ago', unread: true },
+                { id: 'n3', title: 'Submission Guidelines Updated', body: 'Updated formatting guidelines are now in effect. Check Resources for details.', time: '3 days ago', unread: false },
+                { id: 'n4', title: 'New Collaboration Tool', body: 'Mendeley integration tips added to your Resources section.', time: '1 week ago', unread: false },
             ];
             localStorage.setItem(key, JSON.stringify(seeds));
         }
@@ -3473,7 +3847,7 @@
             const notifs = JSON.parse(localStorage.getItem(key) || '[]');
             const el = document.getElementById('notif-list');
             if (!el) return;
-            if (!notifs.length) { el.innerHTML = `<div class="empty"><div class="empty-ico">🔕</div><p>No notifications</p><span>You're all caught up!</span></div>`; return; }
+            if (!notifs.length) { el.innerHTML = `<div class="empty"><div class="empty-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 9.8-4.6M18 8c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M2 2l20 20"/></svg></div><p>No notifications</p><span>You're all caught up!</span></div>`; return; }
             el.innerHTML = notifs.map(n => `
         <div class="notif-item ${n.unread ? 'unread' : ''}" onclick="readNotif('${n.id}')">
             <div class="notif-dot ${n.unread ? '' : 'read'}"></div>
@@ -3501,7 +3875,7 @@
             notifs.forEach(n => n.unread = false);
             localStorage.setItem(key, JSON.stringify(notifs));
             renderNotifications(name);
-            showToast('✅ All notifications marked as read.');
+            showToast('All notifications marked as read.');
         }
 
         // ── Profile ───────────────────────────────────────────────────
@@ -3514,7 +3888,7 @@
                 orcid: (document.getElementById('pf-orcid') || {}).value || '',
                 link: (document.getElementById('pf-link') || {}).value || '',
             }));
-            showToast('💾 Profile saved successfully!');
+            showToast('Profile saved successfully!');
         }
 
         // ── Settings ──────────────────────────────────────────────────
@@ -3537,7 +3911,7 @@
                 resNotif: g('set-res'), showCoauth: g('set-coshow'),
                 compact: g('set-compact'),
             }));
-            showToast('⚙️ Settings saved!');
+            showToast('Settings saved!');
         }
 
         // ── Change Password ────────────────────────────────────────────
@@ -3561,13 +3935,13 @@
             const show = msg => { if (errEl) { errEl.textContent = msg; errEl.style.display = ''; } };
             const users = JSON.parse(localStorage.getItem('mdh_users') || '[]');
             const user = users.find(u => u.email === email);
-            if (!user || user.password !== cur) { show('⚠️ Current password is incorrect.'); return; }
-            if (nw.length < 6) { show('⚠️ New password must be at least 6 characters.'); return; }
-            if (nw !== cf) { show('⚠️ Passwords do not match.'); return; }
+            if (!user || user.password !== cur) { show('Current password is incorrect.'); return; }
+            if (nw.length < 6) { show('New password must be at least 6 characters.'); return; }
+            if (nw !== cf) { show('Passwords do not match.'); return; }
             user.password = nw;
             localStorage.setItem('mdh_users', JSON.stringify(users));
             closeChangePassword();
-            showToast('🔐 Password updated successfully!');
+            showToast('Password updated successfully!');
         }
 
         // ── Export ────────────────────────────────────────────────────
@@ -3578,11 +3952,11 @@
             a.href = URL.createObjectURL(new Blob([JSON.stringify(papers, null, 2)], { type: 'application/json' }));
             a.download = 'my_research_papers.json';
             a.click();
-            showToast('📥 Data exported!');
+            showToast('Data exported!');
         }
 
         // ── Paper detail modal ────────────────────────────────────────
-        const pillMap2 = { pending: '<span class="pill p-pending">⏳ Pending</span>', approved: '<span class="pill p-approved">✅ Approved</span>', rejected: '<span class="pill p-rejected">❌ Rejected</span>', revision: '<span class="pill p-revision">✏️ Needs Revision</span>' };
+        const pillMap2 = { pending: '<span class="pill p-pending"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Pending</span>', approved: '<span class="pill p-approved"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 5-5"/></svg> Approved</span>', rejected: '<span class="pill p-rejected"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></svg> Rejected</span>', revision: '<span class="pill p-revision"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Needs Revision</span>' };
 
         function openPaperDetail(paperId) {
             const papers = JSON.parse(localStorage.getItem('mdh_papers') || '[]');
@@ -3644,7 +4018,7 @@
             const feedback = ((document.getElementById('rv-feedback') || {}).value || '').trim();
             if ((newStatus === 'revision' || newStatus === 'rejected') && !feedback) {
                 const e = document.getElementById('rv-error');
-                if (e) { e.style.display = ''; e.textContent = '⚠️ Please add feedback before requesting revision or rejecting.'; }
+                if (e) { e.style.display = ''; e.textContent = 'Please add feedback before requesting revision or rejecting.'; }
                 return;
             }
             const errEl = document.getElementById('rv-error');
@@ -3660,7 +4034,7 @@
                 closeReviewModal();
                 renderReviewList();
                 renderAll();
-                const labels = { approved: '✅ Paper Approved!', rejected: '❌ Paper Rejected', revision: '✏️ Revision Requested' };
+                const labels = { approved: 'Paper Approved!', rejected: 'Paper Rejected', revision: 'Revision Requested' };
                 showToast(labels[newStatus] || 'Review submitted.');
             }
         }
@@ -3677,16 +4051,16 @@
             const cntEl = document.getElementById('rv-count');
             if (cntEl) cntEl.textContent = papers.length + ' paper' + (papers.length !== 1 ? 's' : '');
             if (!el) return;
-            if (!papers.length) { el.innerHTML = `<div class="empty"><div class="empty-ico">📭</div><p>No papers found</p><span>Try changing the filter above</span></div>`; return; }
+            if (!papers.length) { el.innerHTML = `<div class="empty"><div class="empty-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 4 8 8 8-8"/></svg></div><p>No papers found</p><span>Try changing the filter above</span></div>`; return; }
             el.innerHTML = papers.map(p => `
         <div class="paper-row" style="cursor:pointer;" onclick="openReviewModal('${esc(p.id)}')">
-            <div class="pr-icon">${catIco2[p.category] || '📄'}</div>
+            <div class="pr-icon">${catIco2[p.category] || ''}</div>
             <div class="pr-body">
                 <div class="pr-title">${esc(p.title)}</div>
                 <div class="pr-meta">
-                    <span>👤 ${esc(p.author)}</span>
-                    <span>📁 ${esc(p.category || '—')}</span>
-                    <span>📅 ${esc(p.date || '—')}</span>
+                    <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg> ${esc(p.author)}</span>
+                    <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> ${esc(p.category || '—')}</span>
+                    <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> ${esc(p.date || '—')}</span>
                 </div>
             </div>
             <div class="pr-status">${pillMap3[p.status] || p.status}</div>
