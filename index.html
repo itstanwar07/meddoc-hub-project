@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedDoc Hub — Medical Research Documentation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Upload, review, and publish peer-reviewed medical research. A structured pipeline for students, researchers, and administrators.">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-
-
+    <a href="#main" class="skip-link">Skip to content</a>
 
     <!-- ═══ PILL 1: Logo — top left ═══ -->
     <div class="dock dock-logo-pill">
@@ -24,47 +24,48 @@
     <!-- ═══ PILL 2: Nav links — top centre ═══ -->
     <nav class="dock dock-nav-pill" id="site-dock" role="navigation" aria-label="Main navigation">
         <ul class="dock-nav">
-            <li><a href="index.html" class="active"><span class="nav-icon">🏠</span> Home</a></li>
-            <li><a href="research.html"><span class="nav-icon">🔬</span> Research</a></li>
-            <li><a href="upload.html"><span class="nav-icon">📤</span> Upload</a></li>
-            <li><a href="about.html"><span class="nav-icon">ℹ️</span> About</a></li>
+            <li><a href="index.html" class="active">
+                <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+                Home</a></li>
+            <li><a href="research.html">
+                <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2"/><path d="M9 2h6"/><path d="M7.5 14h9"/></svg>
+                Research</a></li>
+            <li><a href="upload.html">
+                <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M6 10l6-6 6 6"/><path d="M4 18v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+                Upload</a></li>
+            <li><a href="about.html">
+                <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5"/><path d="M12 8h.01"/></svg>
+                About</a></li>
         </ul>
     </nav>
 
     <!-- ═══ PILL 3: Auth / Login — top right ═══ -->
     <div class="dock dock-auth-pill" id="site-dock-auth">
         <button class="dock-btn-login" id="nav-auth-btn" aria-haspopup="dialog" aria-controls="auth-modal">
-            Login / Sign Up
+            Log in
         </button>
-        <div id="dock-user-info" id="nav-user-info">
-            <span id="dock-username" id="nav-username"></span>
+        <div id="dock-user-info">
+            <span id="dock-username"></span>
             <a href="#" id="dock-dash-btn"></a>
-            <button class="btn btn-secondary" id="dock-logout-btn" id="nav-logout-btn">Logout</button>
+            <button class="btn btn-secondary btn-sm" id="dock-logout-btn">Log out</button>
         </div>
-        <button class="dock-hamburger" id="dock-hamburger" aria-label="Open menu">☰</button>
+        <button class="dock-hamburger" id="dock-hamburger" aria-label="Open menu" aria-expanded="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
     </div>
 
     <!-- Mobile dropdown -->
     <div class="dock-mobile-menu" id="dock-mobile-menu">
-        <a href="index.html" class="active"><span>🏠</span> Home</a>
-        <a href="research.html"><span>🔬</span> Research</a>
-        <a href="upload.html"><span>📤</span> Upload</a>
-        <a href="about.html"><span>ℹ️</span> About</a>
+        <a href="index.html" class="active">Home</a>
+        <a href="research.html">Research</a>
+        <a href="upload.html">Upload</a>
+        <a href="about.html">About</a>
     </div>
 
     <!-- Full-width bar revealed on scroll -->
     <div class="nav-bg-bar" id="nav-bg-bar"></div>
 
-    <!-- Keep old header in DOM (hidden) so inline JS references don't break -->
-    <header class="header" id="site-header" aria-hidden="true" style="display:none!important;">
-        <nav class="navbar">
-            <div class="nav-container">
-                <button class="btn btn-primary" id="nav-auth-btn-old" style="display:none"></button>
-                <div id="nav-user-info" style="display:none"><span id="nav-username"></span><button id="nav-logout-btn"
-                        style="display:none"></button></div>
-            </div>
-        </nav>
-    </header>
+    <main id="main">
 
     <!-- ═══════════════════════ HERO ═══════════════════════ -->
     <section class="hero">
@@ -74,36 +75,37 @@
             <!-- Welcome banner — shown when logged in -->
             <div class="hero-welcome" id="hero-welcome">
                 <div class="hero-welcome-text">
-                    <strong id="welcome-name">Welcome back!</strong>
+                    <strong id="welcome-name">Welcome back</strong>
                     <p id="welcome-sub">Head to your portal to upload and manage papers.</p>
                 </div>
-                <a id="welcome-dash-btn" href="#" class="btn btn-primary" style="flex-shrink:0;">Go to My Portal →</a>
+                <a id="welcome-dash-btn" href="#" class="btn btn-primary" style="flex-shrink:0;">Go to my portal</a>
             </div>
 
             <div class="hero-badge">
                 <span class="hero-badge-dot"></span>
-                Now Live — Open Medical Research Platform
+                Now live — open medical research platform
             </div>
 
             <h1 class="hero-title">
-                The Hub for
-                <span class="hero-title-accent">Medical Research</span>
+                A record of
+                <span class="hero-title-accent">medical research</span>
             </h1>
 
             <p class="hero-subtitle">
-                Upload, discover, and share groundbreaking medical research with
-                the global academic community. Peer-reviewed. AI-assisted. Open access.
+                Upload, review, and publish peer-reviewed medical research with your
+                institution. A structured pipeline from submission to open access —
+                assisted by AI, decided by people.
             </p>
 
             <div class="hero-actions">
-                <a href="upload.html" class="btn btn-primary btn-lg">Upload Your Paper</a>
-                <a href="research.html" class="btn btn-light btn-lg">Browse Research</a>
+                <a href="upload.html" class="btn btn-primary btn-lg">Upload your paper</a>
+                <a href="research.html" class="btn btn-light btn-lg">Browse research</a>
             </div>
 
             <div class="hero-stats">
                 <div class="hero-stat">
                     <span class="hero-stat-num" id="stat-papers-published">0</span>
-                    <span class="hero-stat-label">Papers Published</span>
+                    <span class="hero-stat-label">Papers published</span>
                 </div>
                 <div class="hero-stat">
                     <span class="hero-stat-num" id="stat-researchers">0</span>
@@ -124,29 +126,29 @@
     <!-- ═══════════════════════ TRUST BAR ═══════════════════════ -->
     <div class="trust-bar">
         <div class="trust-bar-inner">
-            <span>🔒 HIPAA-Ready</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>HIPAA-ready</span>
             <span class="trust-sep">·</span>
-            <span>🤖 AI-Assisted Review</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>AI-assisted review</span>
             <span class="trust-sep">·</span>
-            <span>👨‍⚕️ Human Oversight</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg>Human oversight</span>
             <span class="trust-sep">·</span>
-            <span>📂 Open Access Repository</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19h16"/><path d="M6 19V9l6-5 6 5v10"/></svg>Open access repository</span>
             <span class="trust-sep">·</span>
-            <span>☁️ Cloud Synced</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.6 1.7A4 4 0 0 0 6.5 19h11z"/></svg>Cloud synced</span>
         </div>
     </div>
 
     <!-- ═══════════════════════ RECENT PAPERS ═══════════════════════ -->
     <section class="research-preview">
         <div class="container">
-            <span class="section-eyebrow">Latest Publications</span>
-            <h2 class="section-title">Recent Research Papers</h2>
-            <p class="section-subtitle">Explore the latest papers submitted and approved by our academic community.</p>
+            <span class="section-eyebrow">Latest publications</span>
+            <h2 class="section-title">Recent research papers</h2>
+            <p class="section-subtitle">Explore the latest papers submitted and approved by the academic community.</p>
 
             <div class="papers-grid" id="recent-papers-grid">
                 <div class="paper-card" id="no-papers-placeholder"
-                    style="grid-column:1/-1;text-align:center;padding:3.5rem 1rem;">
-                    <div style="font-size:2.5rem;margin-bottom:1rem;opacity:0.4;">📭</div>
+                    style="grid-column:1/-1;text-align:center;padding:3.5rem 1rem;border-top:none;">
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 1rem;color:var(--slate-300);"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                     <p style="font-size:1rem;font-weight:700;margin-bottom:.4rem;color:var(--text-primary);">No papers
                         published yet</p>
                     <p style="font-size:.875rem;color:var(--text-muted);">Papers approved by an admin will appear here.
@@ -155,7 +157,7 @@
             </div>
 
             <div style="text-align:center;margin-top:2.5rem;" id="view-all-btn-wrap">
-                <a href="research.html" class="btn btn-outline">View All Papers →</a>
+                <a href="research.html" class="btn btn-outline">View all papers</a>
             </div>
         </div>
     </section>
@@ -164,8 +166,8 @@
     <section class="features" id="features">
         <div class="container">
             <div class="features-header">
-                <span class="features-eyebrow">Why MedDoc Hub?</span>
-                <h2 class="section-title">Everything You Need to <span>Publish &amp; Discover</span></h2>
+                <span class="features-eyebrow">Why MedDoc Hub</span>
+                <h2 class="section-title">Everything you need to <span>publish &amp; discover</span></h2>
                 <p class="section-subtitle">A complete ecosystem built for students, researchers, and administrators.
                 </p>
             </div>
@@ -175,39 +177,42 @@
                 <!-- Card 1 — large left -->
                 <div class="feat-card feat-card--large feat-card--navy">
                     <div class="feat-glow"></div>
-                    <div class="feat-icon-wrap">📝</div>
-                    <h3>Research Upload System</h3>
-                    <p>Upload PDF papers with title, abstract &amp; keywords in seconds. Our guided form ensures every
-                        submission is complete and ready for review.</p>
-                    <div class="feat-tag">Drag &amp; Drop · PDF · Auto-validate</div>
-                    <a href="upload.html" class="feat-cta">Upload Now →</a>
+                    <div class="feat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M6 10l6-6 6 6"/><path d="M4 18v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></div>
+                    <h3>Research upload system</h3>
+                    <p>Upload PDF papers with title, abstract, and keywords in a few steps. A guided form checks that
+                        every submission is complete before it reaches review.</p>
+                    <div class="feat-tag">Drag &amp; drop · PDF · Auto-validate</div>
+                    <a href="upload.html" class="feat-cta">Upload now
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
                 </div>
 
                 <!-- Card 2 -->
                 <div class="feat-card feat-card--blue" data-role-card="student">
                     <div class="feat-glow"></div>
-                    <div class="feat-icon-wrap">🎓</div>
-                    <h3>Student Portal</h3>
-                    <p>Submit research, track approval status, and manage all your submissions from one clean dashboard.
+                    <div class="feat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
+                    <h3>Student portal</h3>
+                    <p>Submit research, track approval status, and manage every submission from one dashboard.
                     </p>
-                    <a href="student-dashboard.html" class="feat-cta">Open Portal →</a>
+                    <a href="student-dashboard.html" class="feat-cta">Open portal
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
                 </div>
 
                 <!-- Card 3 -->
                 <div class="feat-card feat-card--teal" data-role-card="researcher">
                     <div class="feat-glow"></div>
-                    <div class="feat-icon-wrap">🔬</div>
-                    <h3>Researcher Panel</h3>
-                    <p>Review, approve or request revisions on student submissions with detailed feedback tools.</p>
-                    <a href="professor-dashboard.html" class="feat-cta">Open Portal →</a>
+                    <div class="feat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2"/><path d="M9 2h6"/><path d="M7.5 14h9"/></svg></div>
+                    <h3>Researcher panel</h3>
+                    <p>Review, approve, or request revisions on student submissions with detailed feedback tools.</p>
+                    <a href="professor-dashboard.html" class="feat-cta">Open portal
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
                 </div>
 
                 <!-- Card 4 -->
                 <div class="feat-card feat-card--slate">
                     <div class="feat-glow"></div>
-                    <div class="feat-icon-wrap">📊</div>
-                    <h3>Research Analytics</h3>
-                    <p>Track uploads, downloads &amp; trending research categories across the platform in real time.</p>
+                    <div class="feat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15v3"/><path d="M12 10v8"/><path d="M17 6v12"/></svg></div>
+                    <h3>Research analytics</h3>
+                    <p>Track uploads, downloads, and trending research categories across the platform in real time.</p>
                     <div class="feat-stat-row">
                         <div class="feat-stat"><span id="feat-stat-papers">0</span>Papers</div>
                         <div class="feat-stat"><span id="feat-stat-users">0</span>Users</div>
@@ -218,21 +223,23 @@
                 <!-- Card 5 -->
                 <div class="feat-card feat-card--blue" data-role-card="admin">
                     <div class="feat-glow"></div>
-                    <div class="feat-icon-wrap">🛡️</div>
-                    <h3>Admin Control</h3>
-                    <p>Full system moderation — manage users, categories, and content from a single powerful dashboard.
+                    <div class="feat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5z"/></svg></div>
+                    <h3>Admin control</h3>
+                    <p>Full system moderation — manage users, categories, and content from a single dashboard.
                     </p>
-                    <a href="admin.html" class="feat-cta">Admin Panel →</a>
+                    <a href="admin.html" class="feat-cta">Admin panel
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
                 </div>
 
                 <!-- Card 6 -->
                 <div class="feat-card feat-card--teal">
                     <div class="feat-glow"></div>
-                    <div class="feat-icon-wrap">🔍</div>
-                    <h3>Advanced Search</h3>
-                    <p>Filter research by category, author, date, and keywords. Find exactly what you need instantly.
+                    <div class="feat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+                    <h3>Advanced search</h3>
+                    <p>Filter research by category, author, date, and keywords. Find exactly what you need.
                     </p>
-                    <a href="research.html" class="feat-cta">Browse Papers →</a>
+                    <a href="research.html" class="feat-cta">Browse papers
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
                 </div>
 
             </div>
@@ -240,10 +247,10 @@
     </section>
 
     <!-- ═══════════════════════ HOW IT WORKS ═══════════════════════ -->
-    <section class="how-section" style="background:linear-gradient(180deg,#f9fafb 0%,#ffffff 100%);">
+    <section class="how-section">
         <div class="container">
-            <span class="section-eyebrow">The Process</span>
-            <h2 class="section-title">From Submission to <span>Publication</span></h2>
+            <span class="section-eyebrow">The process</span>
+            <h2 class="section-title">From submission to <span>publication</span></h2>
             <p class="section-subtitle">A clear, structured pipeline — from your upload to a live published paper.</p>
 
             <div class="how-steps">
@@ -251,59 +258,67 @@
                 <!-- Step 1 -->
                 <div class="how-step">
                     <div class="how-step-num">01</div>
-                    <div class="how-step-icon">🎓</div>
-                    <h3>Student Uploads Paper</h3>
-                    <p>A student logs in to their portal and submits a research paper as a PDF, along with the title,
+                    <div class="how-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
+                    <h3>Student uploads paper</h3>
+                    <p>A student signs in to their portal and submits a research paper as a PDF, along with the title,
                         abstract, and keywords.</p>
-                    <div class="how-step-tag how-step-tag--blue">Student Portal</div>
+                    <div class="how-step-tag">Student portal</div>
                 </div>
 
-                <div class="how-connector"></div>
+                <div class="how-connector">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+                </div>
 
                 <!-- Step 2 -->
                 <div class="how-step">
                     <div class="how-step-num">02</div>
-                    <div class="how-step-icon">🔬</div>
-                    <h3>Researcher Submits Too</h3>
+                    <div class="how-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2"/><path d="M9 2h6"/></svg></div>
+                    <h3>Researcher submits too</h3>
                     <p>Researchers and professors can also upload their own papers directly, bypassing the student
                         review queue and going straight to admin.</p>
-                    <div class="how-step-tag how-step-tag--teal">Researcher Portal</div>
+                    <div class="how-step-tag">Researcher portal</div>
                 </div>
 
-                <div class="how-connector"></div>
+                <div class="how-connector">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+                </div>
 
                 <!-- Step 3 -->
                 <div class="how-step">
                     <div class="how-step-num">03</div>
-                    <div class="how-step-icon">🤖</div>
-                    <h3>AI Scans & Categorises</h3>
-                    <p>Our trained AI bot reads the paper, detects its type — clinical, experimental, review, case study
-                        — and automatically assigns it to the correct research category.</p>
-                    <div class="how-step-tag how-step-tag--navy">AI Engine</div>
+                    <div class="how-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/><path d="M9 12h.01M15 12h.01"/></svg></div>
+                    <h3>AI scans &amp; categorises</h3>
+                    <p>A trained model reads the paper, detects its type — clinical, experimental, review, case study
+                        — and assigns it to the right research category.</p>
+                    <div class="how-step-tag">AI engine</div>
                 </div>
 
-                <div class="how-connector"></div>
+                <div class="how-connector">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+                </div>
 
                 <!-- Step 4 -->
                 <div class="how-step">
                     <div class="how-step-num">04</div>
-                    <div class="how-step-icon">🛡️</div>
-                    <h3>Admin Reviews & Decides</h3>
+                    <div class="how-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5z"/></svg></div>
+                    <h3>Admin reviews &amp; decides</h3>
                     <p>An administrator reviews the paper alongside the AI report, verifies the category and quality,
-                        then either approves, rejects, or requests revisions.</p>
-                    <div class="how-step-tag how-step-tag--slate">Admin Panel</div>
+                        then approves, rejects, or requests revisions.</p>
+                    <div class="how-step-tag">Admin panel</div>
                 </div>
 
-                <div class="how-connector"></div>
+                <div class="how-connector">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+                </div>
 
                 <!-- Step 5 -->
                 <div class="how-step">
                     <div class="how-step-num">05</div>
-                    <div class="how-step-icon">🌐</div>
-                    <h3>Published & Discoverable</h3>
-                    <p>Approved papers go live instantly in the open-access repository, fully searchable and available
-                        to the global academic community.</p>
-                    <div class="how-step-tag how-step-tag--green">Live on Platform</div>
+                    <div class="how-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M6 19V9l6-5 6 5v10"/></svg></div>
+                    <h3>Published &amp; discoverable</h3>
+                    <p>Approved papers go live instantly in the open-access repository — searchable and available
+                        to the wider academic community.</p>
+                    <div class="how-step-tag">Live on platform</div>
                 </div>
 
             </div>
@@ -313,12 +328,12 @@
     <!-- ═══════════════════════ CTA ═══════════════════════ -->
     <section class="cta">
         <div class="container">
-            <span class="section-eyebrow">Join the Community</span>
-            <h2>Ready to Share Your <span>Research?</span></h2>
-            <p>Join researchers and students publishing breakthrough medical work on MedDoc Hub every day.</p>
+            <span class="section-eyebrow">Join the community</span>
+            <h2>Ready to share your <span>research?</span></h2>
+            <p>Join researchers and students publishing medical work on MedDoc Hub every day.</p>
             <div class="cta-actions">
-                <a href="upload.html" class="btn btn-primary btn-lg">Start Uploading</a>
-                <a href="about.html" class="btn btn-outline btn-lg">Learn More</a>
+                <a href="upload.html" class="btn btn-primary btn-lg">Start uploading</a>
+                <a href="about.html" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,.3);color:#fff;">Learn more</a>
             </div>
         </div>
     </section>
@@ -326,9 +341,9 @@
     <!-- ═══════════════════════ PORTAL SECTION (shown after login) ═══════════════════════ -->
     <section class="portal-section" id="portal-section">
         <div class="container">
-            <span class="section-eyebrow">Your Access</span>
-            <h2 class="section-title">Go to Your <span>Portal</span></h2>
-            <p class="section-subtitle">Select your portal below to start uploading, reviewing, or managing papers.</p>
+            <span class="section-eyebrow">Your access</span>
+            <h2 class="section-title">Go to your <span>portal</span></h2>
+            <p class="section-subtitle">Continue to your portal to upload, review, or manage papers.</p>
 
             <div class="portal-cards" id="portal-cards-grid">
                 <!-- Filled by JS based on role -->
@@ -336,69 +351,70 @@
         </div>
     </section>
 
+    </main>
+
     <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
     <footer class="footer" id="contact">
         <div class="footer-content">
             <div class="footer-brand">
                 <a href="index.html" class="logo">MedDoc<span>Hub</span></a>
-                <p>A dedicated platform for publishing and discovering high-quality medical research. AI-assisted
+                <p>A dedicated platform for publishing and discovering medical research. AI-assisted
                     review, human oversight.</p>
                 <div class="footer-brand-badges">
-                    <span class="footer-brand-badge">🔒 HIPAA-ready</span>
-                    <span class="footer-brand-badge">⚡ Fast Sync</span>
-                    <span class="footer-brand-badge">☁️ Cloud</span>
+                    <span class="footer-brand-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>HIPAA-ready</span>
+                    <span class="footer-brand-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>Fast sync</span>
+                    <span class="footer-brand-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.6 1.7A4 4 0 0 0 6.5 19h11z"/></svg>Cloud</span>
                 </div>
             </div>
             <div class="footer-section">
                 <h4>Product</h4>
                 <ul>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="upload.html">Upload Paper</a></li>
-                    <li><a href="research.html">Browse Research</a></li>
-                    <li><a href="#">Pricing</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="upload.html">Upload paper</a></li>
+                    <li><a href="research.html">Browse research</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h4>Company</h4>
                 <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="about.html#contact">Contact</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 MedDoc Hub — All Rights Reserved</p>
+            <p>© 2026 MedDoc Hub — All rights reserved</p>
             <div class="footer-bottom-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Security</a>
+                <a href="#">Privacy policy</a>
+                <a href="#">Terms of service</a>
             </div>
         </div>
     </footer>
 
     <!-- ═══════════════════════ AUTH MODAL ═══════════════════════ -->
-    <div class="modal-overlay" id="auth-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-overlay" id="auth-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="auth-heading">
         <div class="modal-card" role="document">
+            <button class="modal-close" id="auth-close" aria-label="Close dialog">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="M6 6l12 12"/></svg>
+            </button>
             <!-- Left panel -->
             <div class="auth-left">
                 <div class="auth-hero">
                     <div class="auth-brand">MedDoc<span>Hub</span></div>
-                    <h3>Welcome back</h3>
+                    <h3 id="auth-heading">Welcome back</h3>
                     <p>Securely create, manage, and share medical research with confidence.</p>
                     <div class="auth-logos">
-                        <span>🔒 HIPAA-ready</span>
-                        <span>⚡ Fast Sync</span>
-                        <span>☁️ Cloud</span>
+                        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>HIPAA-ready</span>
+                        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>Fast sync</span>
+                        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.6 1.7A4 4 0 0 0 6.5 19h11z"/></svg>Cloud</span>
                     </div>
                 </div>
             </div>
             <!-- Right panel -->
             <div class="auth-right">
-                <div class="auth-tabs">
-                    <button class="tab-btn active" data-target="login">Login</button>
-                    <button class="tab-btn" data-target="signup">Sign Up</button>
+                <div class="auth-tabs" role="tablist">
+                    <button class="tab-btn active" data-target="login" role="tab" aria-selected="true">Log in</button>
+                    <button class="tab-btn" data-target="signup" role="tab" aria-selected="false">Sign up</button>
                 </div>
 
                 <form id="login" class="auth-form active" autocomplete="on">
@@ -418,7 +434,7 @@
                         <a href="#" class="small-link">Forgot?</a>
                     </div>
                     <div id="login-error" class="form-error"></div>
-                    <button class="btn btn-primary btn-block" type="submit">Sign In</button>
+                    <button class="btn btn-primary btn-block" type="submit">Sign in</button>
                     <button type="button" class="btn-cancel" id="login-cancel">Cancel</button>
                 </form>
 
@@ -449,7 +465,7 @@
                         </select>
                     </div>
                     <div id="signup-error" class="form-error"></div>
-                    <button class="btn btn-primary btn-block" type="submit">Create Account</button>
+                    <button class="btn btn-primary btn-block" type="submit">Create account</button>
                     <button type="button" class="btn-cancel" id="signup-cancel">Cancel</button>
                     <p class="small">By signing up you agree to our <a href="#">Terms</a> and <a href="#">Privacy</a>.
                     </p>
@@ -466,20 +482,17 @@
         function saveUsers(u) { localStorage.setItem('mdh_users', JSON.stringify(u)); }
         function getSession() { return { isLoggedIn: localStorage.getItem('isLoggedIn') === 'true', userName: localStorage.getItem('userName') || '', userRole: localStorage.getItem('userRole') || '' }; }
 
-        // Show only role-matching feature cards; hide others
         function filterFeatureCards(role) {
             document.querySelectorAll('[data-role-card]').forEach(card => {
                 card.style.display = card.dataset.roleCard === role ? '' : 'none';
             });
         }
-        // Restore all feature cards (on logout)
         function restoreFeatureCards() {
             document.querySelectorAll('[data-role-card]').forEach(card => {
                 card.style.display = '';
             });
         }
 
-        // Seed default test accounts on every page load
         (function seedDefaults() {
             const defaults = [
                 { id: 'seed_admin', name: 'Admin', email: 'admin@meddoc.com', password: 'admin123', role: 'admin' },
@@ -493,7 +506,7 @@
         })();
 
         // ─── Dock auth state ───────────────────────────────────────
-        const navAuthBtn = document.getElementById('nav-auth-btn');   // dock login btn
+        const navAuthBtn = document.getElementById('nav-auth-btn');
         const navUserInfo = document.getElementById('dock-user-info');
         const navUsername = document.getElementById('dock-username');
         const navLogoutBtn = document.getElementById('dock-logout-btn');
@@ -505,12 +518,12 @@
             if (isLoggedIn) {
                 navAuthBtn.style.display = 'none';
                 if (navUserInfo) navUserInfo.style.display = 'flex';
-                if (navUsername) navUsername.textContent = '👤 ' + userName;
+                if (navUsername) navUsername.textContent = userName;
                 const dashMap = { student: 'student-dashboard.html', researcher: 'professor-dashboard.html', admin: 'admin.html' };
-                const dashLbl = { student: '🎓 My Dashboard', researcher: '🔬 My Dashboard', admin: '🛡️ Admin Panel' };
+                const dashLbl = { student: 'My dashboard', researcher: 'My dashboard', admin: 'Admin panel' };
                 if (dockDashBtn) {
                     dockDashBtn.href = dashMap[userRole] || 'index.html';
-                    dockDashBtn.textContent = dashLbl[userRole] || 'My Dashboard';
+                    dockDashBtn.textContent = dashLbl[userRole] || 'My dashboard';
                 }
             } else {
                 navAuthBtn.style.display = '';
@@ -545,8 +558,12 @@
             const ham = document.getElementById('dock-hamburger');
             const menu = document.getElementById('dock-mobile-menu');
             if (!ham || !menu) return;
-            ham.addEventListener('click', (e) => { e.stopPropagation(); menu.classList.toggle('open'); });
-            document.addEventListener('click', (e) => { if (!menu.contains(e.target) && e.target !== ham) menu.classList.remove('open'); });
+            ham.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const open = menu.classList.toggle('open');
+                ham.setAttribute('aria-expanded', String(open));
+            });
+            document.addEventListener('click', (e) => { if (!menu.contains(e.target) && e.target !== ham) { menu.classList.remove('open'); ham.setAttribute('aria-expanded', 'false'); } });
         })();
 
         // ─── Auth modal ────────────────────────────────────────────
@@ -578,10 +595,8 @@
                 if (se) { se.style.display = 'none'; se.textContent = ''; }
             }
 
-            // dock login button opens modal
             const _authTrigger = document.getElementById('nav-auth-btn');
             if (_authTrigger) _authTrigger.addEventListener('click', openModal);
-            // Close via × button, Cancel buttons, backdrop click, Escape key
             if (closeBtn) closeBtn.addEventListener('click', closeModal);
             const loginCancel = document.getElementById('login-cancel');
             const signupCancel = document.getElementById('signup-cancel');
@@ -590,18 +605,17 @@
             modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
             document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-            // Tab switching
             tabBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
                     btn.classList.add('active');
+                    btn.setAttribute('aria-selected', 'true');
                     forms.forEach(f => f.classList.remove('active'));
                     const t = document.getElementById(btn.dataset.target);
                     if (t) t.classList.add('active');
                 });
             });
 
-            // Password toggles
             ['login', 'signup'].forEach(prefix => {
                 const toggle = document.getElementById(prefix + '-toggle');
                 const input = document.getElementById(prefix + '-password');
@@ -624,11 +638,11 @@
                 const users = getUsers();
                 const user = users.find(u => u.email.toLowerCase() === email);
                 if (!user) {
-                    errEl.textContent = '⚠️  No account found with this email. Please sign up first.';
+                    errEl.textContent = 'No account found with this email. Please sign up first.';
                     errEl.style.display = 'block'; return;
                 }
                 if (user.password !== password) {
-                    errEl.textContent = '⚠️  Incorrect password. Please try again.';
+                    errEl.textContent = 'Incorrect password. Please try again.';
                     errEl.style.display = 'block'; return;
                 }
                 localStorage.setItem('isLoggedIn', 'true');
@@ -651,12 +665,12 @@
                 const password = document.getElementById('signup-password').value;
                 const role = document.getElementById('signup-role').value;
                 if (!role) {
-                    errEl.textContent = '⚠️  Please select your role.';
+                    errEl.textContent = 'Please select your role.';
                     errEl.style.display = 'block'; return;
                 }
                 const users = getUsers();
                 if (users.find(u => u.email.toLowerCase() === email)) {
-                    errEl.textContent = '⚠️  This email is already registered. Please log in instead.';
+                    errEl.textContent = 'This email is already registered. Please log in instead.';
                     errEl.style.display = 'block'; return;
                 }
                 const user = { id: Date.now().toString(), name, email, password, role };
@@ -669,7 +683,6 @@
                 this.reset();
                 closeModal();
                 refreshNavAuth();
-                // Redirect to portal
                 const portals = { student: 'student-dashboard.html', researcher: 'professor-dashboard.html', admin: 'admin.html' };
                 if (portals[role]) { setTimeout(() => window.location.href = portals[role], 200); return; }
                 showPortalSection(user);
@@ -678,11 +691,10 @@
 
         // ─── Portal section (shown after login) ───────────────────
         const PORTALS = {
-            student: { url: 'student-dashboard.html', icon: '🎓', title: 'Student Portal', desc: 'Submit and track your research papers, view approval status.', cta: 'Open Student Portal →' },
-            researcher: { url: 'professor-dashboard.html', icon: '🔬', title: 'Researcher Portal', desc: 'Review student submissions, provide feedback, publish research.', cta: 'Open Researcher Portal →' },
-            admin: { url: 'admin.html', icon: '🛡️', title: 'Admin Panel', desc: 'Manage users, approve papers, configure categories, oversee platform.', cta: 'Open Admin Panel →' }
+            student: { url: 'student-dashboard.html', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>', title: 'Student portal', desc: 'Submit and track your research papers, view approval status.', cta: 'Open student portal' },
+            researcher: { url: 'professor-dashboard.html', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2"/><path d="M9 2h6"/></svg>', title: 'Researcher portal', desc: 'Review student submissions, provide feedback, publish research.', cta: 'Open researcher portal' },
+            admin: { url: 'admin.html', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5z"/></svg>', title: 'Admin panel', desc: 'Manage users, approve papers, configure categories, oversee the platform.', cta: 'Open admin panel' }
         };
-
 
         function showPortalSection(user) {
             document.body.style.overflow = '';
@@ -695,7 +707,7 @@
             const portal = PORTALS[user.role] || PORTALS.student;
 
             if (welcome) {
-                document.getElementById('welcome-name').textContent = 'Welcome back, ' + user.name + '! 👋';
+                document.getElementById('welcome-name').textContent = 'Welcome back, ' + user.name;
                 document.getElementById('welcome-sub').textContent = 'Signed in as ' + (user.role === 'researcher' ? 'Researcher / Professor' : user.role.charAt(0).toUpperCase() + user.role.slice(1));
                 document.getElementById('welcome-dash-btn').href = portal.url;
                 document.getElementById('welcome-dash-btn').textContent = portal.cta;
@@ -704,12 +716,10 @@
             if (heroActions) heroActions.style.display = 'none';
             if (heroBadge) heroBadge.style.display = 'none';
 
-            // Hide feature cards from other roles
             filterFeatureCards(user.role);
 
             if (section && grid) {
                 grid.innerHTML = '';
-                // Show ONLY the card for the logged-in user's role
                 const p = PORTALS[user.role];
                 if (p) {
                     const card = document.createElement('a');
@@ -719,11 +729,9 @@
                     grid.appendChild(card);
                 }
                 section.classList.add('visible');
-                // No auto-scroll — page stays in place after login
             }
         }
 
-        // ─── Show portal if already logged in ─────────────────────
         (function () {
             const { isLoggedIn, userName, userRole } = getSession();
             if (isLoggedIn) showPortalSection({ name: userName, role: userRole });
@@ -743,7 +751,6 @@
             set('feat-stat-papers', papers.length);
             set('feat-stat-users', users.length);
 
-            // Recent papers grid
             const grid = document.getElementById('recent-papers-grid');
             const ph = document.getElementById('no-papers-placeholder');
             const vaw = document.getElementById('view-all-btn-wrap');
@@ -757,7 +764,7 @@
             recent.forEach(p => {
                 const c = document.createElement('div');
                 c.className = 'paper-card';
-                c.innerHTML = '<div class="paper-header"><h3 class="paper-title">' + esc(p.title) + '</h3><span class="paper-category">' + esc(p.category || 'General') + '</span></div><div class="paper-meta"><p><strong>Author:</strong> ' + esc(p.author) + '</p><p><strong>Uploaded:</strong> ' + esc(p.date) + '</p></div><a href="research.html" class="btn btn-secondary btn-sm">View Paper →</a>';
+                c.innerHTML = '<div class="paper-header"><h3 class="paper-title">' + esc(p.title) + '</h3><span class="paper-category">' + esc(p.category || 'General') + '</span></div><div class="paper-meta"><p><strong>Author:</strong> ' + esc(p.author) + '</p><p><strong>Uploaded:</strong> ' + esc(p.date) + '</p></div><a href="research.html" class="btn btn-secondary btn-sm">View paper</a>';
                 grid.appendChild(c);
             });
         })();
@@ -775,514 +782,7 @@
             onScroll();
         }
 
-        // scroll-reveal removed — add back later
     </script>
-
-    <!-- Extra styles for new sections not in style.css -->
-    <style>
-        /* Trust bar */
-        .trust-bar {
-            background: rgba(255, 255, 255, 0.75);
-            border-bottom: 1px solid rgba(30, 77, 140, 0.08);
-            padding: .9rem 2rem;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .trust-bar-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.25rem;
-            flex-wrap: wrap;
-            font-size: .82rem;
-            font-weight: 500;
-            color: #3d4f63;
-        }
-
-        .trust-sep {
-            color: rgba(30, 77, 140, 0.18);
-        }
-
-        /* ── How it works ── */
-        .how-section {
-            background: linear-gradient(160deg, #f7fbff 0%, #eef6fd 100%);
-            border-top: 1px solid rgba(30, 77, 140, 0.08);
-            border-bottom: 1px solid rgba(30, 77, 140, 0.08);
-            padding: 5.5rem 2rem;
-        }
-
-        .how-steps {
-            display: flex;
-            align-items: stretch;
-            gap: 0;
-            margin-top: 3.5rem;
-        }
-
-        .how-step {
-            flex: 1;
-            min-width: 0;
-            background: rgba(255, 255, 255, 0.78);
-            border: 1px solid rgba(30, 77, 140, 0.09);
-            border-radius: 16px;
-            padding: 1.75rem 1.25rem 1.5rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-            backdrop-filter: blur(8px);
-            transition: box-shadow 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-                background 0.3s ease;
-        }
-
-        .how-step:hover {
-            box-shadow: 0 10px 32px rgba(30, 77, 140, 0.12);
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.97);
-        }
-
-        .how-step-num {
-            font-size: .65rem;
-            font-weight: 800;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            color: #1e4d8c;
-            background: #eff6ff;
-            border: 1px solid #dbeafe;
-            padding: 3px 11px;
-            border-radius: 999px;
-            display: inline-block;
-            margin-bottom: .9rem;
-        }
-
-        .how-step-icon {
-            width: 54px;
-            height: 54px;
-            background: linear-gradient(135deg, #e8f4fd, #daeaf8);
-            border: 1.5px solid rgba(30, 77, 140, 0.14);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .how-step:hover .how-step-icon {
-            transform: scale(1.10) rotate(-3deg);
-        }
-
-        .how-step h3 {
-            font-size: .92rem;
-            font-weight: 700;
-            color: #0d1f3c;
-            margin-bottom: .5rem;
-            line-height: 1.3;
-        }
-
-        .how-step p {
-            font-size: .8rem;
-            color: #6b7f96;
-            line-height: 1.7;
-            margin-bottom: .9rem;
-            flex: 1;
-        }
-
-        .how-step-tag {
-            display: inline-block;
-            font-size: .68rem;
-            font-weight: 700;
-            padding: 3px 12px;
-            border-radius: 999px;
-            letter-spacing: .04em;
-            margin-top: auto;
-        }
-
-        .how-step-tag--blue {
-            background: #dbeafe;
-            color: #1e4d8c;
-            border: 1px solid #bfdbfe;
-        }
-
-        .how-step-tag--teal {
-            background: #ccfbf1;
-            color: #0f766e;
-            border: 1px solid #99f6e4;
-        }
-
-        .how-step-tag--navy {
-            background: #eff6ff;
-            color: #163060;
-            border: 1px solid #dbeafe;
-        }
-
-        .how-step-tag--slate {
-            background: #f1f5f9;
-            color: #374151;
-            border: 1px solid #e2e8f0;
-        }
-
-        .how-step-tag--green {
-            background: #f0fdf4;
-            color: #166534;
-            border: 1px solid #bbf7d0;
-        }
-
-        .how-connector {
-            flex-shrink: 0;
-            width: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-bottom: 2rem;
-        }
-
-        .how-connector::after {
-            content: '→';
-            font-size: 1rem;
-            color: rgba(30, 77, 140, 0.22);
-            font-weight: 400;
-        }
-
-        @media(max-width:900px) {
-            .how-steps {
-                flex-direction: column;
-                align-items: center;
-                gap: 0;
-            }
-
-            .how-step {
-                width: 100%;
-                max-width: 360px;
-            }
-
-            .how-connector {
-                width: auto;
-                height: 24px;
-                padding: 0;
-            }
-
-            .how-connector::after {
-                content: '↓';
-            }
-        }
-
-        /* Auth modal */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(13, 31, 60, 0.45);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 10001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .modal-overlay.open {
-            opacity: 1 !important;
-            pointer-events: all !important;
-        }
-
-        .modal-card {
-            background: #ffffff;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 760px;
-            box-shadow: 0 28px 72px rgba(13, 31, 60, 0.18);
-            overflow: hidden;
-            position: relative;
-            transform: scale(0.95) translateY(20px);
-            transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-            display: grid;
-            grid-template-columns: 280px 1fr;
-        }
-
-        .modal-overlay.open .modal-card {
-            transform: scale(1) translateY(0) !important;
-        }
-
-        @media(max-width:620px) {
-            .modal-card {
-                grid-template-columns: 1fr;
-            }
-
-            .auth-left {
-                display: none !important;
-            }
-        }
-
-        .auth-left {
-            background: linear-gradient(145deg, #daeaf8, #c8dff4);
-            color: #0d1f3c;
-            padding: 3rem 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 1.2rem;
-        }
-
-        .auth-brand {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #0d1f3c;
-            letter-spacing: -.02em;
-            margin-bottom: .25rem;
-        }
-
-        .auth-brand span {
-            color: #1e4d8c;
-        }
-
-        .auth-left h3 {
-            font-size: 1.4rem;
-            font-weight: 800;
-            line-height: 1.25;
-            margin: 0;
-            color: #0d1f3c;
-        }
-
-        .auth-left p {
-            font-size: .88rem;
-            color: #3d4f63;
-            line-height: 1.7;
-            margin: 0;
-        }
-
-        .auth-logos {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: .25rem;
-        }
-
-        .auth-logos span {
-            background: rgba(30, 77, 140, 0.08);
-            border: 1px solid rgba(30, 77, 140, 0.14);
-            border-radius: 8px;
-            padding: 7px 12px;
-            font-size: .82rem;
-            font-weight: 600;
-            color: #1e4d8c;
-        }
-
-        .auth-right {
-            padding: 2.25rem 2rem;
-            background: #fff;
-            min-width: 0;
-        }
-
-        .auth-tabs {
-            display: flex;
-            gap: .3rem;
-            background: #f3f4f6;
-            border-radius: 8px;
-            padding: 4px;
-            margin-bottom: 1.25rem;
-        }
-
-        .tab-btn {
-            flex: 1;
-            background: none;
-            border: none;
-            padding: 8px 12px;
-            font-weight: 600;
-            cursor: pointer;
-            color: #6b7280;
-            border-radius: 6px;
-            font-size: .88rem;
-            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-            font-family: inherit;
-        }
-
-        .tab-btn.active {
-            background: #fff;
-            color: #1e4d8c;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
-        }
-
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
-            animation: fadeSlideDown 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        .input-group {
-            margin-bottom: 12px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 4px;
-            font-weight: 600;
-            color: #374151;
-            font-size: .83rem;
-        }
-
-        .input-group input,
-        .input-group select {
-            width: 100%;
-            padding: 9px 12px;
-            border: 1.5px solid #d1d5db;
-            border-radius: 7px;
-            font-family: inherit;
-            font-size: .92rem;
-            outline: none;
-            transition: border-color 0.25s ease, box-shadow 0.25s ease;
-            box-sizing: border-box;
-            background: #fff;
-            color: #1f2937;
-        }
-
-        .input-group input:focus,
-        .input-group select:focus {
-            border-color: #1e4d8c;
-            box-shadow: 0 0 0 3px rgba(30, 77, 140, 0.10);
-        }
-
-        .password-row {
-            display: flex;
-            gap: 8px;
-        }
-
-        .password-row input {
-            flex: 1;
-        }
-
-        .btn-ghost {
-            background: none;
-            border: 1.5px solid #d1d5db;
-            padding: 8px 11px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-size: .8rem;
-            color: #6b7280;
-            font-weight: 600;
-            font-family: inherit;
-            transition: all 0.25s ease;
-            white-space: nowrap;
-        }
-
-        .btn-ghost:hover {
-            background: #f3f4f6;
-        }
-
-        .form-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            font-size: .85rem;
-        }
-
-        .checkbox {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            color: #4b5563;
-        }
-
-        .small-link {
-            color: #1e4d8c;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: .85rem;
-        }
-
-        .form-error {
-            display: none;
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            border-left: 3px solid #dc2626;
-            border-radius: 6px;
-            padding: 9px 13px;
-            font-size: .82rem;
-            color: #b91c1c;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .btn-block {
-            width: 100%;
-            padding: 10px;
-            font-size: .95rem;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-weight: 700;
-            font-family: inherit;
-            background: linear-gradient(135deg, #1e4d8c, #2563ae);
-            color: #fff;
-            box-shadow: 0 3px 10px rgba(30, 77, 140, 0.22);
-            transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .btn-block:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 22px rgba(30, 77, 140, 0.32);
-        }
-
-        .btn-cancel {
-            width: 100%;
-            padding: 9px;
-            font-size: .9rem;
-            border-radius: 8px;
-            border: 1.5px solid #e5e7eb;
-            background: #fff;
-            color: #6b7280;
-            font-weight: 600;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            margin-top: 8px;
-        }
-
-        .btn-cancel:hover {
-            background: #f9fafb;
-            border-color: #d1d5db;
-            color: #374151;
-        }
-
-        .small {
-            font-size: .8rem;
-            color: #9ca3af;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .small a {
-            color: #1e4d8c;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        @keyframes fadeSlideDown {
-            from {
-                opacity: 0;
-                transform: translateY(16px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
-
 </body>
 
 </html>
